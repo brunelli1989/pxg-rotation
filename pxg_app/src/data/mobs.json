@@ -22,7 +22,7 @@
   { "name": "Mega Beedrill", "types": ["bug", "poison"], "hunt": "300", "group": "Mega Beedrill/Beedrill" },
   { "name": "Beedrill", "types": ["bug", "poison"], "hunt": "300", "group": "Mega Beedrill/Beedrill" },
 
-  { "name": "Silicobra", "types": ["ground"], "hunt": "300", "group": "Silicobra" },
+  { "name": "Silicobra", "types": ["ground"], "hunt": "300", "group": "Silicobra", "hp": 184696 },
   { "name": "Galarian Farfetch'd", "types": ["fighting"], "hunt": "300", "group": "Galarian Farfetch'd" },
 
   { "name": "Lunatone", "types": ["rock", "psychic"], "hunt": "300", "group": "Lunatone/Solrock" },
@@ -31,7 +31,7 @@
   { "name": "Rockruff", "types": ["rock"], "hunt": "300", "group": "Rockruff" },
   { "name": "Mantyke", "types": ["water", "flying"], "hunt": "300", "group": "Mantyke" },
   { "name": "Galarian Darumaka", "types": ["ice"], "hunt": "300", "group": "Galarian Darumaka" },
-  { "name": "Farfetch'd", "types": ["normal", "flying"], "hunt": "300", "group": "Farfetch'd" },
+  { "name": "Farfetch'd", "types": ["normal", "flying"], "hunt": "300", "group": "Farfetch'd", "hp": 177174 },
 
   { "name": "Klink", "types": ["steel"], "hunt": "300", "group": "Klink/Klang" },
   { "name": "Klang", "types": ["steel"], "hunt": "300", "group": "Klink/Klang" },
@@ -46,7 +46,7 @@
   { "name": "Cloyster", "types": ["water", "ice"], "hunt": "300", "group": "Cloyster" },
   { "name": "Snorunt", "types": ["ice"], "hunt": "300", "group": "Snorunt" },
 
-  { "name": "Snubbull", "types": ["fairy"], "hunt": "300", "group": "Snubbull" },
+  { "name": "Snubbull", "types": ["fairy"], "hunt": "300", "group": "Snubbull", "hp": 211296 },
   { "name": "Shuppet", "types": ["ghost"], "hunt": "300", "group": "Shuppet" },
   { "name": "Darkrai Minion", "types": ["dark"], "hunt": "300", "group": "Darkrai Minion" },
 
@@ -60,11 +60,11 @@
   { "name": "Venipede", "types": ["bug", "poison"], "hunt": "300", "group": "Whirlipede/Venipede" },
 
   { "name": "Litleo", "types": ["fire", "normal"], "hunt": "300", "group": "Litleo" },
-  { "name": "Cranidos", "types": ["rock"], "hunt": "300", "group": "Cranidos" },
-  { "name": "Elekid", "types": ["electric"], "hunt": "300", "group": "Elekid" },
+  { "name": "Cranidos", "types": ["rock"], "hunt": "300", "group": "Cranidos", "hp": 216472 },
+  { "name": "Elekid", "types": ["electric"], "hunt": "300", "group": "Elekid", "hp": 209984 },
 
-  { "name": "Tynamo", "types": ["electric"], "hunt": "300", "group": "Tynamo/Eelektrik" },
-  { "name": "Eelektrik", "types": ["electric"], "hunt": "300", "group": "Tynamo/Eelektrik" },
+  { "name": "Tynamo", "types": ["electric"], "hunt": "300", "group": "Tynamo/Eelektrik", "hp": 239169 },
+  { "name": "Eelektrik", "types": ["electric"], "hunt": "300", "group": "Tynamo/Eelektrik", "hp": 203680 },
 
   { "name": "Petilil", "types": ["grass"], "hunt": "300", "group": "Petilil" },
 
@@ -84,46 +84,57 @@
   { "name": "Galarian Darmanitan", "types": ["ice"], "hunt": "400+", "group": "Galarian Darmanitan" },
   { "name": "Klinklang", "types": ["steel"], "hunt": "400+", "group": "Klinklang" },
 
-  { "name": "Mecha Meganium", "types": [], "hunt": "400+", "group": "Mecha Starters" },
-  { "name": "Mecha Venusaur", "types": [], "hunt": "400+", "group": "Mecha Starters" },
-  { "name": "Mecha Feraligatr", "types": [], "hunt": "400+", "group": "Mecha Starters" },
-  { "name": "Mecha Blastoise", "types": [], "hunt": "400+", "group": "Mecha Starters" },
-  { "name": "Mecha Typhlosion", "types": [], "hunt": "400+", "group": "Mecha Starters" },
-  { "name": "Mecha Charizard", "types": [], "hunt": "400+", "group": "Mecha Starters" },
+  { "name": "Mecha Meganium", "types": [], "hunt": "400+", "group": "Mechas", "hp": 341730 },
+  { "name": "Mecha Venusaur", "types": [], "hunt": "400+", "group": "Mechas" },
+  { "name": "Mecha Feraligatr", "types": [], "hunt": "400+", "group": "Mechas", "hp": 321676 },
+  { "name": "Mecha Blastoise", "types": [], "hunt": "400+", "group": "Mechas" },
+  { "name": "Mecha Typhlosion", "types": [], "hunt": "400+", "group": "Mechas" },
+  { "name": "Mecha Charizard", "types": [], "hunt": "400+", "group": "Mechas", "hp": 316842 },
 
-  { "name": "Braviary", "types": ["normal", "flying"], "hunt": "400+", "group": "Braviary" },
+  { "name": "Braviary", "types": ["normal", "flying"], "hunt": "400+", "group": "Braviary", "hp": 455650 },
+  { "name": "Pidgeot", "types": ["normal", "flying"], "hunt": "400+", "group": "Pidgeot", "hp": 468889 },
   { "name": "Perrserker", "types": ["steel"], "hunt": "400+", "group": "Perrserker" },
   { "name": "Weavile", "types": ["dark", "ice"], "hunt": "400+", "group": "Weavile" },
   { "name": "Garchomp", "types": ["dragon", "ground"], "hunt": "400+", "group": "Garchomp/Dragonite" },
   { "name": "Dragonite", "types": ["dragon", "flying"], "hunt": "400+", "group": "Garchomp/Dragonite" },
-  { "name": "Hawlucha", "types": ["fighting", "flying"], "hunt": "400+", "group": "Hawlucha" },
+  { "name": "Hawlucha", "types": ["fighting", "flying"], "hunt": "400+", "group": "Hawlucha", "hp": 399075 },
   { "name": "Granbull", "types": ["fairy"], "hunt": "400+", "group": "Granbull" },
 
   { "name": "Gallade", "types": ["psychic", "fighting"], "hunt": "400+", "group": "Gallade" },
   { "name": "Honchkrow", "types": ["dark", "flying"], "hunt": "400+", "group": "Honchkrow" },
   { "name": "Empoleon", "types": ["water", "steel"], "hunt": "400+", "group": "Empoleon" },
   { "name": "Infernape", "types": ["fire", "fighting"], "hunt": "400+", "group": "Infernape" },
-  { "name": "Torterra", "types": ["grass", "ground"], "hunt": "400+", "group": "Torterra" },
+  { "name": "Torterra", "types": ["grass", "ground"], "hunt": "400+", "group": "Torterra", "hp": 506520 },
   { "name": "Luxray", "types": ["electric"], "hunt": "400+", "group": "Luxray" },
 
   { "name": "Sharpedo", "types": ["water", "dark"], "hunt": "400+", "group": "Sharpedo" },
+  { "name": "Starmie", "types": ["water", "psychic"], "hunt": "400+", "group": "Starmie", "hp": 505974 },
   { "name": "Whiscash", "types": ["water", "ground"], "hunt": "400+", "group": "Whiscash" },
   { "name": "Pyroar Female", "types": ["fire", "normal"], "hunt": "400+", "group": "Pyroar Female" },
+  { "name": "Pyroar", "types": ["fire", "normal"], "hunt": "400+", "group": "Pyroar", "hp": 391855 },
   { "name": "Simisear", "types": ["fire"], "hunt": "400+", "group": "Simisear" },
   { "name": "Turtonator", "types": ["fire", "dragon"], "hunt": "400+", "group": "Turtonator" },
   { "name": "Chandelure", "types": ["ghost", "fire"], "hunt": "400+", "group": "Chandelure" },
+  { "name": "Houndoom", "types": ["dark", "fire"], "hunt": "400+", "group": "Houndoom", "hp": 391590 },
+  { "name": "Pinsir", "types": ["bug"], "hunt": "400+", "group": "Pinsir", "hp": 465400 },
+  { "name": "Machamp", "types": ["fighting"], "hunt": "400+", "group": "Machamp", "hp": 462060 },
 
-  { "name": "Alolan Persian", "types": ["dark"], "hunt": "400+", "group": "Alolan Persian" },
+  { "name": "Alolan Persian", "types": ["dark"], "hunt": "400+", "group": "Alolan Persian", "hp": 448152 },
   { "name": "Alolan Muk", "types": ["poison", "dark"], "hunt": "400+", "group": "Alolan Muk" },
 
   { "name": "Goodra", "types": ["dragon"], "hunt": "400+", "group": "Goodra" },
-  { "name": "Eelektross", "types": ["electric"], "hunt": "400+", "group": "Eelektross" },
-  { "name": "Rampardos", "types": ["rock"], "hunt": "400+", "group": "Rampardos" },
-  { "name": "Gogoat", "types": ["grass"], "hunt": "400+", "group": "Gogoat" },
+  { "name": "Eelektross", "types": ["electric"], "hunt": "400+", "group": "Eelektross", "hp": 519739 },
+  { "name": "Rampardos", "types": ["rock"], "hunt": "400+", "group": "Rampardos/Sudowoodo" },
+  { "name": "Sudowoodo", "types": ["rock"], "hunt": "400+", "group": "Rampardos/Sudowoodo" },
+  { "name": "Gogoat", "types": ["grass"], "hunt": "400+", "group": "Gogoat", "hp": 463891 },
   { "name": "Alolan Raichu", "types": ["electric", "psychic"], "hunt": "400+", "group": "Alolan Raichu" },
 
   { "name": "Flapple", "types": ["grass", "dragon"], "hunt": "400+", "group": "Flapple" },
   { "name": "Appletun", "types": ["grass", "dragon"], "hunt": "400+", "group": "Appletun" },
 
-  { "name": "Druddigon", "types": ["dragon"], "hunt": "400+", "group": "Druddigon" }
+  { "name": "Druddigon", "types": ["dragon"], "hunt": "400+", "group": "Druddigon" },
+  { "name": "Drampa", "types": ["normal", "dragon"], "hunt": "400+", "group": "Drampa", "hp": 420095 },
+
+  { "name": "Muk", "types": ["poison"], "hunt": "400+", "group": "Muk/Seviper" },
+  { "name": "Seviper", "types": ["poison"], "hunt": "400+", "group": "Muk/Seviper" }
 ]

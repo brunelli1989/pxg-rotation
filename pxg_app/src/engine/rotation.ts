@@ -4,7 +4,6 @@ import type {
   Pokemon,
   RotationResult,
   RotationStep,
-  Skill,
 } from "../types";
 import {
   ELIXIR_ATK_COOLDOWN,

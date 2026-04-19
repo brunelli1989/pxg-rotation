@@ -379,6 +379,11 @@ export function estimateLureDamagePerMob(
       castSequence.push({ poke: lure.second, skill: s });
     }
   }
+  for (const m of lure.extraMembers) {
+    for (const s of m.skills) {
+      castSequence.push({ poke: m.poke, skill: s });
+    }
+  }
 
   // Buff "next" fica pendente até ser consumido pela próxima skill de DANO
   // (pula self-buffs e outras skills sem power, pra que o buff vá na skill forte)

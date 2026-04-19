@@ -50,7 +50,12 @@ export interface Pokemon {
   skills: Skill[];
 }
 
-export type LureType = "solo_device" | "solo_elixir" | "dupla";
+export type LureType = "solo_device" | "solo_elixir" | "dupla" | "group";
+
+export interface LureMember {
+  poke: Pokemon;
+  skills: Skill[];
+}
 
 export interface Lure {
   type: LureType;
@@ -58,6 +63,8 @@ export interface Lure {
   second: Pokemon | null;
   starterSkills: Skill[];
   secondSkills: Skill[];
+  /** Membros adicionais além de starter/second (group lure 3-6 pokes). Vazio em solo/dupla. */
+  extraMembers: LureMember[];
   starterUsesHarden: boolean;
   starterUsesElixirDef: boolean;
   usesElixirAtk: boolean;

@@ -101,6 +101,7 @@ export function generateLureTemplates(
       starterUsesElixirDef: false,
       usesElixirAtk: false,
       usesDevice: true,
+          extraMembers: [],
     });
   }
 
@@ -122,6 +123,7 @@ export function generateLureTemplates(
       starterUsesElixirDef: !harden[i],
       usesElixirAtk: true,
       usesDevice: false,
+          extraMembers: [],
     });
   }
 
@@ -148,6 +150,7 @@ export function generateLureTemplates(
         starterUsesElixirDef: !starterHarden,
         usesElixirAtk: false,
         usesDevice: false,
+          extraMembers: [],
       });
     }
   }

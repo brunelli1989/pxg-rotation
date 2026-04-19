@@ -237,70 +237,107 @@ export function generateLureTemplates(
 }
 
 // =========================================================
-// Simulation state
+// Simulation state (typed-array layout pra minimizar custo de clone no beam search)
 // =========================================================
 
-interface SkillCastInfo {
-  castTime: number;
-  baseCD: number;
-  selfCastSnapshot: number;  // selfCastTotal at cast time
-  othersCastSnapshot: number; // othersCastTotal at cast time
+// Upper bound de skills por poke. Pokes calibrados têm até 6 hoje.
+const MAX_SKILLS_PER_POKE = 8;
+
+/**
+ * Contexto estático de uma bag: mapeamentos de id → índice. Nunca clonado durante
+ * o beam search — passado por referência pras funções de simulação.
+ */
+export interface SimContext {
+  bag: string[];                        // bagIds ordenados
+  n: number;                            // bag.length
+  pokeIdx: Map<string, number>;         // pokeId → bag index (0..n-1)
+  skillSlotByKey: Map<string, number>;  // "pokeId:skillName" → slot (0..n*MAX_SKILLS)
+  skillSlotCount: number;               // n * MAX_SKILLS_PER_POKE
 }
 
+export function buildSimContext(bag: Pokemon[]): SimContext {
+  const n = bag.length;
+  const bagIds: string[] = new Array(n);
+  const pokeIdx = new Map<string, number>();
+  const skillSlotByKey = new Map<string, number>();
+  for (let i = 0; i < n; i++) {
+    const p = bag[i];
+    bagIds[i] = p.id;
+    pokeIdx.set(p.id, i);
+    const base = i * MAX_SKILLS_PER_POKE;
+    for (let j = 0; j < p.skills.length; j++) {
+      skillSlotByKey.set(`${p.id}:${p.skills[j].name}`, base + j);
+    }
+  }
+  return { bag: bagIds, n, pokeIdx, skillSlotByKey, skillSlotCount: n * MAX_SKILLS_PER_POKE };
+}
+
+/**
+ * State mutável da simulação. Usa typed arrays pra clone rápido via memcpy
+ * (new Float64Array(other)) em vez de new Map(old) que aloca buckets.
+ */
 export interface SimState {
   clock: number;
-  skillCasts: Map<string, SkillCastInfo>;
-  // Time poke spent actively casting its own skills
-  selfCastTotal: Map<string, number>;
-  // Time poke spent in bag while another poke was actively casting
-  othersCastTotal: Map<string, number>;
+  // Skill cast tracking: 4 parallel arrays indexed por slot (pokeIdx * MAX_SKILLS + skillIdx).
+  // skillCastTime[slot] = -1 quando a skill nunca foi castada.
+  skillCastTime: Float64Array;
+  skillBaseCD: Float64Array;
+  skillSelfSnap: Float64Array;
+  skillOthersSnap: Float64Array;
+  // Per-poke counters indexed por bag index.
+  selfCastTotal: Float64Array;
+  othersCastTotal: Float64Array;
   elixirAtkReady: number;
   elixirDefReady: number;
   totalIdle: number;
   steps: RotationStep[];
-  // Used to increment othersCastTotal for other pokes in the bag
-  bag: string[];
 }
 
 function cloneState(s: SimState): SimState {
   return {
     clock: s.clock,
-    skillCasts: new Map(s.skillCasts),
-    selfCastTotal: new Map(s.selfCastTotal),
-    othersCastTotal: new Map(s.othersCastTotal),
+    skillCastTime: new Float64Array(s.skillCastTime),
+    skillBaseCD: new Float64Array(s.skillBaseCD),
+    skillSelfSnap: new Float64Array(s.skillSelfSnap),
+    skillOthersSnap: new Float64Array(s.skillOthersSnap),
+    selfCastTotal: new Float64Array(s.selfCastTotal),
+    othersCastTotal: new Float64Array(s.othersCastTotal),
     elixirAtkReady: s.elixirAtkReady,
     elixirDefReady: s.elixirDefReady,
     totalIdle: s.totalIdle,
     steps: s.steps.slice(),
-    bag: s.bag,
   };
 }
 
-export function emptyState(bag: string[] = []): SimState {
+export function emptyState(ctx: SimContext): SimState {
+  const castTimes = new Float64Array(ctx.skillSlotCount);
+  castTimes.fill(-1); // sentinel "nunca castado"
   return {
     clock: 0,
-    skillCasts: new Map(),
-    selfCastTotal: new Map(),
-    othersCastTotal: new Map(),
+    skillCastTime: castTimes,
+    skillBaseCD: new Float64Array(ctx.skillSlotCount),
+    skillSelfSnap: new Float64Array(ctx.skillSlotCount),
+    skillOthersSnap: new Float64Array(ctx.skillSlotCount),
+    selfCastTotal: new Float64Array(ctx.n),
+    othersCastTotal: new Float64Array(ctx.n),
     elixirAtkReady: 0,
     elixirDefReady: 0,
     totalIdle: 0,
     steps: [],
-    bag,
   };
 }
 
 const KILL_TIME = 10; // seconds of kill time after each lure's finisher (all pokes in bag, disk still applies)
 
 /**
- * Increments bagTotal (time in bag) for all pokes except the excludeId.
- * Disk recovery applies to all bag time.
+ * Incrementa othersCastTotal pra todos os pokes da bag exceto excludeIdx.
+ * Passa -1 pra incluir todos (kill time).
  */
-function tickBagTime(state: SimState, excludeId: string | null, seconds: number) {
-  for (const id of state.bag) {
-    if (id === excludeId) continue;
-    const prev = state.othersCastTotal.get(id) ?? 0;
-    state.othersCastTotal.set(id, prev + seconds);
+function tickBagTime(state: SimState, ctx: SimContext, excludeIdx: number, seconds: number) {
+  const arr = state.othersCastTotal;
+  for (let i = 0; i < ctx.n; i++) {
+    if (i === excludeIdx) continue;
+    arr[i] += seconds;
   }
 }
 
@@ -326,18 +363,17 @@ function tickBagTime(state: SimState, excludeId: string | null, seconds: number)
  */
 function waitForStarterSkill(
   state: SimState,
-  pokeId: string,
-  skillKey: string,
+  pokeIdx: number,
+  slot: number,
   offset: number,
   rate: number
 ): number {
-  const info = state.skillCasts.get(skillKey);
-  if (!info) return 0;
+  if (state.skillCastTime[slot] < 0) return 0;
 
-  const selfPast = (state.selfCastTotal.get(pokeId) ?? 0) - info.selfCastSnapshot;
-  const othersPast = (state.othersCastTotal.get(pokeId) ?? 0) - info.othersCastSnapshot;
+  const selfPast = state.selfCastTotal[pokeIdx] - state.skillSelfSnap[slot];
+  const othersPast = state.othersCastTotal[pokeIdx] - state.skillOthersSnap[slot];
 
-  const required = info.baseCD - selfPast - offset - othersPast * rate;
+  const required = state.skillBaseCD[slot] - selfPast - offset - othersPast * rate;
   return Math.max(0, required);
 }
 
@@ -354,20 +390,19 @@ function waitForStarterSkill(
  */
 function waitForSecondSkill(
   state: SimState,
-  pokeId: string,
-  skillKey: string,
+  pokeIdx: number,
+  slot: number,
   offsetWithinOwnCast: number,
   offsetBeforeOwnCast: number,
   rate: number
 ): number {
-  const info = state.skillCasts.get(skillKey);
-  if (!info) return 0;
+  if (state.skillCastTime[slot] < 0) return 0;
 
-  const selfPast = (state.selfCastTotal.get(pokeId) ?? 0) - info.selfCastSnapshot;
-  const othersPast = (state.othersCastTotal.get(pokeId) ?? 0) - info.othersCastSnapshot;
+  const selfPast = state.selfCastTotal[pokeIdx] - state.skillSelfSnap[slot];
+  const othersPast = state.othersCastTotal[pokeIdx] - state.skillOthersSnap[slot];
 
   const required =
-    (info.baseCD - selfPast - offsetWithinOwnCast) / rate - (othersPast + offsetBeforeOwnCast);
+    (state.skillBaseCD[slot] - selfPast - offsetWithinOwnCast) / rate - (othersPast + offsetBeforeOwnCast);
   return Math.max(0, required);
 }
 
@@ -375,29 +410,30 @@ const INFEASIBLE = Number.POSITIVE_INFINITY;
 
 export function applyLure(
   state: SimState,
+  ctx: SimContext,
   lure: Lure,
   diskLevel: DiskLevel
 ): RotationStep {
   const stepStart = state.clock;
   const rate = bagRate(diskLevel);
   const numStarterSkills = lure.starterSkills.length;
+  const starterIdx = ctx.pokeIdx.get(lure.starter.id)!;
 
-  // Compute wait needed for all skills (starter + second)
-  // Wait = max over all required waits
+  // Compute wait needed for all skills (starter + second + extras). Wait = max over all required.
   let wait = 0;
 
-  // Starter's skills: during wait, starter is active-idle (selfCast += W)
   for (let i = 0; i < numStarterSkills; i++) {
-    const key = `${lure.starter.id}:${lure.starterSkills[i].name}`;
-    const w = waitForStarterSkill(state, lure.starter.id, key, i + 1, rate);
+    const slot = ctx.skillSlotByKey.get(`${lure.starter.id}:${lure.starterSkills[i].name}`)!;
+    const w = waitForStarterSkill(state, starterIdx, slot, i + 1, rate);
     if (w > wait) wait = w;
   }
 
-  // Second's skills: during wait, second is in bag (others_cast += W at bag rate)
+  let secondIdx = -1;
   if (lure.second) {
+    secondIdx = ctx.pokeIdx.get(lure.second.id)!;
     for (let j = 0; j < lure.secondSkills.length; j++) {
-      const key = `${lure.second.id}:${lure.secondSkills[j].name}`;
-      const w = waitForSecondSkill(state, lure.second.id, key, j + 1, numStarterSkills, rate);
+      const slot = ctx.skillSlotByKey.get(`${lure.second.id}:${lure.secondSkills[j].name}`)!;
+      const w = waitForSecondSkill(state, secondIdx, slot, j + 1, numStarterSkills, rate);
       if (w > wait) wait = w;
     }
   }
@@ -406,9 +442,10 @@ export function applyLure(
   // casts before it starts (starter + second + prior extras).
   let offsetBeforeExtra = numStarterSkills + lure.secondSkills.length;
   for (const m of lure.extraMembers) {
+    const memberIdx = ctx.pokeIdx.get(m.poke.id)!;
     for (let j = 0; j < m.skills.length; j++) {
-      const key = `${m.poke.id}:${m.skills[j].name}`;
-      const w = waitForSecondSkill(state, m.poke.id, key, j + 1, offsetBeforeExtra, rate);
+      const slot = ctx.skillSlotByKey.get(`${m.poke.id}:${m.skills[j].name}`)!;
+      const w = waitForSecondSkill(state, memberIdx, slot, j + 1, offsetBeforeExtra, rate);
       if (w > wait) wait = w;
     }
     offsetBeforeExtra += m.skills.length;
@@ -431,9 +468,8 @@ export function applyLure(
   //   - Starter is "selected-idle" → self-cast progresses 1:1
   //   - Others in bag → disk rate applies (bag time)
   if (wait > 0) {
-    const prevSelf = state.selfCastTotal.get(lure.starter.id) ?? 0;
-    state.selfCastTotal.set(lure.starter.id, prevSelf + wait);
-    tickBagTime(state, lure.starter.id, wait);
+    state.selfCastTotal[starterIdx] += wait;
+    tickBagTime(state, ctx, starterIdx, wait);
     state.clock += wait;
     state.totalIdle += wait;
   }
@@ -446,67 +482,57 @@ export function applyLure(
   // Step 5: Cast starter skills. Each cast: starter self-casts 1s, all others in bag get bag time += 1
   for (let i = 0; i < numStarterSkills; i++) {
     state.clock += CAST_TIME;
-    const prevSelf = state.selfCastTotal.get(lure.starter.id) ?? 0;
-    state.selfCastTotal.set(lure.starter.id, prevSelf + CAST_TIME);
-    tickBagTime(state, lure.starter.id, CAST_TIME);
+    state.selfCastTotal[starterIdx] += CAST_TIME;
+    tickBagTime(state, ctx, starterIdx, CAST_TIME);
 
-    const key = `${lure.starter.id}:${lure.starterSkills[i].name}`;
-    state.skillCasts.set(key, {
-      castTime: state.clock,
-      baseCD: lure.starterSkills[i].cooldown,
-      selfCastSnapshot: state.selfCastTotal.get(lure.starter.id) ?? 0,
-      othersCastSnapshot: state.othersCastTotal.get(lure.starter.id) ?? 0,
-    });
+    const slot = ctx.skillSlotByKey.get(`${lure.starter.id}:${lure.starterSkills[i].name}`)!;
+    state.skillCastTime[slot] = state.clock;
+    state.skillBaseCD[slot] = lure.starterSkills[i].cooldown;
+    state.skillSelfSnap[slot] = state.selfCastTotal[starterIdx];
+    state.skillOthersSnap[slot] = state.othersCastTotal[starterIdx];
   }
 
   // Step 6: Cast second skills (dupla + group)
-  if (lure.second) {
+  if (lure.second && secondIdx >= 0) {
     for (let j = 0; j < lure.secondSkills.length; j++) {
       state.clock += CAST_TIME;
-      const prevSelf = state.selfCastTotal.get(lure.second.id) ?? 0;
-      state.selfCastTotal.set(lure.second.id, prevSelf + CAST_TIME);
-      tickBagTime(state, lure.second.id, CAST_TIME);
+      state.selfCastTotal[secondIdx] += CAST_TIME;
+      tickBagTime(state, ctx, secondIdx, CAST_TIME);
 
-      const key = `${lure.second.id}:${lure.secondSkills[j].name}`;
-      state.skillCasts.set(key, {
-        castTime: state.clock,
-        baseCD: lure.secondSkills[j].cooldown,
-        selfCastSnapshot: state.selfCastTotal.get(lure.second.id) ?? 0,
-        othersCastSnapshot: state.othersCastTotal.get(lure.second.id) ?? 0,
-      });
+      const slot = ctx.skillSlotByKey.get(`${lure.second.id}:${lure.secondSkills[j].name}`)!;
+      state.skillCastTime[slot] = state.clock;
+      state.skillBaseCD[slot] = lure.secondSkills[j].cooldown;
+      state.skillSelfSnap[slot] = state.selfCastTotal[secondIdx];
+      state.skillOthersSnap[slot] = state.othersCastTotal[secondIdx];
     }
   }
 
   // Step 6b: Cast extraMembers (group lure). No-op when extraMembers is empty.
   for (const m of lure.extraMembers) {
+    const memberIdx = ctx.pokeIdx.get(m.poke.id)!;
     for (let j = 0; j < m.skills.length; j++) {
       state.clock += CAST_TIME;
-      const prevSelf = state.selfCastTotal.get(m.poke.id) ?? 0;
-      state.selfCastTotal.set(m.poke.id, prevSelf + CAST_TIME);
-      tickBagTime(state, m.poke.id, CAST_TIME);
+      state.selfCastTotal[memberIdx] += CAST_TIME;
+      tickBagTime(state, ctx, memberIdx, CAST_TIME);
 
-      const key = `${m.poke.id}:${m.skills[j].name}`;
-      state.skillCasts.set(key, {
-        castTime: state.clock,
-        baseCD: m.skills[j].cooldown,
-        selfCastSnapshot: state.selfCastTotal.get(m.poke.id) ?? 0,
-        othersCastSnapshot: state.othersCastTotal.get(m.poke.id) ?? 0,
-      });
+      const slot = ctx.skillSlotByKey.get(`${m.poke.id}:${m.skills[j].name}`)!;
+      state.skillCastTime[slot] = state.clock;
+      state.skillBaseCD[slot] = m.skills[j].cooldown;
+      state.skillSelfSnap[slot] = state.selfCastTotal[memberIdx];
+      state.skillOthersSnap[slot] = state.othersCastTotal[memberIdx];
     }
   }
 
   // Step 7: Finisher cast (device or elixir atk)
   if (lure.usesDevice) {
     state.clock += CAST_TIME;
-    const prevSelf = state.selfCastTotal.get(lure.starter.id) ?? 0;
-    state.selfCastTotal.set(lure.starter.id, prevSelf + CAST_TIME);
-    tickBagTime(state, lure.starter.id, CAST_TIME);
+    state.selfCastTotal[starterIdx] += CAST_TIME;
+    tickBagTime(state, ctx, starterIdx, CAST_TIME);
   } else if (lure.usesElixirAtk) {
     state.clock += CAST_TIME;
-    const holderId = lure.elixirAtkHolderId ?? lure.starter.id;
-    const prevSelf = state.selfCastTotal.get(holderId) ?? 0;
-    state.selfCastTotal.set(holderId, prevSelf + CAST_TIME);
-    tickBagTime(state, holderId, CAST_TIME);
+    const holderIdx = ctx.pokeIdx.get(lure.elixirAtkHolderId ?? lure.starter.id) ?? starterIdx;
+    state.selfCastTotal[holderIdx] += CAST_TIME;
+    tickBagTime(state, ctx, holderIdx, CAST_TIME);
     state.elixirAtkReady = state.clock + ELIXIR_ATK_COOLDOWN;
   }
 
@@ -519,8 +545,8 @@ export function applyLure(
   };
   state.steps.push(step);
 
-  // Kill time: 10s after each lure's finisher. All pokes in bag, disk applies.
-  tickBagTime(state, null, KILL_TIME);
+  // Kill time: 10s após cada lure. Todos os pokes em bag (excludeIdx=-1).
+  tickBagTime(state, ctx, -1, KILL_TIME);
   state.clock += KILL_TIME;
 
   return step;
@@ -579,22 +605,27 @@ export function findBestRotation(
   }
   if (lures.length === 0) return null;
 
-  const bagIds = bag.map((p) => p.id);
+  const ctx = buildSimContext(bag);
 
   let beam: BeamState[] = lures.map((lure) => {
-    const sim = emptyState(bagIds);
-    applyLure(sim, lure, diskLevel);
+    const sim = emptyState(ctx);
+    applyLure(sim, ctx, lure, diskLevel);
     return { sim, sequence: [lure] };
   });
 
   let bestOverall: { idle: number; result: RotationResult; score: number } | null = null;
+
+  // Scoring cheap: sim.clock / steps.length já é um bom proxy do tempo-por-lure (warmup
+  // afeta todos candidatos igualmente). evaluateCycle só roda no top do step, não em cada
+  // candidato — cortava ~95% do tempo do beam search.
+  const REFINE_TOP = 4;
 
   for (let step = 1; step < maxCycleLen; step++) {
     const candidates: BeamState[] = [];
     for (const state of beam) {
       for (const lure of lures) {
         const newSim = cloneState(state.sim);
-        applyLure(newSim, lure, diskLevel);
+        applyLure(newSim, ctx, lure, diskLevel);
         candidates.push({
           sim: newSim,
           sequence: [...state.sequence, lure],
@@ -602,26 +633,24 @@ export function findBestRotation(
       }
     }
 
-    const scored = candidates.map((cand) => {
-      const period = minPeriod(cand.sequence);
-      const truePeriodSeq = cand.sequence.slice(0, period);
-      const ev = evaluateCycle(truePeriodSeq, diskLevel, bagIds);
-      const timePerLure = ev.result.totalTime / truePeriodSeq.length;
-      return { cand, ev, score: timePerLure };
-    });
+    const scoredCheap = candidates.map((cand) => ({
+      cand,
+      score: cand.sim.clock / cand.sim.steps.length,
+    }));
+    scoredCheap.sort((a, b) => a.score - b.score);
+    beam = scoredCheap.slice(0, beamWidth).map((s) => s.cand);
 
-    scored.sort((a, b) => a.score - b.score);
-    beam = scored.slice(0, beamWidth).map((s) => s.cand);
-
-    // Track best overall (minimum time per lure)
+    // Refine top-N com evaluateCycle (steady-state preciso) só pra tracking do bestOverall
     if (step + 1 >= minCycleLen) {
-      const best = scored[0];
-      if (!bestOverall || best.score < bestOverall.score) {
-        bestOverall = {
-          idle: best.ev.idlePerCycle,
-          result: best.ev.result,
-          score: best.score,
-        };
+      const topN = scoredCheap.slice(0, REFINE_TOP);
+      for (const s of topN) {
+        const period = minPeriod(s.cand.sequence);
+        const truePeriodSeq = s.cand.sequence.slice(0, period);
+        const ev = evaluateCycle(truePeriodSeq, diskLevel, ctx);
+        const tpl = ev.result.totalTime / truePeriodSeq.length;
+        if (!bestOverall || tpl < bestOverall.score) {
+          bestOverall = { idle: ev.idlePerCycle, result: ev.result, score: tpl };
+        }
       }
     }
   }
@@ -637,13 +666,13 @@ export function findBestRotation(
 function evaluateCycle(
   cycle: Lure[],
   diskLevel: DiskLevel,
-  bagIds: string[]
+  ctx: SimContext
 ): { idlePerCycle: number; result: RotationResult } {
-  const sim = emptyState(bagIds);
+  const sim = emptyState(ctx);
 
   // Cycle 1: warmup
   for (const lure of cycle) {
-    applyLure(sim, lure, diskLevel);
+    applyLure(sim, ctx, lure, diskLevel);
   }
 
   // Cycle 2: measure
@@ -652,7 +681,7 @@ function evaluateCycle(
   const cycle2StepsStart = sim.steps.length;
 
   for (const lure of cycle) {
-    applyLure(sim, lure, diskLevel);
+    applyLure(sim, ctx, lure, diskLevel);
   }
 
   const cycle2End = sim.clock;

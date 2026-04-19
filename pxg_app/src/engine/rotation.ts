@@ -575,13 +575,18 @@ export function findBestForBag(
     damageConfig?: DamageConfig;
   }
 ): { idle: number; result: RotationResult } | null {
-  // Device options: only T1H with CC can hold the device usefully
-  const deviceCandidates: (string | null)[] = [null];
-  for (const p of bag) {
-    if (p.tier === "T1H" && hasHardCC(p)) {
-      deviceCandidates.push(p.id);
-    }
-  }
+  // Device: só T1H+CC carrega device. Limita a top-2 por power total calibrado
+  // pra evitar explosão de runs em bags com muitos T1H.
+  const t1hCC = bag
+    .filter((p) => p.tier === "T1H" && hasHardCC(p))
+    .map((p) => ({
+      id: p.id,
+      score: p.skills.reduce((s, sk) => s + (sk.power ?? 0), 0),
+    }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 2)
+    .map((x) => x.id);
+  const deviceCandidates: (string | null)[] = [null, ...t1hCC];
 
   let best: { idle: number; result: RotationResult } | null = null;
   let bestScore = Infinity;

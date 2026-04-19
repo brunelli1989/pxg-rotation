@@ -14,6 +14,16 @@ export interface SearchOptions {
   damageConfig?: DamageConfig;
 }
 
+/**
+ * Default beam/cycle caem com o tamanho da pool pra manter tempo viável.
+ * C(n, 6) cresce rápido: 6→1, 12→924, 18→18.5k, 24→134.6k bags.
+ */
+function dynamicDefaults(poolSize: number): { beamWidth: number; maxCycleLen: number } {
+  if (poolSize <= 12) return { beamWidth: 120, maxCycleLen: 12 };
+  if (poolSize <= 18) return { beamWidth: 80, maxCycleLen: 10 };
+  return { beamWidth: 40, maxCycleLen: 8 };
+}
+
 export async function findOptimalRotationAsync(
   pool: Pokemon[],
   diskLevel: DiskLevel,
@@ -23,6 +33,10 @@ export async function findOptimalRotationAsync(
 ): Promise<RotationResult | null> {
   if (pool.length === 0) return null;
   if (signal?.aborted) return null;
+
+  const dyn = dynamicDefaults(pool.length);
+  const beamWidth = options?.beamWidth ?? dyn.beamWidth;
+  const maxCycleLen = options?.maxCycleLen ?? dyn.maxCycleLen;
 
   const allBags: Pokemon[][] =
     pool.length <= MAX_BAG ? [pool] : combinations(pool, MAX_BAG);
@@ -79,8 +93,8 @@ export async function findOptimalRotationAsync(
         const req: WorkerRequest = {
           bags: chunk,
           diskLevel,
-          beamWidth: options?.beamWidth,
-          maxCycleLen: options?.maxCycleLen,
+          beamWidth,
+          maxCycleLen,
           minCycleLen: options?.minCycleLen,
           damageConfig: options?.damageConfig,
         };

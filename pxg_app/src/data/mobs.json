@@ -948,7 +948,7 @@
     "hunt": "400+",
     "group": "Pinsir",
     "hp": 465400,
-    "todo": "calibrate defense"
+    "defFactor": 0.58
   },
   {
     "name": "Machamp",

@@ -643,7 +643,7 @@
         "cc": "silence",
         "buff": null,
         "element": "ground",
-        "power": 19.39
+        "power": 15.48
       },
       {
         "name": "Coil",
@@ -661,7 +661,7 @@
         "cc": null,
         "buff": null,
         "element": "ground",
-        "power": 13.79
+        "power": 11.03
       },
       {
         "name": "Scorching Sand",
@@ -670,7 +670,7 @@
         "cc": null,
         "buff": null,
         "element": "ground",
-        "power": 27.68
+        "power": 22.79
       },
       {
         "name": "Sand Eruption",
@@ -679,7 +679,7 @@
         "cc": null,
         "buff": null,
         "element": "ground",
-        "power": 23.56
+        "power": 18.86
       }
     ]
   },

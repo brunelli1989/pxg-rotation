@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { DamageConfig, HeldKind, HeldItem, Pokemon, PokeSetup, Tier, XAtkTier } from "../types";
 import { estimatePokeSoloDamage } from "../engine/damage";
 import { getOptimalSkillOrder } from "../engine/scoring";
@@ -16,6 +16,12 @@ function clampBoost(tier: Tier, v: number): number {
   return Math.min(Math.max(v, minBoostForTier(tier)), MAX_BOOST);
 }
 
+// Ordem canônica dos tiers do jogo (usada pra sort)
+const TIER_ORDER: Record<Tier, number> = { T1H: 0, T1C: 1, T2: 2, T3: 3, TM: 4, TR: 5 };
+
+type SortCol = "name" | "boost" | "heldKind" | "heldTier" | "noDevice" | "withDevice" | "noDeviceElixir" | "withDeviceElixir";
+type SortDir = "asc" | "desc";
+
 interface Props {
   pokes: Pokemon[];
   config: DamageConfig;
@@ -32,6 +38,37 @@ interface DamageRow {
 export function PokeSetupEditor({ pokes, config, onChange }: Props) {
   // Keyed by poke.id; populated when user clicks "Estimar dano"
   const [estimates, setEstimates] = useState<Record<string, DamageRow>>({});
+  const [sort, setSort] = useState<{ col: SortCol; dir: SortDir }>({ col: "name", dir: "asc" });
+
+  const toggleSort = (col: SortCol) => {
+    setSort((s) => (s.col === col ? { col, dir: s.dir === "asc" ? "desc" : "asc" } : { col, dir: "asc" }));
+  };
+
+  const sortedPokes = useMemo(() => {
+    const getValue = (p: Pokemon): string | number => {
+      const setup = config.pokeSetups[p.id] ?? DEFAULT_POKE_SETUP;
+      const est = estimates[p.id];
+      switch (sort.col) {
+        case "name": return p.name.toLowerCase();
+        case "boost": return clampBoost(p.tier, setup.boost);
+        case "heldKind": return setup.held.kind;
+        case "heldTier": return setup.held.tier * 10 + TIER_ORDER[p.tier]; // inclui poke tier como desempate
+        case "noDevice": return est?.noDevice ?? -1;
+        case "withDevice": return est?.withDevice ?? -1;
+        case "noDeviceElixir": return est?.noDeviceElixir ?? -1;
+        case "withDeviceElixir": return est?.withDeviceElixir ?? -1;
+      }
+    };
+    const sorted = [...pokes].sort((a, b) => {
+      const av = getValue(a), bv = getValue(b);
+      if (av < bv) return sort.dir === "asc" ? -1 : 1;
+      if (av > bv) return sort.dir === "asc" ? 1 : -1;
+      return 0;
+    });
+    return sorted;
+  }, [pokes, config.pokeSetups, estimates, sort]);
+
+  const sortArrow = (col: SortCol) => (sort.col === col ? (sort.dir === "asc" ? " ▲" : " ▼") : "");
 
   // Normaliza boost pra respeitar min do tier (TR +70, TM +80). Roda sempre que
   // muda a lista de pokes ou os setups persistidos.
@@ -80,18 +117,18 @@ export function PokeSetupEditor({ pokes, config, onChange }: Props) {
       <table className="poke-setup-table">
         <thead>
           <tr>
-            <th>Pokémon</th>
-            <th>Boost</th>
-            <th>X-Held</th>
-            <th>Tier</th>
-            <th>Dano sem device</th>
-            <th>Dano com device</th>
-            <th>Dano + Elixir (sem device)</th>
-            <th>Dano + Elixir (com device)</th>
+            <th onClick={() => toggleSort("name")} style={{ cursor: "pointer" }}>Pokémon{sortArrow("name")}</th>
+            <th onClick={() => toggleSort("boost")} style={{ cursor: "pointer" }}>Boost{sortArrow("boost")}</th>
+            <th onClick={() => toggleSort("heldKind")} style={{ cursor: "pointer" }}>X-Held{sortArrow("heldKind")}</th>
+            <th onClick={() => toggleSort("heldTier")} style={{ cursor: "pointer" }}>Tier{sortArrow("heldTier")}</th>
+            <th onClick={() => toggleSort("noDevice")} style={{ cursor: "pointer" }}>Dano sem device{sortArrow("noDevice")}</th>
+            <th onClick={() => toggleSort("withDevice")} style={{ cursor: "pointer" }}>Dano com device{sortArrow("withDevice")}</th>
+            <th onClick={() => toggleSort("noDeviceElixir")} style={{ cursor: "pointer" }}>Dano + Elixir (sem device){sortArrow("noDeviceElixir")}</th>
+            <th onClick={() => toggleSort("withDeviceElixir")} style={{ cursor: "pointer" }}>Dano + Elixir (com device){sortArrow("withDeviceElixir")}</th>
           </tr>
         </thead>
         <tbody>
-          {pokes.map((p) => {
+          {sortedPokes.map((p) => {
             const setup = config.pokeSetups[p.id] ?? {
               ...DEFAULT_POKE_SETUP,
               boost: clampBoost(p.tier, DEFAULT_POKE_SETUP.boost),

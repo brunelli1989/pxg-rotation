@@ -389,6 +389,21 @@
   margin-top: 20px;
 }
 
+.cancel-btn {
+  margin-left: auto;
+  background: #8b2e2e;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.cancel-btn:hover {
+  background: #a63737;
+}
+
 .spinner {
   width: 32px;
   height: 32px;

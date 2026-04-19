@@ -139,7 +139,7 @@ function App() {
     localStorage.setItem(SELECTED_STORAGE_KEY, JSON.stringify(selectedIds));
   }, [selectedIds]);
 
-  const { result, loading, progress } = useRotation(allPokemon, selectedIds, diskLevel, showResult);
+  const { result, loading, progress, cancel } = useRotation(allPokemon, selectedIds, diskLevel, showResult, damage.config);
   const pool = allPokemon.filter((p) => selectedIds.includes(p.id));
 
   const handleToggle = useCallback((id: string) => {
@@ -235,6 +235,15 @@ function App() {
                 <div className="progress-text">Preparando workers...</div>
               )}
             </div>
+            <button
+              className="cancel-btn"
+              onClick={() => {
+                cancel();
+                setShowResult(false);
+              }}
+            >
+              Cancelar
+            </button>
           </div>
         )}
 

@@ -1,4 +1,4 @@
-import type { DiskLevel, Pokemon, RotationResult } from "../types";
+import type { DamageConfig, DiskLevel, Pokemon, RotationResult } from "../types";
 import { findBestForBag } from "./rotation";
 
 export interface WorkerRequest {
@@ -7,6 +7,7 @@ export interface WorkerRequest {
   beamWidth?: number;
   maxCycleLen?: number;
   minCycleLen?: number;
+  damageConfig?: DamageConfig;
 }
 
 export type WorkerMessage =
@@ -18,7 +19,7 @@ export type WorkerMessage =
     };
 
 self.onmessage = (e: MessageEvent<WorkerRequest>) => {
-  const { bags, diskLevel, beamWidth, maxCycleLen, minCycleLen } = e.data;
+  const { bags, diskLevel, beamWidth, maxCycleLen, minCycleLen, damageConfig } = e.data;
 
   let bestIdle = Infinity;
   let bestResult: RotationResult | null = null;
@@ -28,6 +29,7 @@ self.onmessage = (e: MessageEvent<WorkerRequest>) => {
       beamWidth,
       maxCycleLen,
       minCycleLen,
+      damageConfig,
     });
     if (res && res.idle < bestIdle) {
       bestIdle = res.idle;

@@ -42,11 +42,25 @@ export function getDefaultSkillPower(tier: Tier, role: PokemonRole | undefined):
 /**
  * Resolve o power de uma skill: calibrado se existir, senão fallback por (tier, role).
  * Skills com buff (self ou next) e power = 0 (CC-only) não recebem fallback — são 0.
+ * Resultado cacheado por (poke, skill) — invariante no hot path do beam search.
  */
+const resolvedPowerCache = new WeakMap<Pokemon, WeakMap<Skill, number>>();
+
 export function resolveSkillPower(skill: Skill, poke: Pokemon): number {
-  if (skill.power !== undefined) return skill.power;
-  if (skill.buff !== null) return 0; // buff:self ou buff:next não dá dano
-  return getDefaultSkillPower(poke.tier, poke.role);
+  let bySkill = resolvedPowerCache.get(poke);
+  if (bySkill) {
+    const cached = bySkill.get(skill);
+    if (cached !== undefined) return cached;
+  } else {
+    bySkill = new WeakMap();
+    resolvedPowerCache.set(poke, bySkill);
+  }
+  let result: number;
+  if (skill.power !== undefined) result = skill.power;
+  else if (skill.buff !== null) result = 0;
+  else result = getDefaultSkillPower(poke.tier, poke.role);
+  bySkill.set(skill, result);
+  return result;
 }
 
 // =========================================================
@@ -244,15 +258,20 @@ export function computeEffectiveness(
 // Clan bonus lookup
 // =========================================================
 
+// Pré-indexa clãs → elemento → bônus de atk. Lookup O(1) no hot path.
+const CLAN_ATK_BONUS: Map<ClanName, Map<PokemonElement, number>> = new Map(
+  clansData.map((c) => [
+    c.name as ClanName,
+    new Map(c.bonuses.map((b) => [b.element as PokemonElement, b.atk])),
+  ])
+);
+
 export function getClanBonus(
   clanName: ClanName | null,
   skillElement: PokemonElement | undefined
 ): number {
   if (!clanName || !skillElement) return 0;
-  const clan = clansData.find((c) => c.name === clanName);
-  if (!clan) return 0;
-  const bonus = clan.bonuses.find((b) => b.element === skillElement);
-  return bonus?.atk ?? 0;
+  return CLAN_ATK_BONUS.get(clanName)?.get(skillElement) ?? 0;
 }
 
 // =========================================================

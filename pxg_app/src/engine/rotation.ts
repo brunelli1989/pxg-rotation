@@ -1,4 +1,5 @@
 import type {
+  DamageConfig,
   DiskLevel,
   Lure,
   Pokemon,
@@ -10,6 +11,7 @@ import {
   ELIXIR_DEF_COOLDOWN,
   bagRate,
 } from "./cooldown";
+import { lureFinalizesBox } from "./damage";
 import { getOptimalSkillOrder, hasFrontal, hasHardCC, hasHarden, hasSilence } from "./scoring";
 
 const CAST_TIME = 1;
@@ -430,13 +432,22 @@ export function findBestRotation(
   bag: Pokemon[],
   diskLevel: DiskLevel,
   devicePokemonId: string | null,
-  options: { beamWidth?: number; maxCycleLen?: number; minCycleLen?: number } = {}
+  options: {
+    beamWidth?: number;
+    maxCycleLen?: number;
+    minCycleLen?: number;
+    damageConfig?: DamageConfig;
+  } = {}
 ): { idle: number; result: RotationResult } | null {
   const beamWidth = options.beamWidth ?? 120;
   const maxCycleLen = options.maxCycleLen ?? 12;
   const minCycleLen = options.minCycleLen ?? 2;
 
-  const lures = generateLureTemplates(bag, devicePokemonId);
+  let lures = generateLureTemplates(bag, devicePokemonId);
+  if (options.damageConfig) {
+    const cfg = options.damageConfig;
+    lures = lures.filter((lure) => lureFinalizesBox(lure, cfg, cfg.mob));
+  }
   if (lures.length === 0) return null;
 
   const bagIds = bag.map((p) => p.id);
@@ -557,7 +568,12 @@ function evaluateCycle(
 export function findBestForBag(
   bag: Pokemon[],
   diskLevel: DiskLevel,
-  options?: { beamWidth?: number; maxCycleLen?: number; minCycleLen?: number }
+  options?: {
+    beamWidth?: number;
+    maxCycleLen?: number;
+    minCycleLen?: number;
+    damageConfig?: DamageConfig;
+  }
 ): { idle: number; result: RotationResult } | null {
   // Device options: only T1H with CC can hold the device usefully
   const deviceCandidates: (string | null)[] = [null];

@@ -54,27 +54,31 @@ pxg_app/src/
 
 ### Estrutura de lure
 
-Um **lure** = 1 box a ser finalizada com **1 ou 2 pokémons** (máx 2).
+Um **lure** = 1 box a ser finalizada com **1 a 6 pokémons**.
 
-**3 tipos:**
+**4 tipos:**
 | Tipo | Composição | Finisher | Requisitos |
 |---|---|---|---|
 | `solo_device` | 1 pokémon T1H c/ CC | Device | Device é atrelado a 1 poke só |
-| `solo_elixir` | 1 pokémon T2/T3/TR c/ CC, **sem frontal** | Elixir Atk (210s shared CD) | Starter precisa Harden OU Elixir Def |
-| `dupla` | Starter c/ CC + qualquer outro | Sem item (dano combinado) | Starter precisa Harden OU Elixir Def |
+| `solo_elixir` | 1 pokémon T2/T3/TR c/ CC, **sem frontal** | Elixir Atk (210s shared CD) | Starter precisa def OU Elixir Def |
+| `dupla` | Starter c/ CC + 1 segundo (opcional +elixir) | Sem item ou Elixir Atk | Starter precisa def OU Elixir Def |
+| `group` | Starter c/ CC + 2-5 extras (3-6 membros total) | Sem item ou Elixir Atk | Hunt 400+ típico |
 
 ### Regras críticas
 
-- **Starter OBRIGATORIAMENTE tem CC** (stun ou silence). Pokémons sem CC (M.Barbaracle, Golem, Solrock, Barbaracle) **só podem ser second em dupla**.
-- **Second da dupla NÃO pode ter wait mid-lure** — todas as skills dele precisam estar prontas no momento exato do cast. O wait vai pro início da lure.
-- **Silence + Frontal é inválido** — se um dos dois pokes da dupla tem silence, o outro **não pode ter nenhuma skill frontal** (mesmo que não fosse usar).
-- **Frontal não finaliza solo com elixir** — poke com skill frontal não pode ser usado como `solo_elixir` (dano frontal não cobre os 6 mobs da box). Pode ir em dupla normalmente.
-- **Device é atribuído a 1 pokémon só** — o algoritmo testa cada T1H+CC como candidato + opção "sem device". Sh.Rampardos+device é sempre solo.
+- **Starter OBRIGATORIAMENTE tem CC** (stun/silence area ou locked qualquer tipo). Pokémons sem CC válido só podem ser second/extra.
+- **Stun/silence frontal NÃO vale como CC de starter** — não cobre os 6 mobs da box. Pode ser CC em second (conta pra `hasCC` mas não pra `hasHardCC`).
+- **Second/extras NÃO podem ter wait mid-lure** — skills prontas no cast. Wait vai pro início.
+- **Silence + Frontal cruzado é inválido** — se algum membro do lure tem silence, nenhum pode ter skill frontal.
+- **Frontal não finaliza solo com elixir** — poke com frontal não pode ser `solo_elixir`. Pode ir em dupla/group.
+- **Device é atribuído a 1 pokémon só** — algoritmo testa top-2 T1H+CC como candidatos + "sem device".
 - **Defesa do starter:**
-  - Tem Harden → usa Harden (grátis)
-  - Não tem Harden → gasta Elixir Def (210s shared CD)
+  - Tem skill com `def: true` (Harden, Intimidate, Iron Defense, Coil, etc) → usa essa skill (grátis)
+  - Não tem → gasta Elixir Def (210s shared CD)
   - **EXCEÇÃO:** T1H+device não precisa de defesa
-- **Second NÃO precisa de defesa** (entra brevemente, sai rápido). Harden de qualquer um só cobre o starter — sai quando troca de poke.
+- **Second/extras NÃO precisam de defesa** (entram brevemente).
+- **Elixir atk em dupla/group:** +70% aditivo no `helds` do **holder** (poke mais forte) por 8s. Shared CD 210s com solo_elixir. `Lure.elixirAtkHolderId` guarda o id.
+- **Cascading generator:** `generateLureTemplates` produz em 3 tiers — base (solo+dupla), +duplaElixir, +group. `findBestRotation` só adiciona os tiers caros quando o tier anterior não finaliza (economia de bags).
 
 ### Cooldown de skills
 
@@ -135,8 +139,8 @@ Esse kill time beneficia TODOS os pokes igualmente (starter do próximo lure, se
 
 ### Elixirs
 
-- **Elixir Atk:** 210s fixo (não afetado pelo disk). Usado em solo elixir.
-- **Elixir Def:** 210s fixo. Usado por starter sem Harden que não seja T1H+device.
+- **Elixir Atk:** 210s fixo (não afetado pelo disk). Usado em solo_elixir, dupla+elixir, group+elixir. Buffa +70% aditivo no `helds` do holder (poke mais forte) por 8s — janela cobre casts do holder (~5s).
+- **Elixir Def:** 210s fixo. Usado por starter sem skill `def:true` que não seja T1H+device.
 - Cooldowns **independentes** entre si.
 
 ### Ordem de skills dentro de um pokémon
@@ -153,14 +157,19 @@ Definida em `getOptimalSkillOrder()`:
 **Objetivo:** minimizar `tempo_total_ciclo / num_lures` (= maximizar boxes/hora).
 
 **Método:** beam search
-1. Gera todas as lures válidas pra bag (com cada candidato a device)
-2. Mantém top `beamWidth` (120) sequências a cada passo
-3. Testa adicionar cada lure ao final; scoreia cada sequência
-4. Para cada sequência, avalia como ciclo rodando 2x e medindo segundo ciclo (steady-state)
-5. Detecta **período mínimo** (se sequência é `[A,B,C,A,B,C]`, exibe só `[A,B,C]`)
-6. Limita ciclos a `maxCycleLen` (12)
+1. Gera lures via **cascading** (só tiers caros quando barato não finaliza): base → +duplaElixir → +group
+2. Mantém top `beamWidth` sequências a cada passo (dynamic defaults: 120 pra pool ≤12, 80 ≤18, 40 pra 20+)
+3. **Cheap scoring** — `sim.clock / steps.length` como score principal; `evaluateCycle` (2 ciclos steady-state) só no top-4 por step
+4. Detecta período mínimo (`[A,B,C,A,B,C]` → `[A,B,C]`)
+5. Limita `maxCycleLen` (12/10/8 por tamanho de pool)
 
-Para bags > 6 pokes: testa `C(n,6)` combinações em paralelo via Web Workers.
+**Performance (implementado):**
+- `SimState` usa `Float64Array` (clone via memcpy); `SimContext` estático indexado
+- `bagTimePerLureLowerBound` + sort ascending — bags promissoras rodam primeiro, worse puladas
+- Pruning por dano máximo vs HP_mob (skip bags impossíveis)
+- Workers paralelos via `navigator.hardwareConcurrency`
+
+Para bags > 6 pokes: testa `C(n,6)` combinações distribuídas entre Web Workers.
 
 ## Módulo de dano (implementado em `engine/damage.ts`)
 
@@ -190,10 +199,11 @@ Quando `skill.power` é undefined, `resolveSkillPower(skill, poke)` usa `DEFAULT
 | Tier \ Role | burst_dd | offensive_tank |
 |---|---|---|
 | T1H | 24.7 | 19.4 |
+| T1C | 23.5 (uncalibrated) | 19.4 |
 | T2 | 22.5 | 19.4 |
 | T3 | 21.5 | 19.4 |
 | TM | 15.0 | 19.4 |
-| TR | 12.0 | — |
+| TR | 18.4 | — |
 
 **Insights validados:**
 - `burst_dd` **escala por tier** (T1H ~118 Σ → T2 ~92 → T3 ~85 Σ raw por poke, spread <3.5% dentro do cluster)
@@ -204,6 +214,7 @@ Quando `skill.power` é undefined, `resolveSkillPower(skill, poke)` usa `DEFAULT
 
 | Mob | Tipo | defFactor |
 |---|---|---|
+| Pinsir | bug | 0.58 (bem tanky) |
 | Dragonair | dragon | 0.68 (outlier) |
 | Dratini | dragon | 0.80 |
 | Magby | fire | 0.88 |
@@ -231,11 +242,15 @@ Contexto histórico na memória: `project_pxg_damage_formula.md`.
 - **NÃO** memoize o `pool` fora do hook — array novo a cada render → loop infinito no useEffect
 - **NÃO** assumir que disk é a ÚNICA recuperação. O disk ADICIONA bônus sobre o 1:1 base quando o poke está em bag. Ativo recupera 1:1 apenas (disk não aplica).
 - **NÃO** permita wait mid-lure — o wait tem que ir pro início
-- **NÃO** crie duplas silence+frontal — filtrar antes da geração
+- **NÃO** crie duplas/group silence+frontal — filtrar antes da geração
 - **NÃO** remover active time tracking do engine — é fundamental pra acurácia
 - **NÃO** usar leeway (removido) — usar kill time explícito (`KILL_TIME = 10` após cada lure)
 - **NÃO** chamar `resolveSkillPower` duas vezes por skill cast — passa via `opts.skillPower` pro `computeSkillDamage` (hot path do beam search)
 - **NÃO** assumir boost/held do poke testado pelo setup listado no topo da mensagem de calibração — é do char. Cada poke tem seu próprio boost/held no ball
+- **NÃO** usar `role === "offensive_tank"` como proxy pra `hasHarden` — use `p.skills.some(s => s.def === true)`. Se o offtank não tem skill com def:true no data, adicione (sem skill no kit a simulação não casta nada)
+- **NÃO** marcar skill como `def:true` se for ofensiva — o flag é só pra self-buffs que substituem Elixir Def
+- **NÃO** assumir 1 ciclo no beam — skills de CD grande podem exigir evaluation em 2+ ciclos. `evaluateCycle` roda 2 cycles pra medir steady-state
+- **NÃO** rodar `evaluateCycle` em todo candidato do beam — é caro. Use cheap score (`sim.clock/steps.length`) e só refine top-4
 
 ## Dicas de UI
 

@@ -273,20 +273,21 @@ export function buildSimContext(bag: Pokemon[]): SimContext {
 }
 
 /**
- * State mutável da simulação. Usa typed arrays pra clone rápido via memcpy
- * (new Float64Array(other)) em vez de new Map(old) que aloca buckets.
+ * State mutável da simulação. Usa typed arrays pra clone rápido via memcpy.
+ *
+ * Invariante: pra todo poke i, `selfCastTotal[i] + othersInBag[i] == clock`. Logo
+ * só trackamos `selfCastTotal`; bag time é derivado on-demand (clock - self).
+ * Mesmo pros snapshots por skill slot: guardamos só clock + self no momento do cast.
  */
 export interface SimState {
   clock: number;
-  // Skill cast tracking: 4 parallel arrays indexed por slot (pokeIdx * MAX_SKILLS + skillIdx).
+  // Skill cast tracking: 3 arrays paralelos indexados por slot.
   // skillCastTime[slot] = -1 quando a skill nunca foi castada.
   skillCastTime: Float64Array;
   skillBaseCD: Float64Array;
   skillSelfSnap: Float64Array;
-  skillOthersSnap: Float64Array;
-  // Per-poke counters indexed por bag index.
+  // Per-poke counter indexado por bag index. othersCastTotal[i] = clock - selfCastTotal[i].
   selfCastTotal: Float64Array;
-  othersCastTotal: Float64Array;
   elixirAtkReady: number;
   elixirDefReady: number;
   totalIdle: number;
@@ -299,9 +300,7 @@ function cloneState(s: SimState): SimState {
     skillCastTime: new Float64Array(s.skillCastTime),
     skillBaseCD: new Float64Array(s.skillBaseCD),
     skillSelfSnap: new Float64Array(s.skillSelfSnap),
-    skillOthersSnap: new Float64Array(s.skillOthersSnap),
     selfCastTotal: new Float64Array(s.selfCastTotal),
-    othersCastTotal: new Float64Array(s.othersCastTotal),
     elixirAtkReady: s.elixirAtkReady,
     elixirDefReady: s.elixirDefReady,
     totalIdle: s.totalIdle,
@@ -317,9 +316,7 @@ export function emptyState(ctx: SimContext): SimState {
     skillCastTime: castTimes,
     skillBaseCD: new Float64Array(ctx.skillSlotCount),
     skillSelfSnap: new Float64Array(ctx.skillSlotCount),
-    skillOthersSnap: new Float64Array(ctx.skillSlotCount),
     selfCastTotal: new Float64Array(ctx.n),
-    othersCastTotal: new Float64Array(ctx.n),
     elixirAtkReady: 0,
     elixirDefReady: 0,
     totalIdle: 0,
@@ -330,36 +327,12 @@ export function emptyState(ctx: SimContext): SimState {
 const KILL_TIME = 10; // seconds of kill time after each lure's finisher (all pokes in bag, disk still applies)
 
 /**
- * Incrementa othersCastTotal pra todos os pokes da bag exceto excludeIdx.
- * Passa -1 pra incluir todos (kill time).
- */
-function tickBagTime(state: SimState, ctx: SimContext, excludeIdx: number, seconds: number) {
-  const arr = state.othersCastTotal;
-  for (let i = 0; i < ctx.n; i++) {
-    if (i === excludeIdx) continue;
-    arr[i] += seconds;
-  }
-}
-
-/**
  * Computes the wait needed for a starter skill (cast at lure_start + offset).
- * During wait, we assume the starter is "selected-idle" → self-cast progresses at 1:1
- * for the starter, but no one else is casting (so others_cast doesn't increment).
+ * During wait, starter é "selected-idle" → self-cast progride 1:1; ninguém mais
+ * casta, então othersCast do starter fica parado.
  *
- * Model:
- *   Recovery = selfCast × 1 + othersCast × (1/diskMult)
- *   Ready when recovery >= baseCD
- *
- * For starter's skill i cast at lure_start + (i+1):
- *   - Past selfCast: selfCastTotal[starter] - skillCast.selfCastSnapshot
- *   - Wait contributes selfCast += wait (starter "active-idle")
- *   - Lure start to cast: starter casts (i+1) of its skills → selfCast += (i+1)
- *   - Past othersCast: othersCastTotal[starter] - skillCast.othersCastSnapshot
- *   - Wait does NOT contribute to othersCast (no one else casting)
- *
- * Recovery >= baseCD:
- *   (selfPast + wait + (i+1)) + othersPast × (1/mult) >= baseCD
- *   wait >= baseCD - selfPast - (i+1) - othersPast × (1/mult)
+ * Recovery = deltaSelf + deltaOthers × rate, onde deltaOthers = deltaClock - deltaSelf.
+ * Ready quando recovery >= baseCD.
  */
 function waitForStarterSkill(
   state: SimState,
@@ -370,8 +343,9 @@ function waitForStarterSkill(
 ): number {
   if (state.skillCastTime[slot] < 0) return 0;
 
+  const deltaClock = state.clock - state.skillCastTime[slot];
   const selfPast = state.selfCastTotal[pokeIdx] - state.skillSelfSnap[slot];
-  const othersPast = state.othersCastTotal[pokeIdx] - state.skillOthersSnap[slot];
+  const othersPast = deltaClock - selfPast;
 
   const required = state.skillBaseCD[slot] - selfPast - offset - othersPast * rate;
   return Math.max(0, required);
@@ -379,14 +353,11 @@ function waitForStarterSkill(
 
 /**
  * Required wait for a SECOND's skill to be ready.
- * During wait, second is in bag (gains bag time at disk rate).
- * During starter's cast, second is also in bag (num_starter seconds of bag time).
- * During second's own casts, second gains self-cast at 1:1.
+ * Durante wait, second fica em bag (ganha bag time a disk rate).
+ * Durante casts do starter, second também em bag (num_starter seconds).
+ * Durante casts do próprio second, ganha self-cast 1:1.
  *
- * Recovery >= baseCD:
- *   (selfPast + j+1) + (othersPast + W + num_starter) × rate >= baseCD
- *   W × rate >= baseCD - selfPast - (j+1) - (othersPast + num_starter) × rate
- *   W >= (baseCD - selfPast - (j+1)) / rate - (othersPast + num_starter)
+ * W >= (baseCD - selfPast - (j+1)) / rate - (othersPast + offsetBeforeOwnCast)
  */
 function waitForSecondSkill(
   state: SimState,
@@ -398,8 +369,9 @@ function waitForSecondSkill(
 ): number {
   if (state.skillCastTime[slot] < 0) return 0;
 
+  const deltaClock = state.clock - state.skillCastTime[slot];
   const selfPast = state.selfCastTotal[pokeIdx] - state.skillSelfSnap[slot];
-  const othersPast = state.othersCastTotal[pokeIdx] - state.skillOthersSnap[slot];
+  const othersPast = deltaClock - selfPast;
 
   const required =
     (state.skillBaseCD[slot] - selfPast - offsetWithinOwnCast) / rate - (othersPast + offsetBeforeOwnCast);
@@ -464,12 +436,10 @@ export function applyLure(
     if (defWait > 0) wait += defWait;
   }
 
-  // Step 4: Advance clock by wait. During wait:
-  //   - Starter is "selected-idle" → self-cast progresses 1:1
-  //   - Others in bag → disk rate applies (bag time)
+  // Step 4: Advance clock by wait. Durante wait, starter "selected-idle" ganha self-cast 1:1;
+  // os demais ficam em bag — mas othersInBag é derivado (clock - self), então basta avançar clock.
   if (wait > 0) {
     state.selfCastTotal[starterIdx] += wait;
-    tickBagTime(state, ctx, starterIdx, wait);
     state.clock += wait;
     state.totalIdle += wait;
   }
@@ -479,17 +449,16 @@ export function applyLure(
     state.elixirDefReady = state.clock + ELIXIR_DEF_COOLDOWN;
   }
 
-  // Step 5: Cast starter skills. Each cast: starter self-casts 1s, all others in bag get bag time += 1
+  // Step 5: Cast starter skills. Cada cast: clock +=1, self do caster +=1; outros ganham
+  // bag time implícito via (clock - self). Snapshot só precisa guardar (clock, self).
   for (let i = 0; i < numStarterSkills; i++) {
     state.clock += CAST_TIME;
     state.selfCastTotal[starterIdx] += CAST_TIME;
-    tickBagTime(state, ctx, starterIdx, CAST_TIME);
 
     const slot = ctx.skillSlotByKey.get(`${lure.starter.id}:${lure.starterSkills[i].name}`)!;
     state.skillCastTime[slot] = state.clock;
     state.skillBaseCD[slot] = lure.starterSkills[i].cooldown;
     state.skillSelfSnap[slot] = state.selfCastTotal[starterIdx];
-    state.skillOthersSnap[slot] = state.othersCastTotal[starterIdx];
   }
 
   // Step 6: Cast second skills (dupla + group)
@@ -497,13 +466,11 @@ export function applyLure(
     for (let j = 0; j < lure.secondSkills.length; j++) {
       state.clock += CAST_TIME;
       state.selfCastTotal[secondIdx] += CAST_TIME;
-      tickBagTime(state, ctx, secondIdx, CAST_TIME);
 
       const slot = ctx.skillSlotByKey.get(`${lure.second.id}:${lure.secondSkills[j].name}`)!;
       state.skillCastTime[slot] = state.clock;
       state.skillBaseCD[slot] = lure.secondSkills[j].cooldown;
       state.skillSelfSnap[slot] = state.selfCastTotal[secondIdx];
-      state.skillOthersSnap[slot] = state.othersCastTotal[secondIdx];
     }
   }
 
@@ -513,13 +480,11 @@ export function applyLure(
     for (let j = 0; j < m.skills.length; j++) {
       state.clock += CAST_TIME;
       state.selfCastTotal[memberIdx] += CAST_TIME;
-      tickBagTime(state, ctx, memberIdx, CAST_TIME);
 
       const slot = ctx.skillSlotByKey.get(`${m.poke.id}:${m.skills[j].name}`)!;
       state.skillCastTime[slot] = state.clock;
       state.skillBaseCD[slot] = m.skills[j].cooldown;
       state.skillSelfSnap[slot] = state.selfCastTotal[memberIdx];
-      state.skillOthersSnap[slot] = state.othersCastTotal[memberIdx];
     }
   }
 
@@ -527,12 +492,10 @@ export function applyLure(
   if (lure.usesDevice) {
     state.clock += CAST_TIME;
     state.selfCastTotal[starterIdx] += CAST_TIME;
-    tickBagTime(state, ctx, starterIdx, CAST_TIME);
   } else if (lure.usesElixirAtk) {
     state.clock += CAST_TIME;
     const holderIdx = ctx.pokeIdx.get(lure.elixirAtkHolderId ?? lure.starter.id) ?? starterIdx;
     state.selfCastTotal[holderIdx] += CAST_TIME;
-    tickBagTime(state, ctx, holderIdx, CAST_TIME);
     state.elixirAtkReady = state.clock + ELIXIR_ATK_COOLDOWN;
   }
 
@@ -545,8 +508,7 @@ export function applyLure(
   };
   state.steps.push(step);
 
-  // Kill time: 10s após cada lure. Todos os pokes em bag (excludeIdx=-1).
-  tickBagTime(state, ctx, -1, KILL_TIME);
+  // Kill time: 10s após cada lure. Todos em bag → só avança clock (bag time derivado).
   state.clock += KILL_TIME;
 
   return step;

@@ -390,6 +390,24 @@ export function estimateLureDamagePerMob(
   // Assume janela do holder cabe nos 8s (5-skill cast ~= 5s). Null quando elixir não é usado.
   const elixirHolderId: string | null = lure.usesElixirAtk ? lure.elixirAtkHolderId : null;
 
+  // Device holder recebe bonus de dano. Quando a lure usa device, o starter (holder)
+  // tem hasDevice=true pros cálculos — mesmo que pokeSetup default tenha hasDevice=false.
+  // Override temporário no config pra esse poke só nessa lure.
+  let effectiveCfg = cfg;
+  if (lure.usesDevice) {
+    const starterId = lure.starter.id;
+    const baseSetup = cfg.pokeSetups[starterId];
+    if (baseSetup && !baseSetup.hasDevice) {
+      effectiveCfg = {
+        ...cfg,
+        pokeSetups: {
+          ...cfg.pokeSetups,
+          [starterId]: { ...baseSetup, hasDevice: true },
+        },
+      };
+    }
+  }
+
   const castSequence: { poke: Pokemon; skill: Skill }[] = [];
   for (const s of lure.starterSkills) {
     castSequence.push({ poke: lure.starter, skill: s });
@@ -412,7 +430,7 @@ export function estimateLureDamagePerMob(
     const { poke, skill } = castSequence[i];
     const power = resolveSkillPower(skill, poke);
     const buffed = buffPending && power > 0;
-    totalDmg += computeSkillDamage(cfg, poke, skill, mob, {
+    totalDmg += computeSkillDamage(effectiveCfg, poke, skill, mob, {
       buffedByPrevious: buffed,
       skillPower: power,
       elixirAtkActive: poke.id === elixirHolderId,

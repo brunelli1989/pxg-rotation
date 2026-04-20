@@ -278,6 +278,47 @@ runTest(
   { mob: torkoal, playerLvl: 400, hunt: "400+" },
 );
 
+// --- Test 7: solo_device gera quando pokeSetup tem hasDevice=false (bug fix) ---
+// Regressão: estimateLureDamagePerMob lia cfg.pokeSetups[starter.id].hasDevice direto,
+// então quando o usuário não marcava hasDevice=true no PokeSetupEditor, o dano do
+// solo_device era calculado sem o bonus do device → lure filtrada por dano insuficiente,
+// mesmo quando o engine tinha selecionado o poke como device holder via heurística.
+// Fix: override hasDevice=true pro starter quando lure.usesDevice=true.
+// Cenário: lvl 366 + boost 80 + X-Atk T8 + device X-Boost T7; Sh.Rampardos solo_device
+// precisa passar pelo damage check (234k vs 216k de Pansear).
+const deviceBugBag = [
+  findPoke("Shiny Rampardos"),
+  findPoke("Shiny Golem"),
+  findPoke("Rampardos"),
+];
+// Setup borderline: SEM device bonus dá ~214k (< 216k Pansear HP, solo_device NÃO finaliza).
+// COM device bonus (X-Boost T7 = +36 boost) dá ~230k → finaliza. O bug é que o damage
+// check não aplicava o bonus quando hasDevice=false no pokeSetup, filtrando solo_device
+// mesmo quando o engine selecionava o poke como device holder.
+const deviceBugSetups: Record<string, PokeSetup> = {};
+for (const p of deviceBugBag) {
+  deviceBugSetups[p.id] = {
+    boost: 70,
+    held: { kind: "x-attack", tier: 8 },
+    hasDevice: false,  // explicit: user não marcou hasDevice — cobrir o caso buggy
+  };
+}
+runTest(
+  "Test 7: solo_device Sh.Rampardos finaliza sem pokeSetup.hasDevice=true",
+  deviceBugBag,
+  "orebound",
+  (_starters, usage) => {
+    // Sh.Rampardos deve aparecer como starter em alguma lure solo_device
+    if (usage["Shiny Rampardos"].starter === 0) {
+      throw new Error(
+        "Sh.Rampardos não foi usado como starter (solo_device provavelmente filtrado por bug do hasDevice)"
+      );
+    }
+  },
+  deviceBugSetups,
+  { mob: pansear, playerLvl: 366, hunt: "300" },
+);
+
 // --- Test 3: rotação ideal Magby/Pansear com Sh.Rampardos device ---
 // Bag: Sh.Rampardos (T1H rock), Sh.Golem (T2 rock), Hippowdon (T2 ground),
 //      Omastar (T3 rock/water), TR Tyranitar (TR rock), Rampardos (T2 rock)

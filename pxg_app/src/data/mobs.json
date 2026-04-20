@@ -104,7 +104,7 @@
     "hp": 191610,
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "flying",
+      "steel",
       "fairy"
     ]
   },
@@ -119,7 +119,7 @@
     "hp": 167407,
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "flying",
+      "steel",
       "fairy"
     ]
   },
@@ -148,7 +148,8 @@
     "group": "Alolan Diglett",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "flying"
+      "fire",
+      "water"
     ]
   },
   {
@@ -162,7 +163,8 @@
     "hp": 505692,
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "flying"
+      "fire",
+      "water"
     ]
   },
   {
@@ -201,9 +203,8 @@
     "group": "Mega Beedrill/Beedrill",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "poison",
-      "ghost",
-      "steel"
+      "fire",
+      "flying"
     ]
   },
   {
@@ -216,9 +217,8 @@
     "group": "Mega Beedrill/Beedrill",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "poison",
-      "ghost",
-      "steel"
+      "fire",
+      "flying"
     ]
   },
   {
@@ -298,7 +298,9 @@
     "hunt": "300",
     "group": "Mantyke",
     "todo": "calibrate defense",
-    "bestStarterElements": []
+    "bestStarterElements": [
+      "electric"
+    ]
   },
   {
     "name": "Galarian Darumaka",
@@ -325,6 +327,7 @@
     "hp": 177174,
     "defFactor": 0.849,
     "bestStarterElements": [
+      "electric",
       "rock"
     ]
   },
@@ -374,7 +377,9 @@
     "group": "Carvanha",
     "hp": 199800,
     "todo": "calibrate defense",
-    "bestStarterElements": []
+    "bestStarterElements": [
+      "grass"
+    ]
   },
   {
     "name": "Barboach",
@@ -386,7 +391,8 @@
     "group": "Barboach",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "grass"
+      "grass",
+      "bug"
     ]
   },
   {
@@ -399,6 +405,7 @@
     "group": "Rufflet",
     "defFactor": 0.82,
     "bestStarterElements": [
+      "electric",
       "rock"
     ]
   },
@@ -425,7 +432,9 @@
     "hunt": "300",
     "group": "Sneasel",
     "todo": "calibrate defense",
-    "bestStarterElements": []
+    "bestStarterElements": [
+      "fighting"
+    ]
   },
   {
     "name": "Cloyster",
@@ -437,7 +446,9 @@
     "group": "Cloyster",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "water"
+      "water",
+      "grass",
+      "dragon"
     ]
   },
   {
@@ -489,9 +500,9 @@
     "group": "Darkrai Minion",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "fighting",
-      "dark",
-      "fairy"
+      "rock",
+      "ghost",
+      "steel"
     ]
   },
   {
@@ -504,7 +515,12 @@
     "group": "Lampent/Litwick",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "normal"
+      "normal",
+      "fire",
+      "water",
+      "rock",
+      "dragon",
+      "dark"
     ]
   },
   {
@@ -517,7 +533,12 @@
     "group": "Lampent/Litwick",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "normal"
+      "normal",
+      "fire",
+      "water",
+      "rock",
+      "dragon",
+      "dark"
     ]
   },
   {
@@ -529,8 +550,7 @@
     "group": "Goomy/Sliggoo",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "steel",
-      "fairy"
+      "dragon"
     ]
   },
   {
@@ -542,8 +562,7 @@
     "group": "Goomy/Sliggoo",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "steel",
-      "fairy"
+      "dragon"
     ]
   },
   {
@@ -558,6 +577,8 @@
     "defFactor": 0.66,
     "bestStarterElements": [
       "poison",
+      "ground",
+      "rock",
       "ghost",
       "steel"
     ]
@@ -574,6 +595,8 @@
     "defFactor": 0.8,
     "bestStarterElements": [
       "poison",
+      "ground",
+      "rock",
       "ghost",
       "steel"
     ]
@@ -588,6 +611,7 @@
     "group": "Litleo",
     "defFactor": 0.8,
     "bestStarterElements": [
+      "water",
       "rock"
     ]
   },
@@ -629,7 +653,8 @@
     "hp": 239169,
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "ground"
+      "ground",
+      "rock"
     ]
   },
   {
@@ -642,7 +667,8 @@
     "hp": 203680,
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "ground"
+      "ground",
+      "rock"
     ]
   },
   {
@@ -688,7 +714,14 @@
     "hunt": "300",
     "group": "Skiddo/Nuzleaf",
     "todo": "calibrate defense",
-    "bestStarterElements": []
+    "bestStarterElements": [
+      "fire",
+      "grass",
+      "poison",
+      "flying",
+      "bug",
+      "dragon"
+    ]
   },
   {
     "name": "Ralts",
@@ -700,6 +733,7 @@
     "group": "Ralts/Kirlia",
     "todo": "calibrate defense",
     "bestStarterElements": [
+      "poison",
       "steel"
     ]
   },
@@ -713,6 +747,7 @@
     "group": "Ralts/Kirlia",
     "todo": "calibrate defense",
     "bestStarterElements": [
+      "poison",
       "steel"
     ]
   },
@@ -726,8 +761,11 @@
     "group": "Applin",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "steel",
-      "fairy"
+      "grass",
+      "poison",
+      "flying",
+      "bug",
+      "dragon"
     ]
   },
   {
@@ -755,7 +793,8 @@
     "todo": "calibrate defense",
     "bestStarterElements": [
       "fire",
-      "flying"
+      "flying",
+      "dragon"
     ]
   },
   {
@@ -796,7 +835,9 @@
     "hunt": "400+",
     "group": "Mantine",
     "todo": "calibrate defense",
-    "bestStarterElements": []
+    "bestStarterElements": [
+      "electric"
+    ]
   },
   {
     "name": "Galarian Darmanitan",
@@ -829,14 +870,24 @@
     "hunt": "400+",
     "group": "Mechas",
     "hp": 341730,
-    "todo": "calibrate defense"
+    "todo": "calibrate defense",
+    "bestStarterElements": [
+      "rock",
+      "ghost",
+      "steel"
+    ]
   },
   {
     "name": "Mecha Venusaur",
     "types": [],
     "hunt": "400+",
     "group": "Mechas",
-    "todo": "calibrate defense"
+    "todo": "calibrate defense",
+    "bestStarterElements": [
+      "rock",
+      "ghost",
+      "steel"
+    ]
   },
   {
     "name": "Mecha Feraligatr",
@@ -844,21 +895,36 @@
     "hunt": "400+",
     "group": "Mechas",
     "hp": 321676,
-    "todo": "calibrate defense"
+    "todo": "calibrate defense",
+    "bestStarterElements": [
+      "rock",
+      "ghost",
+      "steel"
+    ]
   },
   {
     "name": "Mecha Blastoise",
     "types": [],
     "hunt": "400+",
     "group": "Mechas",
-    "todo": "calibrate defense"
+    "todo": "calibrate defense",
+    "bestStarterElements": [
+      "rock",
+      "ghost",
+      "steel"
+    ]
   },
   {
     "name": "Mecha Typhlosion",
     "types": [],
     "hunt": "400+",
     "group": "Mechas",
-    "todo": "calibrate defense"
+    "todo": "calibrate defense",
+    "bestStarterElements": [
+      "rock",
+      "ghost",
+      "steel"
+    ]
   },
   {
     "name": "Mecha Charizard",
@@ -866,7 +932,12 @@
     "hunt": "400+",
     "group": "Mechas",
     "hp": 316842,
-    "todo": "calibrate defense"
+    "todo": "calibrate defense",
+    "bestStarterElements": [
+      "rock",
+      "ghost",
+      "steel"
+    ]
   },
   {
     "name": "Braviary",
@@ -879,6 +950,7 @@
     "hp": 455650,
     "todo": "calibrate defense",
     "bestStarterElements": [
+      "electric",
       "rock"
     ]
   },
@@ -893,6 +965,7 @@
     "hp": 468889,
     "todo": "calibrate defense",
     "bestStarterElements": [
+      "electric",
       "rock"
     ]
   },
@@ -918,7 +991,9 @@
     "group": "Weavile",
     "hp": 543200,
     "todo": "calibrate defense",
-    "bestStarterElements": []
+    "bestStarterElements": [
+      "fighting"
+    ]
   },
   {
     "name": "Garchomp",
@@ -930,7 +1005,7 @@
     "group": "Garchomp/Dragonite",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "flying",
+      "steel",
       "fairy"
     ]
   },
@@ -959,7 +1034,9 @@
     "hp": 399075,
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "ghost"
+      "flying",
+      "psychic",
+      "fairy"
     ]
   },
   {
@@ -985,8 +1062,11 @@
     "group": "Gallade",
     "todo": "calibrate defense",
     "bestStarterElements": [
+      "poison",
+      "flying",
       "psychic",
-      "ghost"
+      "ghost",
+      "fairy"
     ]
   },
   {
@@ -998,7 +1078,10 @@
     "hunt": "400+",
     "group": "Honchkrow",
     "todo": "calibrate defense",
-    "bestStarterElements": []
+    "bestStarterElements": [
+      "electric",
+      "rock"
+    ]
   },
   {
     "name": "Empoleon",
@@ -1010,7 +1093,7 @@
     "group": "Empoleon",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "water"
+      "electric"
     ]
   },
   {
@@ -1024,7 +1107,9 @@
     "hp": 433794,
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "ghost"
+      "flying",
+      "psychic",
+      "fairy"
     ]
   },
   {
@@ -1038,9 +1123,13 @@
     "hp": 506520,
     "todo": "calibrate defense",
     "bestStarterElements": [
+      "fire",
       "grass",
+      "poison",
       "flying",
-      "bug"
+      "bug",
+      "dragon",
+      "steel"
     ]
   },
   {
@@ -1108,6 +1197,8 @@
     "todo": "calibrate defense",
     "bestStarterElements": [
       "poison",
+      "ground",
+      "rock",
       "ghost",
       "steel"
     ]
@@ -1149,7 +1240,9 @@
     "hunt": "400+",
     "group": "Sharpedo",
     "todo": "calibrate defense",
-    "bestStarterElements": []
+    "bestStarterElements": [
+      "grass"
+    ]
   },
   {
     "name": "Starmie",
@@ -1162,7 +1255,7 @@
     "hp": 505974,
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "dark"
+      "grass"
     ]
   },
   {
@@ -1176,7 +1269,8 @@
     "hp": 495711,
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "grass"
+      "grass",
+      "bug"
     ]
   },
   {
@@ -1189,6 +1283,7 @@
     "group": "Pyroar Female",
     "todo": "calibrate defense",
     "bestStarterElements": [
+      "water",
       "rock"
     ]
   },
@@ -1203,6 +1298,7 @@
     "hp": 391855,
     "todo": "calibrate defense",
     "bestStarterElements": [
+      "water",
       "rock"
     ]
   },
@@ -1230,7 +1326,8 @@
     "hp": 364798,
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "fairy"
+      "rock",
+      "dragon"
     ]
   },
   {
@@ -1243,7 +1340,8 @@
     "group": "Chandelure",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "normal"
+      "normal",
+      "dark"
     ]
   },
   {
@@ -1256,7 +1354,10 @@
     "group": "Houndoom",
     "hp": 391590,
     "todo": "calibrate defense",
-    "bestStarterElements": []
+    "bestStarterElements": [
+      "water",
+      "rock"
+    ]
   },
   {
     "name": "Pinsir",
@@ -1311,7 +1412,8 @@
     "group": "Alolan Muk",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "steel"
+      "ground",
+      "rock"
     ]
   },
   {
@@ -1323,8 +1425,7 @@
     "group": "Goodra",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "steel",
-      "fairy"
+      "dragon"
     ]
   },
   {
@@ -1337,7 +1438,8 @@
     "hp": 519739,
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "ground"
+      "ground",
+      "rock"
     ]
   },
   {
@@ -1396,8 +1498,9 @@
     "group": "Alolan Raichu",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "ground",
-      "dark"
+      "psychic",
+      "dark",
+      "steel"
     ]
   },
   {
@@ -1423,8 +1526,11 @@
     "group": "Appletun",
     "todo": "calibrate defense",
     "bestStarterElements": [
-      "steel",
-      "fairy"
+      "grass",
+      "poison",
+      "flying",
+      "bug",
+      "dragon"
     ]
   },
   {
@@ -1451,9 +1557,9 @@
     "hp": 420095,
     "todo": "calibrate defense",
     "bestStarterElements": [
+      "rock",
       "ghost",
-      "steel",
-      "fairy"
+      "steel"
     ]
   },
   {

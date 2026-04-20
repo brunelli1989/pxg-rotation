@@ -4608,6 +4608,24 @@
         "buff": null,
         "element": "flying",
         "power": 21.07
+      },
+      {
+        "name": "Tornado",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying",
+        "power": 27.24
+      },
+      {
+        "name": "Shadow Gale",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying",
+        "power": 24.41
       }
     ]
   },

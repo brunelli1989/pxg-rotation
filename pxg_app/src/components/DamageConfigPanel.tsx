@@ -124,7 +124,16 @@ export function DamageConfigPanel({
   const maxHpInGroup = selectedGroupMobs.reduce((max, m) => Math.max(max, m.hp ?? 0), 0);
   const maxHpMob = selectedGroupMobs.find((m) => m.hp === maxHpInGroup);
 
-  const mobDisplay = (m: MobEntry) => `${m.name} (${m.types.join("/")})${mobMarker([m])}`;
+  const defLabel = (m: MobEntry) => (m.defFactor !== undefined ? ` def=${m.defFactor}` : "");
+  const mobDisplay = (m: MobEntry) =>
+    `${m.name} (${m.types.join("/")})${defLabel(m)}${mobMarker([m])}`;
+  const groupDefLabel = (ms: MobEntry[]) => {
+    const defs = ms.map((m) => m.defFactor).filter((d): d is number => d !== undefined);
+    if (defs.length === 0) return "";
+    const min = Math.min(...defs);
+    const max = Math.max(...defs);
+    return ` def=${min === max ? min : `${min}-${max}`}`;
+  };
 
   const currentResolved = resolvedByName.get(config.mob.name);
   const currentMobSource = currentResolved
@@ -201,7 +210,7 @@ export function DamageConfigPanel({
                 const allTypes = [...new Set(groupMobs.flatMap((m) => m.types))];
                 return (
                   <option key={groupName} value={groupName}>
-                    {groupName} ({allTypes.join("/")}){mobMarker(groupMobs)}
+                    {groupName} ({allTypes.join("/")}){groupDefLabel(groupMobs)}{mobMarker(groupMobs)}
                   </option>
                 );
               }

@@ -102,6 +102,7 @@ export function DamageConfigPanel({
       types: hardest.types,
       hp: hardest.hp,
       defFactor: hardest.defFactor,
+      bestStarterElements: hardest.bestStarterElements,
     });
   };
 

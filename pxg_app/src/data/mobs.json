@@ -16,7 +16,8 @@
     "hunt": "300",
     "group": "Magby/Pansear",
     "hp": 216450,
-    "defFactor": 0.9
+    "defFactor": 0.9,
+    "bestStarterElements": ["water", "rock", "fire", "dragon"]
   },
   {
     "name": "Magby",
@@ -26,7 +27,8 @@
     "hunt": "300",
     "group": "Magby/Pansear",
     "hp": 209984,
-    "defFactor": 0.88
+    "defFactor": 0.88,
+    "bestStarterElements": ["water", "rock", "fire", "dragon"]
   },
   {
     "name": "Dratini",

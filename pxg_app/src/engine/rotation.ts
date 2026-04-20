@@ -13,6 +13,7 @@ import {
   bagRate,
 } from "./cooldown";
 import { lureFinalizesBox, resolveSkillPower } from "./damage";
+import type { MobConfig } from "../types";
 import { getOptimalSkillOrder, hasFrontal, hasHardCC, hasHarden, hasSilence } from "./scoring";
 
 const CAST_TIME = 1;
@@ -389,9 +390,17 @@ export interface CompiledLure {
   extraSlots: Int32Array[];         // slots por extra member
   extraCDs: Float64Array[];         // cooldowns por extra member
   totalExtraSkills: number;
+  /** Score multiplier do starter vs mob (starter é o mais exposto).
+   *  < 1 = resistente (preferido); > 1 = fraco (evitado); 1 = neutro/sem info.
+   *  Calculado como sqrt(dmgTakenMult) pra dampear o efeito no beam. */
+  starterResistFactor: number;
 }
 
-export function compileLures(lures: Lure[], ctx: SimContext): CompiledLure[] {
+export function compileLures(
+  lures: Lure[],
+  ctx: SimContext,
+  mob?: MobConfig
+): CompiledLure[] {
   const out: CompiledLure[] = new Array(lures.length);
   for (let k = 0; k < lures.length; k++) {
     const lure = lures[k];
@@ -444,6 +453,21 @@ export function compileLures(lures: Lure[], ctx: SimContext): CompiledLure[] {
         ? (ctx.pokeIdx.get(lure.elixirAtkHolderId) ?? starterIdx)
         : starterIdx;
 
+    // Preferência pro starter: se o mob marca `bestStarterElements` (dados empíricos
+    // do jogo) e o starter tem algum desses tipos, factor = 0.7 (30% desconto no score).
+    // Caso contrário, neutro (1.0). User-driven, não derivado do chart.
+    let starterResistFactor = 1;
+    const bestEls = mob?.bestStarterElements;
+    const starterEls = lure.starter.elements;
+    if (bestEls && bestEls.length > 0 && starterEls && starterEls.length > 0) {
+      for (const e of starterEls) {
+        if (bestEls.includes(e)) {
+          starterResistFactor = 0.7;
+          break;
+        }
+      }
+    }
+
     out[k] = {
       lure,
       starterIdx,
@@ -457,6 +481,7 @@ export function compileLures(lures: Lure[], ctx: SimContext): CompiledLure[] {
       extraSlots,
       extraCDs,
       totalExtraSkills,
+      starterResistFactor,
     };
   }
   return out;
@@ -686,7 +711,7 @@ export function findBestRotation(
     minCycleLen?: number;
     damageConfig?: DamageConfig;
   } = {}
-): { idle: number; result: RotationResult } | null {
+): { idle: number; result: RotationResult; score: number } | null {
   const beamWidth = options.beamWidth ?? 120;
   const maxCycleLen = options.maxCycleLen ?? 12;
   const minCycleLen = options.minCycleLen ?? 2;
@@ -715,7 +740,7 @@ export function findBestRotation(
   if (lures.length === 0) return null;
 
   const ctx = buildSimContext(bag);
-  const compiled = compileLures(lures, ctx);
+  const compiled = compileLures(lures, ctx, options.damageConfig?.mob);
   const pool = new SimStatePool(ctx);
 
   let beam: BeamState[] = compiled.map((c) => {
@@ -747,10 +772,13 @@ export function findBestRotation(
     // Release parent states — candidates já têm clones independentes.
     for (const old of beam) pool.release(old.sim);
 
-    const scoredCheap = candidates.map((cand) => ({
-      cand,
-      score: cand.sim.clock / cand.sim.steps.length,
-    }));
+    const scoredCheap = candidates.map((cand) => {
+      const tpl = cand.sim.clock / cand.sim.steps.length;
+      let sumResist = 0;
+      for (const c of cand.sequence) sumResist += c.starterResistFactor;
+      const avgResist = sumResist / cand.sequence.length;
+      return { cand, score: tpl * avgResist };
+    });
     scoredCheap.sort((a, b) => a.score - b.score);
     beam = scoredCheap.slice(0, beamWidth).map((s) => s.cand);
 
@@ -759,7 +787,8 @@ export function findBestRotation(
       pool.release(scoredCheap[i].cand.sim);
     }
 
-    // Refine top-N com evaluateCycle (steady-state preciso) só pra tracking do bestOverall
+    // Refine top-N com evaluateCycle (steady-state preciso) só pra tracking do bestOverall.
+    // bestOverall.score inclui o starterResistFactor pra manter consistência com o beam ranking.
     if (step + 1 >= minCycleLen) {
       const topN = scoredCheap.slice(0, REFINE_TOP);
       for (const s of topN) {
@@ -767,15 +796,18 @@ export function findBestRotation(
         const truePeriodSeq = s.cand.sequence.slice(0, period);
         const ev = evaluateCycle(truePeriodSeq, diskLevel, ctx, pool);
         const tpl = ev.result.totalTime / truePeriodSeq.length;
-        if (!bestOverall || tpl < bestOverall.score) {
-          bestOverall = { idle: ev.idlePerCycle, result: ev.result, score: tpl };
+        let sumResist = 0;
+        for (const c of truePeriodSeq) sumResist += c.starterResistFactor;
+        const adjustedTpl = tpl * (sumResist / truePeriodSeq.length);
+        if (!bestOverall || adjustedTpl < bestOverall.score) {
+          bestOverall = { idle: ev.idlePerCycle, result: ev.result, score: adjustedTpl };
         }
       }
     }
   }
 
   if (!bestOverall) return null;
-  return { idle: bestOverall.idle, result: bestOverall.result };
+  return { idle: bestOverall.idle, result: bestOverall.result, score: bestOverall.score };
 }
 
 /**
@@ -858,7 +890,7 @@ export function findBestForBag(
     minCycleLen?: number;
     damageConfig?: DamageConfig;
   }
-): { idle: number; result: RotationResult } | null {
+): { idle: number; result: RotationResult; score: number } | null {
   // Device: só T1H+CC carrega device. Limita a top-2 por power total calibrado
   // pra evitar explosão de runs em bags com muitos T1H.
   const t1hCC = bag
@@ -872,16 +904,13 @@ export function findBestForBag(
     .map((x) => x.id);
   const deviceCandidates: (string | null)[] = [null, ...t1hCC];
 
-  let best: { idle: number; result: RotationResult } | null = null;
+  let best: { idle: number; result: RotationResult; score: number } | null = null;
   let bestScore = Infinity;
   for (const deviceId of deviceCandidates) {
     const res = findBestRotation(bag, diskLevel, deviceId, options);
-    if (res) {
-      const score = res.result.totalTime / res.result.steps.length;
-      if (score < bestScore) {
-        bestScore = score;
-        best = res;
-      }
+    if (res && res.score < bestScore) {
+      bestScore = res.score;
+      best = res;
     }
   }
   return best;

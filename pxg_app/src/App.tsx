@@ -13,10 +13,20 @@ import { useRotation } from "./hooks/useRotation";
 import { useDamageConfig } from "./hooks/useDamageConfig";
 import "./App.css";
 
-const pokemonWithSkills = pokemonData as Pokemon[];
+const pokemonWithSkillsRaw = pokemonData as Pokemon[];
 const roster = rosterData as RosterPokemon[];
 
-// Merge: pokemon.json (com skills) tem prioridade; resto vem do roster com skills vazias
+// Map id → elements (do roster). Usado pra enriquecer os pokes com tipo defensivo.
+const elementsById: Record<string, RosterPokemon["elements"]> = Object.fromEntries(
+  roster.map((r) => [r.id, r.elements])
+);
+
+// Merge: pokemon.json (com skills) tem prioridade; resto vem do roster com skills vazias.
+// Em ambos enriquecemos com `elements` do roster pra starter resist factor funcionar.
+const pokemonWithSkills: Pokemon[] = pokemonWithSkillsRaw.map((p) => ({
+  ...p,
+  elements: elementsById[p.id] ?? p.elements,
+}));
 const existingIds = new Set(pokemonWithSkills.map((p) => p.id));
 const rosterOnly: Pokemon[] = roster
   .filter((r) => !existingIds.has(r.id))
@@ -25,16 +35,15 @@ const rosterOnly: Pokemon[] = roster
     name: r.name,
     tier: r.tier,
     skills: [],
+    elements: r.elements,
   }));
 
 const allPokemon: Pokemon[] = [...pokemonWithSkills, ...rosterOnly].sort((a, b) =>
   a.name.localeCompare(b.name)
 );
 
-// Map id → elements (do roster). Pokes sem entrada no roster ficam sem elementos.
-const pokeElements: Record<string, string[]> = Object.fromEntries(
-  roster.map((r) => [r.id, r.elements])
-);
+// Map id → elements (legado; manter enquanto UI usa)
+const pokeElements: Record<string, string[]> = elementsById;
 
 const DISK_STORAGE_KEY = "pxg_disk_level";
 const SELECTED_STORAGE_KEY = "pxg_selected_ids";

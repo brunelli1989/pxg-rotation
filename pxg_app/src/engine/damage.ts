@@ -138,6 +138,7 @@ export function resolveMobConfig(entry: MobEntry, allMobs: MobEntry[]): Resolved
     types: entry.types,
     hp: hp ?? 0,
     defFactor: def,
+    bestStarterElements: entry.bestStarterElements,
     hpSource,
     defSource,
   };

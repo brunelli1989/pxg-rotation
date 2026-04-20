@@ -119,9 +119,9 @@ self.onmessage = (e: MessageEvent<WorkerRequest>) => {
       damageConfig,
     });
     if (res) {
-      const tpl = res.result.totalTime / res.result.steps.length;
-      if (tpl < bestTimePerLure) {
-        bestTimePerLure = tpl;
+      // res.score já inclui starterResistFactor (preferência por starters resistentes).
+      if (res.score < bestTimePerLure) {
+        bestTimePerLure = res.score;
         bestIdle = res.idle;
         bestResult = res.result;
       }

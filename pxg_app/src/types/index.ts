@@ -51,6 +51,9 @@ export interface Pokemon {
   wiki?: string;
   todo?: string;
   skills: Skill[];
+  /** Elementos defensivos do poke (do roster). Usado pra calcular resistência
+   *  do starter contra ataques do mob. Ausência = neutro (factor 1.0). */
+  elements?: PokemonElement[];
 }
 
 export type LureType = "solo_device" | "solo_elixir" | "dupla" | "group";
@@ -121,6 +124,9 @@ export interface MobConfig {
   types: PokemonElement[]; // 1 ou 2 tipos; effectiveness é produto
   hp: number;
   defFactor?: number; // undefined = usa DEFAULT_MOB_DEF_FACTOR no engine
+  /** Elementos que tankam bem como starter nessa hunt (dados empíricos do jogo).
+   *  Starters com qualquer desses tipos ganham preferência no beam. Undefined = sem preferência. */
+  bestStarterElements?: PokemonElement[];
 }
 
 export interface MobEntry {
@@ -131,6 +137,8 @@ export interface MobEntry {
   hp?: number;
   defFactor?: number;
   todo?: string;
+  /** Elementos que tankam bem nessa hunt — copiado pra MobConfig quando selecionado */
+  bestStarterElements?: PokemonElement[];
 }
 
 export interface DamageConfig {

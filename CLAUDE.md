@@ -71,14 +71,19 @@ Um **lure** = 1 box a ser finalizada com **1 a 6 pokémons**.
 - **Second/extras NÃO podem ter wait mid-lure** — skills prontas no cast. Wait vai pro início.
 - **Silence + Frontal cruzado é inválido** — se algum membro do lure tem silence, nenhum pode ter skill frontal.
 - **Frontal não finaliza solo com elixir** — poke com frontal não pode ser `solo_elixir`. Pode ir em dupla/group.
-- **Device é atribuído a 1 pokémon só** — algoritmo testa top-2 T1H+CC como candidatos + "sem device".
+- **Device é atribuído a 1 pokémon só** — algoritmo testa top-2 T1H+CC como candidatos + "sem device". Se user marca `hasDevice=true` em algum poke no PokeSetupEditor (qualquer tier), adiciona como **hint** à lista (não substitui os outros — engine ainda compara todos).
+- **Device holder pode ser dupla/group starter** (só é excluído do role "second" pra evitar conflito com solo_device). `hasDevice=true` é aplicado via override em `findBestRotation`, então device bonus entra no dano de qualquer lure onde o holder casta.
 - **Defesa do starter:**
   - Tem skill com `def: true` (Harden, Intimidate, Iron Defense, Coil, etc) → usa essa skill (grátis)
   - Não tem → gasta Elixir Def (210s shared CD)
   - **EXCEÇÃO:** T1H+device não precisa de defesa
+- **Player-strength rule:** se nenhuma lure de ≤3 membros finaliza a box, starter precisa ter `def:true` (T1H burst_dd sem Harden fica banido). Heurística do user: "a partir do momento que finaliza com 3 pokes, dá pra lurar com T1H".
+- **Starter type hard filter:** se `mob.bestStarterElements` populado e bag tem ≥1 poke matching, outros tipos ficam **proibidos como starter** (podem ser second/extra). Fallback se filter esvazia.
+- **Starter score 3-tier** (em `compileLures`, multiplica beam score): `type ∈ (bestStarterElements ∩ user_clan_elements)` → 0.60; `type ∈ bestStarterElements` → 0.75; senão 1.00.
 - **Second/extras NÃO precisam de defesa** (entram brevemente).
 - **Elixir atk em dupla/group:** +70% aditivo no `helds` do **holder** (poke mais forte) por 8s. Shared CD 210s com solo_elixir. `Lure.elixirAtkHolderId` guarda o id.
 - **Cascading generator:** `generateLureTemplates` produz em 3 tiers — base (solo+dupla), +duplaElixir, +group. `findBestRotation` só adiciona os tiers caros quando o tier anterior não finaliza (economia de bags).
+- **`lureFinalizesBox` compara dmg vs `mob.hp` (NÃO hp×6)** — skills são area, hittam todos os 6 mobs simultaneamente; matar 1 = matar os 6.
 
 ### Cooldown de skills
 
@@ -251,6 +256,10 @@ Contexto histórico na memória: `project_pxg_damage_formula.md`.
 - **NÃO** marcar skill como `def:true` se for ofensiva — o flag é só pra self-buffs que substituem Elixir Def
 - **NÃO** assumir 1 ciclo no beam — skills de CD grande podem exigir evaluation em 2+ ciclos. `evaluateCycle` roda 2 cycles pra medir steady-state
 - **NÃO** rodar `evaluateCycle` em todo candidato do beam — é caro. Use cheap score (`sim.clock/steps.length`) e só refine top-4
+- **NÃO** misturar raw tpl com adjusted score no pruning — o worker mantém `bestRawTpl` separado pra comparar com bag bounds. `bestScore` (com `starterResistFactor`) é só pra ranking final. Misturar corta bags legítimamente melhores quando o factor < 1.
+- **NÃO** assumir que `lure.usesDevice` é a única coisa que aplica device bonus — o holder tem `hasDevice=true` em todas as lures (override global em `findBestRotation`). Damage calc lê `setup.hasDevice` direto, NÃO tem branch "se lure.usesDevice".
+- **NÃO** excluir device holder de duplas/groups como starter — só como second. Ele pode starterar qualquer tipo de lure, e o dano dele já ganha device bonus via setup override.
+- **NÃO** short-circuitar `findBestForBag` pra só o user's designated device — é hint, não override. Engine compara null + top-T1H + user pick e escolhe o melhor.
 
 ## Dicas de UI
 

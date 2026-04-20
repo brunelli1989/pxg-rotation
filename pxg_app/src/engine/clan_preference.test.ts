@@ -75,7 +75,7 @@ function runTest(
   const res = findBestForBag(bag, 2, { damageConfig: cfg });
   if (!res) {
     console.log(`  ✗ FAIL: no rotation`);
-    process.exitCode = 1;
+    (globalThis as { process?: { exitCode?: number } }).process!.exitCode = 1;
     return;
   }
 
@@ -109,7 +109,7 @@ function runTest(
     console.log(`  ✓ PASS`);
   } catch (e: unknown) {
     console.log(`  ✗ FAIL: ${(e as Error).message}`);
-    process.exitCode = 1;
+    (globalThis as { process?: { exitCode?: number } }).process!.exitCode = 1;
   }
 }
 

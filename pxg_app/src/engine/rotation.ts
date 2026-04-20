@@ -322,7 +322,10 @@ export function emptyState(ctx: SimContext): SimState {
  */
 export class SimStatePool {
   private free: SimState[] = [];
-  constructor(private ctx: SimContext) {}
+  private ctx: SimContext;
+  constructor(ctx: SimContext) {
+    this.ctx = ctx;
+  }
 
   acquireFresh(): SimState {
     const s = this.free.pop();

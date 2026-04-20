@@ -92,10 +92,27 @@ export function combinations<T>(arr: T[], k: number): T[][] {
 export function generateLureTemplates(
   bag: Pokemon[],
   devicePokemonId: string | null,
-  options: { includeDuplaElixir?: boolean; includeGroup?: boolean } = {}
+  options: {
+    includeDuplaElixir?: boolean;
+    includeGroup?: boolean;
+    hunt?: "300" | "400+";
+    starterRoleFilter?: "offtank" | "t1h" | "both";
+  } = {}
 ): Lure[] {
   const lures: Lure[] = [];
   const n = bag.length;
+
+  // Starter role filter baseado no hunt level. Só aplica em hunt "400+".
+  // Hunt 300: sem restrição extra. 400+: user escolhe offtank / t1h / both.
+  const roleFilter = options.hunt === "400+" ? (options.starterRoleFilter ?? "both") : null;
+  const starterRoleOk = (p: Pokemon): boolean => {
+    if (roleFilter === null) return true;
+    const isOfftank = p.role === "offensive_tank";
+    const isT1H = p.tier === "T1H";
+    if (roleFilter === "offtank") return isOfftank;
+    if (roleFilter === "t1h") return isT1H;
+    return isOfftank || isT1H;
+  };
 
   // Flags cacheadas por índice da bag (evita chamar has*() centenas de vezes)
   const hardCC = new Array<boolean>(n);
@@ -103,12 +120,14 @@ export function generateLureTemplates(
   const harden = new Array<boolean>(n);
   const silence = new Array<boolean>(n);
   const frontal = new Array<boolean>(n);
+  const roleOk = new Array<boolean>(n);
   for (let i = 0; i < n; i++) {
     hardCC[i] = hasHardCC(bag[i]);
     anyCC[i] = hasAnyCC(bag[i]);
     harden[i] = hasHarden(bag[i]);
     silence[i] = hasSilence(bag[i]);
     frontal[i] = hasFrontal(bag[i]);
+    roleOk[i] = starterRoleOk(bag[i]);
   }
 
   const deviceIdx = devicePokemonId
@@ -117,7 +136,7 @@ export function generateLureTemplates(
   const devicePoke = deviceIdx >= 0 ? bag[deviceIdx] : null;
 
   // Solo T1H + device. Starter sem frontal (frontal não protege os 6 mobs da box).
-  if (devicePoke && devicePoke.tier === "T1H" && hardCC[deviceIdx] && !frontal[deviceIdx]) {
+  if (devicePoke && devicePoke.tier === "T1H" && hardCC[deviceIdx] && !frontal[deviceIdx] && roleOk[deviceIdx]) {
     lures.push({
       type: "solo_device",
       starter: devicePoke,
@@ -140,6 +159,7 @@ export function generateLureTemplates(
     if (p.tier === "T1H") continue;
     if (!hardCC[i]) continue;
     if (frontal[i]) continue;
+    if (!roleOk[i]) continue;
 
     lures.push({
       type: "solo_elixir",
@@ -161,7 +181,7 @@ export function generateLureTemplates(
   // Device holder PODE ser dupla starter (ele só é excluído de solo_device se não for T1H,
   // e de "second" role — não faz sentido ser starter e second ao mesmo tempo).
   for (let i = 0; i < n; i++) {
-    if (!hardCC[i] || frontal[i]) continue;
+    if (!hardCC[i] || frontal[i] || !roleOk[i]) continue;
     const starter = bag[i];
     const starterHarden = harden[i];
 
@@ -200,7 +220,7 @@ export function generateLureTemplates(
   const MAX_GROUP_EXTRAS = MAX_BAG - 1;
   if (options.includeGroup) {
     for (let i = 0; i < n; i++) {
-      if (!hardCC[i] || frontal[i]) continue;
+      if (!hardCC[i] || frontal[i] || !roleOk[i]) continue;
       const starter = bag[i];
       const starterHarden = harden[i];
 
@@ -791,13 +811,15 @@ export function findBestRotation(
       return typeOk.length > 0 ? typeOk : dmgOk;
     };
 
-    lures = filter(generateLureTemplates(bag, devicePokemonId));
+    const genOpts = { hunt: cfg.hunt, starterRoleFilter: cfg.starterRoleFilter };
+    lures = filter(generateLureTemplates(bag, devicePokemonId, genOpts));
     if (lures.length === 0) {
-      lures = filter(generateLureTemplates(bag, devicePokemonId, { includeDuplaElixir: true }));
+      lures = filter(generateLureTemplates(bag, devicePokemonId, { ...genOpts, includeDuplaElixir: true }));
     }
     if (lures.length === 0) {
       lures = filter(
         generateLureTemplates(bag, devicePokemonId, {
+          ...genOpts,
           includeDuplaElixir: true,
           includeGroup: true,
         })

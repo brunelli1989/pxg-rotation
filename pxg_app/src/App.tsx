@@ -224,6 +224,7 @@ function App() {
           onHuntChange={damage.setHunt}
           onMobChange={damage.setMob}
           onDeviceChange={damage.setDevice}
+          onStarterRoleFilterChange={damage.setStarterRoleFilter}
         />
 
         <PokeSetupEditor

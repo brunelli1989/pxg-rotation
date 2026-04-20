@@ -147,6 +147,16 @@ export interface MobEntry {
   effectivenessNotes?: string;
 }
 
+/**
+ * Restrição de starter em hunts 400+. Usuário escolhe estilo conforme força do char:
+ * - "offtank": só role === "offensive_tank" pode starter (safe)
+ * - "t1h": só tier === "T1H" pode starter (device burst, player forte)
+ * - "both": offtank OU T1H (flexível, default)
+ *
+ * Só aplica quando hunt === "400+". Em hunt 300 não há restrição extra.
+ */
+export type StarterRoleFilter = "offtank" | "t1h" | "both";
+
 export interface DamageConfig {
   playerLvl: number;
   clan: ClanName | null;
@@ -155,4 +165,5 @@ export interface DamageConfig {
   device: DeviceHeld; // global: held que está no device (compartilhado entre pokes)
   pokeSetups: Record<string, PokeSetup>; // keyed by pokeId
   skillCalibrations: Record<string, number>; // keyed by "pokeId:skillName", value = skill_power
+  starterRoleFilter?: StarterRoleFilter; // default "both" quando playerLvl >= 400
 }

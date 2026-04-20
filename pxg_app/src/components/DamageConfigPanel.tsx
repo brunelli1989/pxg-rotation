@@ -6,6 +6,7 @@ import type {
   MobEntry,
   DeviceHeld,
   DeviceHeldKind,
+  StarterRoleFilter,
   XAtkTier,
 } from "../types";
 import clansData from "../data/clans.json";
@@ -60,6 +61,7 @@ interface Props {
   onHuntChange: (v: HuntLevel) => void;
   onMobChange: (mob: Partial<MobConfig>) => void;
   onDeviceChange: (device: Partial<DeviceHeld>) => void;
+  onStarterRoleFilterChange: (v: StarterRoleFilter) => void;
 }
 
 export function DamageConfigPanel({
@@ -69,6 +71,7 @@ export function DamageConfigPanel({
   onHuntChange,
   onMobChange,
   onDeviceChange,
+  onStarterRoleFilterChange,
 }: Props) {
   const mobsForHunt = mobs
     .filter((m) => m.hunt === config.hunt)
@@ -169,6 +172,20 @@ export function DamageConfigPanel({
             <option value="400+">Hunt 400+</option>
           </select>
         </label>
+
+        {config.hunt === "400+" && (
+          <label title="Em hunts 400+, escolha o estilo do starter. Offtank mais seguro, T1H precisa mais dano.">
+            Estilo starter:
+            <select
+              value={config.starterRoleFilter ?? "both"}
+              onChange={(e) => onStarterRoleFilterChange(e.target.value as StarterRoleFilter)}
+            >
+              <option value="both">Offtank + T1H</option>
+              <option value="offtank">Só Offtank</option>
+              <option value="t1h">Só T1H</option>
+            </select>
+          </label>
+        )}
       </div>
 
       <div className="damage-config-row">

@@ -94,6 +94,16 @@ function buildReport(
     lines.push(`Mob: ${m.name} (${m.types.join("/")}) HP=${m.hp} def=${m.defFactor ?? "—"}${bestStr}`);
     const dev = damageConfig.device;
     lines.push(`Device held: ${dev.kind === "none" ? "—" : `${dev.kind} T${dev.tier}`}`);
+    if (damageConfig.hunt === "400+") {
+      const filter = damageConfig.starterRoleFilter ?? "both";
+      const filterLabel: Record<string, string> = {
+        both: "Offtank + T1H",
+        offtank: "Só Offtank",
+        t1h: "Só T1H",
+        "t1h-clan": "T1H do clã",
+      };
+      lines.push(`Estilo starter: ${filterLabel[filter] ?? filter}`);
+    }
   }
   lines.push(`Pokémons selecionados (${selectedIds.length}):`);
   selectedIds.forEach((id) => {

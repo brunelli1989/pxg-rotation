@@ -128,6 +128,7 @@ export function generateLureTemplates(
   const silence = new Array<boolean>(n);
   const frontal = new Array<boolean>(n);
   const roleOk = new Array<boolean>(n);
+  const needsElixirDef = new Array<boolean>(n);
   for (let i = 0; i < n; i++) {
     hardCC[i] = hasHardCC(bag[i]);
     anyCC[i] = hasAnyCC(bag[i]);
@@ -135,6 +136,10 @@ export function generateLureTemplates(
     silence[i] = hasSilence(bag[i]);
     frontal[i] = hasFrontal(bag[i]);
     roleOk[i] = starterRoleOk(bag[i]);
+    // T1H tem HP pool alto → não precisa de Elixir Def mesmo sem def:true skill.
+    // Offtanks T2/T3 sem Harden precisam. Burst_dd T2/T3 sem def também (mas
+    // normalmente são filtrados pelo hunt 400+ rule antes).
+    needsElixirDef[i] = !harden[i] && bag[i].tier !== "T1H";
   }
 
   const deviceIdx = devicePokemonId
@@ -175,7 +180,7 @@ export function generateLureTemplates(
       starterSkills: getOptimalSkillOrder(p),
       secondSkills: [],
       starterUsesHarden: harden[i],
-      starterUsesElixirDef: !harden[i],
+      starterUsesElixirDef: needsElixirDef[i],
       usesElixirAtk: true,
       usesDevice: false,
       extraMembers: [],
@@ -191,6 +196,7 @@ export function generateLureTemplates(
     if (!hardCC[i] || frontal[i] || !roleOk[i]) continue;
     const starter = bag[i];
     const starterHarden = harden[i];
+    const starterNeedsElixirDef = needsElixirDef[i];
 
     for (let j = 0; j < n; j++) {
       if (j === i || j === deviceIdx) continue;
@@ -206,7 +212,7 @@ export function generateLureTemplates(
         starterSkills: getOptimalSkillOrder(starter, silenceActive),
         secondSkills: getOptimalSkillOrder(second, silenceActive),
         starterUsesHarden: starterHarden,
-        starterUsesElixirDef: !starterHarden,
+        starterUsesElixirDef: starterNeedsElixirDef,
         usesDevice: false,
         extraMembers: [],
       };
@@ -230,6 +236,7 @@ export function generateLureTemplates(
       if (!hardCC[i] || frontal[i] || !roleOk[i]) continue;
       const starter = bag[i];
       const starterHarden = harden[i];
+      const starterNeedsElixirDef = needsElixirDef[i];
 
       const candidateIdx: number[] = [];
       for (let k = 0; k < n; k++) {
@@ -269,7 +276,7 @@ export function generateLureTemplates(
             starterSkills: getOptimalSkillOrder(starter, silenceActive),
             secondSkills: getOptimalSkillOrder(second, silenceActive),
             starterUsesHarden: starterHarden,
-            starterUsesElixirDef: !starterHarden,
+            starterUsesElixirDef: starterNeedsElixirDef,
             usesDevice: false,
             extraMembers: rest,
           };
@@ -550,12 +557,28 @@ export function compileLures(
 const KILL_TIME = 10; // seconds of kill time after each lure's finisher (all pokes in bag, disk still applies)
 
 /**
- * Penalty no score pra desempatar favor de rotações sem elixir atk (que é consumível).
- * Aplicado como multiplicador `1 + frac_elixir × ELIXIR_SCORE_PENALTY` no adjusted score.
- * 0.02 = 2% max penalty (rotação 100% elixir). Pequeno o suficiente pra não derrotar
- * decisões onde elixir dá ganho real >2%, mas quebra empates.
+ * Elixir atk não tem penalty no score (removido 2% penalty) — engine decide puramente
+ * por bph. Tiebreak: se duas rotações empatam em score, prefere a com menos elixirs.
+ * Count exposto em BagRun / bestOverall.elixirCount pra o comparator secundário.
  */
-const ELIXIR_SCORE_PENALTY = 0.02;
+
+/**
+ * Penalty pra starter com silence (vs stun). PxG: silence é situacionalmente pior
+ * que stun pra starter (não impede auto-attack melee, só skills). Prefere stun
+ * sempre que silence não ganha >10% em bph — situação típica onde silence só é
+ * marginalmente melhor; stun é mais seguro e preferido.
+ */
+const SILENCE_STARTER_PENALTY = 0.10;
+
+function starterUsesSilence(lure: Lure): boolean {
+  // Só penaliza starter com silence-only (sem opção de stun área).
+  // Se o poke tem ambos stun e silence, vai castar stun primeiro (ordem em skills array).
+  const hasStunArea = lure.starter.skills.some(
+    (s) => s.cc === "stun" && s.type !== "frontal"
+  );
+  if (hasStunArea) return false;
+  return lure.starter.skills.some((s) => s.cc === "silence" && s.type !== "frontal");
+}
 
 /**
  * Computes the wait needed for a starter skill (cast at lure_start + offset).
@@ -820,26 +843,33 @@ export function findBestRotation(
       return els.some((e) => best.includes(e));
     };
     const lureSize = (l: Lure) => 1 + (l.second ? 1 : 0) + l.extraMembers.length;
+    // Stun starter preferido sobre silence (silence é situacionalmente pior pra tankar).
+    // Se alguma lure tem stun-starter válido, todas silence-only ficam fora.
+    const hasStunStarter = (l: Lure): boolean => {
+      return l.starter.skills.some(
+        (s) => s.cc === "stun" && s.type !== "frontal"
+      );
+    };
     const filter = (ls: Lure[]) => {
       const dmgOk = ls.filter((l) => lureFinalizesBox(l, cfg, cfg.mob));
       const typeOk = dmgOk.filter(starterTypeOk);
-      return typeOk.length > 0 ? typeOk : dmgOk;
+      const typeFiltered = typeOk.length > 0 ? typeOk : dmgOk;
+      const stunOnly = typeFiltered.filter(hasStunStarter);
+      return stunOnly.length > 0 ? stunOnly : typeFiltered;
     };
 
-    const genOpts = { hunt: cfg.hunt, starterRoleFilter: cfg.starterRoleFilter, clan: cfg.clan };
+    // Gera TODOS os tiers de lure (solo + dupla + dupla+elixir + group) de uma vez.
+    // Antes: cascading greedy parava no primeiro tier que finalizava — causava bags
+    // com strong dupla+elixir (Heatmor+Chandelure) a perderem de bags com group(3)
+    // 40+bph. Agora beam search recebe todas as opções e escolhe a melhor per-bph.
+    const genOpts = {
+      hunt: cfg.hunt,
+      starterRoleFilter: cfg.starterRoleFilter,
+      clan: cfg.clan,
+      includeDuplaElixir: true,
+      includeGroup: true,
+    };
     lures = filter(generateLureTemplates(bag, devicePokemonId, genOpts));
-    if (lures.length === 0) {
-      lures = filter(generateLureTemplates(bag, devicePokemonId, { ...genOpts, includeDuplaElixir: true }));
-    }
-    if (lures.length === 0) {
-      lures = filter(
-        generateLureTemplates(bag, devicePokemonId, {
-          ...genOpts,
-          includeDuplaElixir: true,
-          includeGroup: true,
-        })
-      );
-    }
 
     // Regra de força do player: "a partir do momento que o player consegue finalizar
     // com 3 pokes é possível lurar com T1H". Se nenhuma lure de ≤3 membros finaliza,
@@ -867,7 +897,7 @@ export function findBestRotation(
     return { sim, sequence: [c] };
   });
 
-  let bestOverall: { idle: number; result: RotationResult; score: number } | null = null;
+  let bestOverall: { idle: number; result: RotationResult; score: number; elixirCount: number } | null = null;
 
   // Scoring cheap: sim.clock / steps.length já é um bom proxy do tempo-por-lure (warmup
   // afeta todos candidatos igualmente). evaluateCycle só roda no top do step, não em cada
@@ -894,18 +924,20 @@ export function findBestRotation(
       const tpl = cand.sim.clock / cand.sim.steps.length;
       let sumResist = 0;
       let elixirCount = 0;
+      let silenceStarterCount = 0;
       for (const c of cand.sequence) {
         sumResist += c.starterResistFactor;
         if (c.lure.usesElixirAtk) elixirCount++;
+        if (starterUsesSilence(c.lure)) silenceStarterCount++;
       }
       const avgResist = sumResist / cand.sequence.length;
-      // Elixir atk é consumível — pequena penalty pra preferir rotações sem elixir em empates.
-      // Fator 1.02 por % de lures com elixir (100% elixir → +2% score; quebra empates sem
-      // derrotar decisões onde elixir dá ganho real >2%).
-      const elixirPenalty = 1 + (elixirCount / cand.sequence.length) * ELIXIR_SCORE_PENALTY;
-      return { cand, score: tpl * avgResist * elixirPenalty };
+      const n = cand.sequence.length;
+      // Silence starter vira 2º escolha vs stun (stun é mais seguro pra tankar auto-attack).
+      const silencePenalty = 1 + (silenceStarterCount / n) * SILENCE_STARTER_PENALTY;
+      return { cand, score: tpl * avgResist * silencePenalty, elixirCount };
     });
-    scoredCheap.sort((a, b) => a.score - b.score);
+    // Primary: score ascending. Tiebreak: elixir count ascending (prefere menos consumível).
+    scoredCheap.sort((a, b) => a.score - b.score || a.elixirCount - b.elixirCount);
     beam = scoredCheap.slice(0, beamWidth).map((s) => s.cand);
 
     // Release candidates que não entraram no beam
@@ -924,14 +956,28 @@ export function findBestRotation(
         const tpl = ev.result.totalTime / truePeriodSeq.length;
         let sumResist = 0;
         let elixirCount = 0;
+        let silenceStarterCount = 0;
         for (const c of truePeriodSeq) {
           sumResist += c.starterResistFactor;
           if (c.lure.usesElixirAtk) elixirCount++;
+          if (starterUsesSilence(c.lure)) silenceStarterCount++;
         }
-        const elixirPenalty = 1 + (elixirCount / truePeriodSeq.length) * ELIXIR_SCORE_PENALTY;
-        const adjustedTpl = tpl * (sumResist / truePeriodSeq.length) * elixirPenalty;
-        if (!bestOverall || adjustedTpl < bestOverall.score) {
-          bestOverall = { idle: ev.idlePerCycle, result: ev.result, score: adjustedTpl };
+        const n2 = truePeriodSeq.length;
+        const silencePenalty = 1 + (silenceStarterCount / n2) * SILENCE_STARTER_PENALTY;
+        const adjustedTpl = tpl * (sumResist / n2) * silencePenalty;
+        // Primary: lower score wins. Tiebreak: fewer elixirs wins (consumível).
+        const EPSILON = 1e-9;
+        const better = !bestOverall
+          || adjustedTpl < bestOverall.score - EPSILON
+          || (Math.abs(adjustedTpl - bestOverall.score) < EPSILON
+              && elixirCount < bestOverall.elixirCount);
+        if (better) {
+          bestOverall = {
+            idle: ev.idlePerCycle,
+            result: ev.result,
+            score: adjustedTpl,
+            elixirCount,
+          };
         }
       }
     }

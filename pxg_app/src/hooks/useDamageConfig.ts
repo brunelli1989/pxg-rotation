@@ -5,10 +5,14 @@ import type {
   HuntLevel,
   PokeSetup,
   MobConfig,
+  MobEntry,
   XAtkTier,
   PokemonElement,
   DeviceHeld,
 } from "../types";
+import mobsDataRaw from "../data/mobs.json";
+
+const mobsData = mobsDataRaw as MobEntry[];
 
 const STORAGE_KEY = "pxg_damage_config";
 
@@ -46,6 +50,15 @@ function loadConfig(): DamageConfig {
     // Migration: add global device (was per-poke antes)
     if (!merged.device) {
       merged.device = { kind: "x-attack", tier: 4 };
+    }
+    // Migration: re-hidrata bestStarterElements do mob se faltando (campo novo,
+    // configs salvas antes não têm — casa por name exato ou pelo group name)
+    if (merged.mob && !merged.mob.bestStarterElements) {
+      const name = merged.mob.name;
+      const match = mobsData.find((m) => m.name === name || m.group === name);
+      if (match?.bestStarterElements) {
+        merged.mob.bestStarterElements = match.bestStarterElements;
+      }
     }
     // Migration: pokeSetups — converte xAtkTier/xBoostTier legado pra held único
     if (merged.pokeSetups) {

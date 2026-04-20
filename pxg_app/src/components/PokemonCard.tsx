@@ -25,7 +25,11 @@ function ccLabel(pokemon: Pokemon): string {
 export function PokemonCard({ pokemon, selected, disabled, onToggle }: Props) {
   const cc = ccLabel(pokemon);
   const hasCC = cc !== "No CC";
-  const uncalibrated = pokemon.todo !== undefined;
+  // Uncalibrated = skill de dano (sem buff) com power undefined → usa fallback.
+  // pokemon.todo é só metadado informativo e não indica falta de calibração.
+  const uncalibrated = pokemon.skills.some(
+    (s) => s.power === undefined && s.buff === null
+  );
 
   return (
     <div

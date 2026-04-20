@@ -124,6 +124,17 @@ function buildReport(
   lines.push(`Ciclo: ${formatTime(result.totalTime)} | Ocioso: ${formatTime(result.totalIdle)} | Lures: ${result.steps.length}`);
   lines.push(`Boxes/h: ${boxesPerHour} | Pokémons/h: ${pokesPerHour}`);
 
+  const elixirAtk = result.steps.filter((s) => s.lure.usesElixirAtk).length;
+  const elixirDef = result.steps.filter((s) => s.lure.starterUsesElixirDef).length;
+  if (elixirAtk > 0 || elixirDef > 0) {
+    const cyclePerHour = 3600 / result.totalTime;
+    const atkPerHour = elixirAtk * cyclePerHour;
+    const defPerHour = elixirDef * cyclePerHour;
+    const ELIXIR_PRICE = 500;
+    const cost = Math.round((atkPerHour + defPerHour) * ELIXIR_PRICE);
+    lines.push(`Elixirs/h: ${atkPerHour.toFixed(1)} atk + ${defPerHour.toFixed(1)} def (~$${cost.toLocaleString()}/h)`);
+  }
+
   const devicePoke = result.devicePokemonId
     ? allPokemon.find((p) => p.id === result.devicePokemonId)?.name
     : null;

@@ -5,10 +5,23 @@ interface Props {
   result: RotationResultType;
 }
 
+// Preço fixo por elixir (gold). Ajuste se necessário.
+const ELIXIR_PRICE = 500;
+
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60);
   const s = Math.round(seconds % 60);
   return m > 0 ? `${m}m${s.toString().padStart(2, "0")}s` : `${s}s`;
+}
+
+function countElixirsPerCycle(result: RotationResultType): { atk: number; def: number } {
+  let atk = 0;
+  let def = 0;
+  for (const step of result.steps) {
+    if (step.lure.usesElixirAtk) atk++;
+    if (step.lure.starterUsesElixirDef) def++;
+  }
+  return { atk, def };
 }
 
 function lureFinisherLabel(lure: Lure): string {
@@ -29,6 +42,12 @@ function lureFinisherClass(lure: Lure): string {
 }
 
 export function RotationResultView({ result }: Props) {
+  const elixirs = countElixirsPerCycle(result);
+  const cyclePerHour = 3600 / result.totalTime;
+  const elixirAtkPerHour = elixirs.atk * cyclePerHour;
+  const elixirDefPerHour = elixirs.def * cyclePerHour;
+  const totalCostPerHour = (elixirAtkPerHour + elixirDefPerHour) * ELIXIR_PRICE;
+
   return (
     <section className="rotation-result">
       <div className="result-header">
@@ -46,6 +65,12 @@ export function RotationResultView({ result }: Props) {
           <span className="stat">
             Ocioso: <strong>{formatTime(result.totalIdle)}</strong>
           </span>
+          {(elixirs.atk > 0 || elixirs.def > 0) && (
+            <span className="stat" title={`${ELIXIR_PRICE} gold por elixir`}>
+              Elixirs/h: <strong>{elixirAtkPerHour.toFixed(1)} atk + {elixirDefPerHour.toFixed(1)} def</strong>
+              {" "}(<strong>${Math.round(totalCostPerHour).toLocaleString()}/h</strong>)
+            </span>
+          )}
         </div>
       </div>
 

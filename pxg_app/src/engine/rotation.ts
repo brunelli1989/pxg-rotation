@@ -543,6 +543,14 @@ export function compileLures(
 const KILL_TIME = 10; // seconds of kill time after each lure's finisher (all pokes in bag, disk still applies)
 
 /**
+ * Penalty no score pra desempatar favor de rotações sem elixir atk (que é consumível).
+ * Aplicado como multiplicador `1 + frac_elixir × ELIXIR_SCORE_PENALTY` no adjusted score.
+ * 0.02 = 2% max penalty (rotação 100% elixir). Pequeno o suficiente pra não derrotar
+ * decisões onde elixir dá ganho real >2%, mas quebra empates.
+ */
+const ELIXIR_SCORE_PENALTY = 0.02;
+
+/**
  * Computes the wait needed for a starter skill (cast at lure_start + offset).
  * During wait, starter é "selected-idle" → self-cast progride 1:1; ninguém mais
  * casta, então othersCast do starter fica parado.
@@ -878,9 +886,17 @@ export function findBestRotation(
     const scoredCheap = candidates.map((cand) => {
       const tpl = cand.sim.clock / cand.sim.steps.length;
       let sumResist = 0;
-      for (const c of cand.sequence) sumResist += c.starterResistFactor;
+      let elixirCount = 0;
+      for (const c of cand.sequence) {
+        sumResist += c.starterResistFactor;
+        if (c.lure.usesElixirAtk) elixirCount++;
+      }
       const avgResist = sumResist / cand.sequence.length;
-      return { cand, score: tpl * avgResist };
+      // Elixir atk é consumível — pequena penalty pra preferir rotações sem elixir em empates.
+      // Fator 1.02 por % de lures com elixir (100% elixir → +2% score; quebra empates sem
+      // derrotar decisões onde elixir dá ganho real >2%).
+      const elixirPenalty = 1 + (elixirCount / cand.sequence.length) * ELIXIR_SCORE_PENALTY;
+      return { cand, score: tpl * avgResist * elixirPenalty };
     });
     scoredCheap.sort((a, b) => a.score - b.score);
     beam = scoredCheap.slice(0, beamWidth).map((s) => s.cand);
@@ -900,8 +916,13 @@ export function findBestRotation(
         const ev = evaluateCycle(truePeriodSeq, diskLevel, ctx, pool);
         const tpl = ev.result.totalTime / truePeriodSeq.length;
         let sumResist = 0;
-        for (const c of truePeriodSeq) sumResist += c.starterResistFactor;
-        const adjustedTpl = tpl * (sumResist / truePeriodSeq.length);
+        let elixirCount = 0;
+        for (const c of truePeriodSeq) {
+          sumResist += c.starterResistFactor;
+          if (c.lure.usesElixirAtk) elixirCount++;
+        }
+        const elixirPenalty = 1 + (elixirCount / truePeriodSeq.length) * ELIXIR_SCORE_PENALTY;
+        const adjustedTpl = tpl * (sumResist / truePeriodSeq.length) * elixirPenalty;
         if (!bestOverall || adjustedTpl < bestOverall.score) {
           bestOverall = { idle: ev.idlePerCycle, result: ev.result, score: adjustedTpl };
         }

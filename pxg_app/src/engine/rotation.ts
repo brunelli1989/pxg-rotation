@@ -745,6 +745,7 @@ export function findBestRotation(
       if (!els || els.length === 0) return true;
       return els.some((e) => best.includes(e));
     };
+    const lureSize = (l: Lure) => 1 + (l.second ? 1 : 0) + l.extraMembers.length;
     const filter = (ls: Lure[]) => {
       const dmgOk = ls.filter((l) => lureFinalizesBox(l, cfg, cfg.mob));
       const typeOk = dmgOk.filter(starterTypeOk);
@@ -762,6 +763,18 @@ export function findBestRotation(
           includeGroup: true,
         })
       );
+    }
+
+    // Regra de força do player: "a partir do momento que o player consegue finalizar
+    // com 3 pokes é possível lurar com T1H". Se nenhuma lure de ≤3 membros finaliza,
+    // o player é "fraco" → starter precisa ter skill com def:true (offtank real).
+    // T1H burst_dd sem def skill fica banido de ser starter nesse caso.
+    const hasSmallLure = lures.some((l) => lureSize(l) <= 3);
+    if (!hasSmallLure) {
+      const withDef = lures.filter((l) =>
+        l.starter.skills.some((s) => s.def === true)
+      );
+      if (withDef.length > 0) lures = withDef;
     }
   } else {
     lures = generateLureTemplates(bag, devicePokemonId);

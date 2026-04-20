@@ -29,6 +29,7 @@ const mobs = mobsData as Array<{
 }>;
 const pansear = mobs.find((m) => m.name === "Pansear")!;
 const pinsir = mobs.find((m) => m.name === "Pinsir")!;
+const torkoal = mobs.find((m) => m.name === "Torkoal")!;
 
 function setup(boost: number, tier: 0|1|2|3|4|5|6|7|8): PokeSetup {
   return { boost, held: { kind: "x-attack", tier }, hasDevice: false };
@@ -222,6 +223,59 @@ runTest(
   },
   huntSetups,
   { mob: pinsir, playerLvl: 400, hunt: "400+" },
+);
+
+// --- Test 6: hunt 400+ Torkoal → Sh.Rampardos (device) em 3 lures distintas ---
+// Bag: Sh.Rampardos + TR Tyranitar + Lycanroc + Hippowdon + Sh.Donphan + TR Piloswine.
+// bestStarterElements do Torkoal = [water, rock] → hard filter permite Sh.Rampardos, TR Tyranitar
+// como starter; grounds (Hippo, Donphan, Piloswine) só como second/extra.
+// Lycanroc não tem hardCC (frontal stun só) → só second/extra.
+// Expected: Sh.Rampardos domina como starter (device holder, burst_dd com high power calibrado),
+// aparece em múltiplas lures. Grounds usados como extras.
+const torkoalBag = [
+  findPoke("Shiny Rampardos"),
+  findPoke("TR Tyranitar"),
+  findPoke("Lycanroc"),
+  findPoke("Hippowdon Female"),
+  findPoke("Shiny Donphan"),
+  findPoke("TR Piloswine"),
+];
+const torkoalSetups: Record<string, PokeSetup> = {};
+for (const p of torkoalBag) {
+  torkoalSetups[p.id] = {
+    boost: 80,
+    held: { kind: "x-attack", tier: 8 },
+    hasDevice: p.name === "Shiny Rampardos",
+  };
+}
+runTest(
+  "Test 6: hunt 400+ Torkoal → Sh.Rampardos (device) em múltiplas lures",
+  torkoalBag,
+  "orebound",
+  (_starters, usage, result) => {
+    if (result.steps === 0) throw new Error("no lures");
+    // Sh.Rampardos é device holder, deve aparecer em pelo menos uma lure como starter ou membro
+    if (usage["Shiny Rampardos"].any === 0) throw new Error("Sh.Rampardos não apareceu");
+    // Starters devem ser só rock (bestStarterElements = water, rock; bag tem water? não)
+    // Sh.Rampardos (rock), TR Tyranitar (rock) são os únicos candidatos a starter (Lycanroc sem hardCC)
+    const groundStarters =
+      usage["Hippowdon Female"].starter +
+      usage["Shiny Donphan"].starter +
+      usage["TR Piloswine"].starter;
+    if (groundStarters > 0) {
+      throw new Error(`ground pokes não deveriam ser starter (got ${groundStarters})`);
+    }
+    // Pelo menos um dos ground pokes deve ser usado como second/extra
+    const groundUsage =
+      usage["Hippowdon Female"].any +
+      usage["Shiny Donphan"].any +
+      usage["TR Piloswine"].any;
+    if (groundUsage === 0) {
+      throw new Error("nenhum ground poke usado como second/extra");
+    }
+  },
+  torkoalSetups,
+  { mob: torkoal, playerLvl: 400, hunt: "400+" },
 );
 
 // --- Test 3: rotação ideal Magby/Pansear com Sh.Rampardos device ---

@@ -347,6 +347,7 @@
     ],
     "hunt": "300",
     "group": "Galarian Farfetch'd",
+    "hp": 179559,
     "todo": "calibrate defense",
     "bestStarterElements": [
       "flying",
@@ -573,6 +574,7 @@
     ],
     "hunt": "300",
     "group": "Barboach",
+    "hp": 216333,
     "todo": "calibrate defense",
     "bestStarterElements": [
       "grass",
@@ -976,6 +978,7 @@
     ],
     "hunt": "300",
     "group": "Petilil",
+    "hp": 235312,
     "todo": "calibrate defense",
     "bestStarterElements": [
       "fire",
@@ -1001,6 +1004,7 @@
     ],
     "hunt": "300",
     "group": "Skiddo/Nuzleaf",
+    "hp": 203680,
     "todo": "calibrate defense",
     "bestStarterElements": [
       "fire",
@@ -1028,6 +1032,7 @@
     ],
     "hunt": "300",
     "group": "Skiddo/Nuzleaf",
+    "hp": 180799,
     "todo": "calibrate defense",
     "bestStarterElements": [
       "fire",
@@ -1120,6 +1125,7 @@
     ],
     "hunt": "400+",
     "group": "Meowstic",
+    "hp": 520789,
     "todo": "calibrate defense",
     "bestStarterElements": [
       "psychic",
@@ -1480,6 +1486,7 @@
     ],
     "hunt": "400+",
     "group": "Granbull",
+    "hp": 544008,
     "todo": "calibrate defense",
     "bestStarterElements": [
       "poison",
@@ -1894,6 +1901,7 @@
     ],
     "hunt": "400+",
     "group": "Chandelure",
+    "hp": 469384,
     "todo": "calibrate defense",
     "bestStarterElements": [
       "normal",
@@ -2167,6 +2175,7 @@
     ],
     "hunt": "400+",
     "group": "Appletun",
+    "hp": 433668,
     "todo": "calibrate defense",
     "bestStarterElements": [
       "grass",
@@ -2233,6 +2242,7 @@
     ],
     "hunt": "400+",
     "group": "Muk/Seviper",
+    "hp": 519480,
     "todo": "calibrate defense",
     "bestStarterElements": [
       "ground",
@@ -2251,6 +2261,7 @@
     ],
     "hunt": "400+",
     "group": "Muk/Seviper",
+    "hp": 494849,
     "todo": "calibrate defense",
     "bestStarterElements": [
       "ground",
@@ -2260,6 +2271,126 @@
     "effectiveElements": [
       "psychic",
       "ground"
+    ]
+  },
+  {
+    "name": "Shiftry",
+    "types": [
+      "grass",
+      "dark"
+    ],
+    "hunt": "400+",
+    "group": "Mixed Grass",
+    "hp": 477598,
+    "todo": "calibrate defense",
+    "bestStarterElements": [
+      "fire",
+      "flying",
+      "bug",
+      "poison"
+    ],
+    "wiki": "https://wiki.pokexgames.com/index.php/Nightmare_Hunt_-_Mixed_Grass",
+    "effectiveElements": [
+      "fire",
+      "ice",
+      "poison",
+      "flying",
+      "bug"
+    ]
+  },
+  {
+    "name": "Lilligant",
+    "types": [
+      "grass"
+    ],
+    "hunt": "400+",
+    "group": "Mixed Grass",
+    "hp": 536400,
+    "todo": "calibrate defense",
+    "bestStarterElements": [
+      "fire",
+      "flying",
+      "bug",
+      "poison"
+    ],
+    "wiki": "https://wiki.pokexgames.com/index.php/Nightmare_Hunt_-_Mixed_Grass",
+    "effectiveElements": [
+      "fire",
+      "ice",
+      "poison",
+      "flying",
+      "bug"
+    ]
+  },
+  {
+    "name": "Tangela",
+    "types": [
+      "grass"
+    ],
+    "hunt": "400+",
+    "group": "Mixed Grass",
+    "hp": 678137,
+    "todo": "calibrate defense",
+    "bestStarterElements": [
+      "fire",
+      "flying",
+      "bug",
+      "poison"
+    ],
+    "wiki": "https://wiki.pokexgames.com/index.php/Nightmare_Hunt_-_Mixed_Grass",
+    "effectiveElements": [
+      "fire",
+      "ice",
+      "poison",
+      "flying",
+      "bug"
+    ]
+  },
+  {
+    "name": "Abomasnow",
+    "types": [
+      "grass",
+      "ice"
+    ],
+    "hunt": "400+",
+    "group": "Abomasnow",
+    "hp": 439700,
+    "todo": "calibrate defense",
+    "bestStarterElements": [
+      "fire",
+      "fighting",
+      "steel"
+    ],
+    "wiki": "https://wiki.pokexgames.com/index.php/Nightmare_Hunt_-_Abomasnow",
+    "effectiveElements": [
+      "fire",
+      "fighting",
+      "rock",
+      "steel"
+    ]
+  },
+  {
+    "name": "Piloswine",
+    "types": [
+      "ice",
+      "ground"
+    ],
+    "hunt": "400+",
+    "group": "Piloswine",
+    "hp": 454886,
+    "todo": "calibrate defense",
+    "bestStarterElements": [
+      "fire",
+      "fighting",
+      "steel"
+    ],
+    "wiki": "https://wiki.pokexgames.com/index.php/Nightmare_Hunt_-_Piloswine",
+    "effectiveElements": [
+      "fire",
+      "fighting",
+      "water",
+      "grass",
+      "steel"
     ]
   }
 ]

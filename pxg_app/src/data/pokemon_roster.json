@@ -276,6 +276,20 @@
     ]
   },
   {
+    "id": "frosmoth",
+    "name": "Frosmoth",
+    "tier": "T2",
+    "clans": [
+      "seavell",
+      "naturia"
+    ],
+    "role": "offensive_tank",
+    "elements": [
+      "ice",
+      "bug"
+    ]
+  },
+  {
     "id": "galarian-rapidash",
     "name": "Galarian Rapidash",
     "tier": "T2",
@@ -295,6 +309,18 @@
       "wingeon"
     ],
     "role": "burst_dd",
+    "elements": [
+      "dragon"
+    ]
+  },
+  {
+    "id": "haxorus",
+    "name": "Haxorus",
+    "tier": "T1H",
+    "clans": [
+      "wingeon"
+    ],
+    "role": "offensive_tank",
     "elements": [
       "dragon"
     ]
@@ -804,6 +830,18 @@
     "role": "burst_dd",
     "elements": [
       "steel"
+    ]
+  },
+  {
+    "id": "mightyena",
+    "name": "Mightyena",
+    "tier": "T2",
+    "clans": [
+      "malefic"
+    ],
+    "role": "offensive_tank",
+    "elements": [
+      "dark"
     ]
   },
   {
@@ -1601,6 +1639,18 @@
     ]
   },
   {
+    "id": "electabuzz",
+    "name": "Electabuzz",
+    "tier": "T2",
+    "clans": [
+      "raibolt"
+    ],
+    "role": "offensive_tank",
+    "elements": [
+      "electric"
+    ]
+  },
+  {
     "id": "electivire",
     "name": "TM Electivire",
     "tier": "TM",
@@ -1717,6 +1767,18 @@
     "role": "offensive_tank",
     "elements": [
       "electric"
+    ]
+  },
+  {
+    "id": "shiny-arbok",
+    "name": "Shiny Arbok",
+    "tier": "T3",
+    "clans": [
+      "malefic"
+    ],
+    "role": "offensive_tank",
+    "elements": [
+      "poison"
     ]
   },
   {
@@ -1984,6 +2046,18 @@
     ]
   },
   {
+    "id": "weavile",
+    "name": "TR Weavile",
+    "tier": "TR",
+    "clans": [
+      "malefic"
+    ],
+    "role": "burst_dd",
+    "elements": [
+      "dark"
+    ]
+  },
+  {
     "id": "wigglytuff",
     "name": "TR Wigglytuff",
     "tier": "TR",
@@ -2077,6 +2151,18 @@
     "role": "burst_dd",
     "elements": [
       "grass"
+    ]
+  },
+  {
+    "id": "zoroark",
+    "name": "Zoroark",
+    "tier": "T1H",
+    "clans": [
+      "malefic"
+    ],
+    "role": "burst_dd",
+    "elements": [
+      "dark"
     ]
   }
 ]

@@ -2113,44 +2113,29 @@
     ]
   },
   {
-    "id": "shiny-electrode",
-    "name": "Shiny Electrode",
+    "id": "electabuzz",
+    "name": "Electabuzz",
     "tier": "T2",
-    "role": "burst_dd",
-    "wiki": "https://wiki.pokexgames.com/index.php/Shiny_Electrode",
-    "todo": "calibrate skills",
+    "role": "offensive_tank",
+    "wiki": "https://wiki.pokexgames.com/index.php/Electabuzz",
     "skills": [
       {
-        "name": "Rollout",
-        "cooldown": 35,
+        "name": "Vital Spirit",
+        "cooldown": 40,
         "type": "area",
         "cc": null,
         "buff": "self",
-        "element": "rock"
-      },
-      {
-        "name": "Explosion",
-        "cooldown": 80,
-        "type": "area",
-        "cc": null,
-        "buff": null,
+        "def": true,
         "element": "normal"
       },
       {
-        "name": "Electric Storm",
-        "cooldown": 50,
+        "name": "Electrify",
+        "cooldown": 40,
         "type": "area",
-        "cc": null,
+        "cc": "stun",
         "buff": null,
-        "element": "electric"
-      },
-      {
-        "name": "Discharge",
-        "cooldown": 50,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "electric"
+        "element": "electric",
+        "power": 8.88
       },
       {
         "name": "Thunder Wrath",
@@ -2158,7 +2143,79 @@
         "type": "area",
         "cc": null,
         "buff": null,
+        "element": "electric",
+        "power": 17.43
+      },
+      {
+        "name": "Mamaragan",
+        "cooldown": 45,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric",
+        "power": 21.40
+      },
+      {
+        "name": "Discharge",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric",
+        "power": 28.09
+      }
+    ]
+  },
+  {
+    "id": "shiny-electrode",
+    "name": "Shiny Electrode",
+    "tier": "T2",
+    "role": "burst_dd",
+    "wiki": "https://wiki.pokexgames.com/index.php/Shiny_Electrode",
+    "skills": [
+      {
+        "name": "Charge",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "next",
         "element": "electric"
+      },
+      {
+        "name": "Electric Storm",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "electric",
+        "power": 25.90
+      },
+      {
+        "name": "Thunder Wrath",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric",
+        "power": 14.45
+      },
+      {
+        "name": "Thunder Sphere",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric",
+        "power": 15.70
+      },
+      {
+        "name": "Discharge",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric",
+        "power": 27.71
       }
     ]
   },
@@ -2456,40 +2513,7 @@
     "tier": "T3",
     "role": "offensive_tank",
     "wiki": "https://wiki.pokexgames.com/index.php/Sceptile",
-    "todo": "calibrate skills",
     "skills": [
-      {
-        "name": "Frenzy Plant",
-        "cooldown": 40,
-        "type": "area",
-        "cc": "stun",
-        "buff": null,
-        "element": "grass"
-      },
-      {
-        "name": "Swords Dance",
-        "cooldown": 40,
-        "type": "area",
-        "cc": null,
-        "buff": "next",
-        "element": "normal"
-      },
-      {
-        "name": "Leaf Storm",
-        "cooldown": 50,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "grass"
-      },
-      {
-        "name": "Leaf Blade",
-        "cooldown": 10,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "grass"
-      },
       {
         "name": "Leaf Guard",
         "cooldown": 40,
@@ -2498,6 +2522,51 @@
         "buff": "self",
         "def": true,
         "element": "grass"
+      },
+      {
+        "name": "Swords Dance",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "next",
+        "element": "normal",
+        "power": 0
+      },
+      {
+        "name": "Leaf Storm",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass",
+        "power": 11.65
+      },
+      {
+        "name": "Leafage",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass",
+        "power": 17.57
+      },
+      {
+        "name": "Night Slash",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark",
+        "power": 19.40
+      },
+      {
+        "name": "Frenzy Plant",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "grass",
+        "power": 27.12
       }
     ]
   },
@@ -2591,23 +2660,24 @@
     "tier": "T2",
     "role": "burst_dd",
     "wiki": "https://wiki.pokexgames.com/index.php/Tropius",
-    "todo": "calibrate skills",
     "skills": [
       {
         "name": "Growth",
         "cooldown": 40,
         "type": "area",
         "cc": null,
-        "buff": "self",
-        "element": "normal"
+        "buff": "next",
+        "element": "normal",
+        "power": 0
       },
       {
-        "name": "Leaf Tornado",
-        "cooldown": 50,
+        "name": "Stomp",
+        "cooldown": 25,
         "type": "area",
-        "cc": null,
+        "cc": "locked",
         "buff": null,
-        "element": "grass"
+        "element": "normal",
+        "power": 6.85
       },
       {
         "name": "Leaf Storm",
@@ -2615,15 +2685,26 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "grass"
+        "element": "grass",
+        "power": 23.57
       },
       {
-        "name": "Stomp",
-        "cooldown": 25,
+        "name": "Leafage",
+        "cooldown": 40,
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "normal"
+        "element": "grass",
+        "power": 27.35
+      },
+      {
+        "name": "Leaf Tornado",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass",
+        "power": 31.42
       }
     ]
   },
@@ -3197,7 +3278,6 @@
     "tier": "T3",
     "role": "burst_dd",
     "wiki": "https://wiki.pokexgames.com/index.php/Shiny_Parasect",
-    "todo": "calibrate skills",
     "skills": [
       {
         "name": "Sleep Powder",
@@ -3205,23 +3285,16 @@
         "type": "area",
         "cc": "stun",
         "buff": null,
-        "element": "grass"
+        "element": "grass",
+        "power": 0
       },
       {
-        "name": "Compass Slash",
+        "name": "Growth",
         "cooldown": 50,
         "type": "area",
         "cc": null,
-        "buff": null,
-        "element": "bug"
-      },
-      {
-        "name": "Cutting Blades",
-        "cooldown": 50,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "bug"
+        "buff": "next",
+        "element": "normal"
       },
       {
         "name": "Struggle Bug",
@@ -3229,7 +3302,26 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "bug"
+        "element": "bug",
+        "power": 17.01
+      },
+      {
+        "name": "Compass Slash",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug",
+        "power": 18.70
+      },
+      {
+        "name": "Cutting Blades",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug",
+        "power": 27.10
       }
     ]
   },
@@ -3432,40 +3524,7 @@
     "tier": "T2",
     "role": "offensive_tank",
     "wiki": "https://wiki.pokexgames.com/index.php/Mega_Lopunny",
-    "todo": "calibrate skills",
     "skills": [
-      {
-        "name": "Low Sweep",
-        "cooldown": 40,
-        "type": "area",
-        "cc": "stun",
-        "buff": null,
-        "element": "fighting"
-      },
-      {
-        "name": "Superpower",
-        "cooldown": 50,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "fighting"
-      },
-      {
-        "name": "Spin Swing",
-        "cooldown": 50,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "fighting"
-      },
-      {
-        "name": "Jump Kick",
-        "cooldown": 20,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "fighting"
-      },
       {
         "name": "Charm",
         "cooldown": 40,
@@ -3474,6 +3533,42 @@
         "buff": "self",
         "def": true,
         "element": "fairy"
+      },
+      {
+        "name": "Jump Kick",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fighting",
+        "power": 11.94
+      },
+      {
+        "name": "Low Sweep",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "fighting",
+        "power": 16.48
+      },
+      {
+        "name": "Superpower",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fighting",
+        "power": 21.93
+      },
+      {
+        "name": "Spin Swing",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fighting",
+        "power": 27.14
       }
     ]
   },
@@ -4016,40 +4111,7 @@
     "tier": "T2",
     "role": "offensive_tank",
     "wiki": "https://wiki.pokexgames.com/index.php/Shiny_Forretress",
-    "todo": "calibrate skills",
     "skills": [
-      {
-        "name": "Iron Spikes",
-        "cooldown": 40,
-        "type": "area",
-        "cc": "stun",
-        "buff": null,
-        "element": "steel"
-      },
-      {
-        "name": "Autotomize",
-        "cooldown": 25,
-        "type": "area",
-        "cc": null,
-        "buff": "self",
-        "element": "steel"
-      },
-      {
-        "name": "Heavy Slam",
-        "cooldown": 40,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "steel"
-      },
-      {
-        "name": "Meteor Mash",
-        "cooldown": 40,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "steel"
-      },
       {
         "name": "Harden",
         "cooldown": 40,
@@ -4058,6 +4120,42 @@
         "buff": "self",
         "def": true,
         "element": "normal"
+      },
+      {
+        "name": "Iron Spikes",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "steel",
+        "power": 13.73
+      },
+      {
+        "name": "Heavy Slam",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "steel",
+        "power": 17.43
+      },
+      {
+        "name": "Meteor Mash",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "steel",
+        "power": 19.40
+      },
+      {
+        "name": "Heavy Metal",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "steel",
+        "power": 25.17
       }
     ]
   },
@@ -4669,7 +4767,6 @@
     "tier": "T3",
     "role": "burst_dd",
     "wiki": "https://wiki.pokexgames.com/index.php/Pidgeot",
-    "todo": "calibrate skills",
     "skills": [
       {
         "name": "Whirlwind",
@@ -4677,15 +4774,17 @@
         "type": "area",
         "cc": "stun",
         "buff": null,
-        "element": "normal"
+        "element": "normal",
+        "power": 9.77
       },
       {
-        "name": "Hurricane",
+        "name": "Tornado",
         "cooldown": 40,
         "type": "area",
         "cc": null,
-        "buff": "self",
-        "element": "flying"
+        "buff": null,
+        "element": "flying",
+        "power": 14.88
       },
       {
         "name": "Air Slash",
@@ -4693,7 +4792,17 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "flying"
+        "element": "flying",
+        "power": 24.04
+      },
+      {
+        "name": "Hurricane",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying",
+        "power": 32.06
       }
     ]
   },
@@ -4940,40 +5049,52 @@
     "tier": "T2",
     "role": "offensive_tank",
     "wiki": "https://wiki.pokexgames.com/index.php/Dragonite",
-    "todo": "calibrate skills",
+    "todo": "Inner Focus é def:true + buff:next (amplifica próxima ×1.5, confirmado via Outrage 17.3k→25.9k)",
     "skills": [
+      {
+        "name": "Inner Focus",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "next",
+        "def": true,
+        "element": "dragon"
+      },
       {
         "name": "Dragon Flight",
         "cooldown": 40,
         "type": "area",
         "cc": "stun",
-        "buff": "self",
-        "element": "dragon"
+        "buff": null,
+        "element": "dragon",
+        "power": 9.39
+      },
+      {
+        "name": "Twister",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dragon",
+        "power": 12.11
+      },
+      {
+        "name": "Draco Meteor",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dragon",
+        "power": 19.36
       },
       {
         "name": "Outrage",
         "cooldown": 50,
         "type": "area",
         "cc": null,
-        "buff": "self",
-        "element": "dragon"
-      },
-      {
-        "name": "Scale Shot",
-        "cooldown": 15,
-        "type": "area",
-        "cc": null,
         "buff": null,
-        "element": "dragon"
-      },
-      {
-        "name": "Inner Focus",
-        "cooldown": 40,
-        "type": "area",
-        "cc": null,
-        "buff": "self",
-        "def": true,
-        "element": "dragon"
+        "element": "dragon",
+        "power": 23.29
       }
     ]
   },
@@ -5046,6 +5167,59 @@
     ]
   },
   {
+    "id": "haxorus",
+    "name": "Haxorus",
+    "tier": "T1H",
+    "role": "offensive_tank",
+    "wiki": "https://wiki.pokexgames.com/index.php/Haxorus",
+    "skills": [
+      {
+        "name": "Snarl",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "def": true,
+        "element": "dark"
+      },
+      {
+        "name": "Swords Dance",
+        "cooldown": 60,
+        "type": "area",
+        "cc": null,
+        "buff": "next",
+        "element": "normal"
+      },
+      {
+        "name": "Dragon Rage",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "dragon",
+        "power": 17.50
+      },
+      {
+        "name": "Outrage",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dragon",
+        "power": 21.80
+      },
+      {
+        "name": "Draco Meteor",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dragon",
+        "power": 24.23
+      }
+    ]
+  },
+  {
     "id": "garchomp",
     "name": "Garchomp",
     "tier": "T2",
@@ -5085,7 +5259,6 @@
     "tier": "T2",
     "role": "burst_dd",
     "wiki": "https://wiki.pokexgames.com/index.php/Shiny_Druddigon",
-    "todo": "calibrate skills",
     "skills": [
       {
         "name": "Roar",
@@ -5093,7 +5266,8 @@
         "type": "area",
         "cc": "stun",
         "buff": null,
-        "element": "dragon"
+        "element": "dragon",
+        "power": 0
       },
       {
         "name": "Dragon Rage",
@@ -5101,15 +5275,17 @@
         "type": "area",
         "cc": null,
         "buff": "next",
-        "element": "dragon"
+        "element": "dragon",
+        "power": 5.50
       },
       {
-        "name": "Outrage",
-        "cooldown": 50,
+        "name": "Dragon Claw",
+        "cooldown": 35,
         "type": "area",
         "cc": null,
-        "buff": "self",
-        "element": "dragon"
+        "buff": null,
+        "element": "dragon",
+        "power": 7.43
       },
       {
         "name": "Draco Meteor",
@@ -5117,7 +5293,17 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "dragon"
+        "element": "dragon",
+        "power": 22.33
+      },
+      {
+        "name": "Outrage",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dragon",
+        "power": 29.52
       }
     ]
   },
@@ -5195,14 +5381,13 @@
     "tier": "TR",
     "role": "burst_dd",
     "wiki": "https://wiki.pokexgames.com/index.php/Dragonair_(TR)",
-    "todo": "calibrate skills",
     "skills": [
       {
-        "name": "Dragon Blast",
-        "cooldown": 40,
+        "name": "Dragon Dance",
+        "cooldown": 50,
         "type": "area",
-        "cc": "stun",
-        "buff": null,
+        "cc": null,
+        "buff": "next",
         "element": "dragon"
       },
       {
@@ -5211,23 +5396,35 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "dragon"
+        "element": "dragon",
+        "power": 15.48
       },
       {
-        "name": "Dragon Tail",
-        "cooldown": 20,
-        "type": "frontal",
+        "name": "Dragon Blast",
+        "cooldown": 40,
+        "type": "area",
         "cc": null,
         "buff": null,
-        "element": "dragon"
+        "element": "dragon",
+        "power": 18.52
       },
       {
-        "name": "Aqua Tail",
-        "cooldown": 10,
-        "type": "frontal",
+        "name": "Draco Meteor",
+        "cooldown": 50,
+        "type": "area",
         "cc": null,
         "buff": null,
-        "element": "water"
+        "element": "dragon",
+        "power": 22.23
+      },
+      {
+        "name": "Outrage",
+        "cooldown": 45,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dragon",
+        "power": 22.25
       }
     ]
   },
@@ -5288,32 +5485,7 @@
     "tier": "T2",
     "role": "offensive_tank",
     "wiki": "https://wiki.pokexgames.com/index.php/Florges",
-    "todo": "calibrate skills",
     "skills": [
-      {
-        "name": "Grassy Terrain",
-        "cooldown": 45,
-        "type": "area",
-        "cc": "stun",
-        "buff": null,
-        "element": "grass"
-      },
-      {
-        "name": "Floral Storm",
-        "cooldown": 55,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "fairy"
-      },
-      {
-        "name": "Heart Pound",
-        "cooldown": 35,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "fairy"
-      },
       {
         "name": "Flower Shield",
         "cooldown": 40,
@@ -5322,6 +5494,42 @@
         "buff": "self",
         "def": true,
         "element": "normal"
+      },
+      {
+        "name": "Grassy Terrain",
+        "cooldown": 45,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "grass",
+        "power": 12.91
+      },
+      {
+        "name": "Heart Pound",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy",
+        "power": 14.53
+      },
+      {
+        "name": "Petal Blizzard",
+        "cooldown": 45,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass",
+        "power": 23.26
+      },
+      {
+        "name": "Floral Storm",
+        "cooldown": 55,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy",
+        "power": 25.19
       }
     ]
   },
@@ -5635,40 +5843,7 @@
     "tier": "T2",
     "role": "offensive_tank",
     "wiki": "https://wiki.pokexgames.com/index.php/Galarian_Rapidash",
-    "todo": "calibrate skills",
     "skills": [
-      {
-        "name": "Psycho Cut",
-        "cooldown": 40,
-        "type": "area",
-        "cc": "stun",
-        "buff": null,
-        "element": "psychic"
-      },
-      {
-        "name": "Psychic Terrain",
-        "cooldown": 45,
-        "type": "area",
-        "cc": null,
-        "buff": "self",
-        "element": "psychic"
-      },
-      {
-        "name": "Stored Power",
-        "cooldown": 50,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "psychic"
-      },
-      {
-        "name": "Psychic",
-        "cooldown": 40,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "psychic"
-      },
       {
         "name": "Charm",
         "cooldown": 40,
@@ -5677,6 +5852,42 @@
         "buff": "self",
         "def": true,
         "element": "fairy"
+      },
+      {
+        "name": "Psycho Cut",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "psychic",
+        "power": 14.08
+      },
+      {
+        "name": "Expanding Force",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic",
+        "power": 15.64
+      },
+      {
+        "name": "Psychic",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic",
+        "power": 17.56
+      },
+      {
+        "name": "Stored Power",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic",
+        "power": 21.38
       }
     ]
   },
@@ -6031,16 +6242,7 @@
     "tier": "T2",
     "role": "offensive_tank",
     "wiki": "https://wiki.pokexgames.com/index.php/Shiny_Vaporeon",
-    "todo": "calibrate skills",
     "skills": [
-      {
-        "name": "Flip Turn",
-        "cooldown": 45,
-        "type": "area",
-        "cc": "stun",
-        "buff": null,
-        "element": "water"
-      },
       {
         "name": "Acid Armor",
         "cooldown": 45,
@@ -6051,12 +6253,49 @@
         "def": true
       },
       {
+        "name": "Flip Turn",
+        "cooldown": 45,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "water",
+        "power": 14.18
+      },
+      {
+        "name": "Water Ball",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water",
+        "power": 11.25
+      },
+      {
+        "name": "Water Pulse",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water",
+        "power": 13.71
+      },
+      {
         "name": "Hydro Pump",
         "cooldown": 55,
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 14.14
+      },
+      {
+        "name": "Surf",
+        "cooldown": 55,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water",
+        "power": 24.86
       }
     ]
   },
@@ -6066,7 +6305,6 @@
     "tier": "T2",
     "role": "offensive_tank",
     "wiki": "https://wiki.pokexgames.com/index.php/Shiny_Giant_Magikarp",
-    "todo": "calibrate skills; confirm Splash CD",
     "skills": [
       {
         "name": "Splash",
@@ -6086,12 +6324,22 @@
         "element": "water"
       },
       {
-        "name": "Surf",
-        "cooldown": 50,
+        "name": "Water Ball",
+        "cooldown": 40,
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 11.64
+      },
+      {
+        "name": "Water Pulse",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water",
+        "power": 14.18
       },
       {
         "name": "Hydro Pump",
@@ -6099,7 +6347,17 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 12.59
+      },
+      {
+        "name": "Surf",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water",
+        "power": 26.15
       }
     ]
   },
@@ -6115,18 +6373,18 @@
         "cooldown": 40,
         "type": "area",
         "cc": "stun",
-        "buff": "self",
+        "buff": null,
         "element": "water",
-        "power": 23.08
+        "power": 23.10
       },
       {
-        "name": "Dive",
-        "cooldown": 50,
+        "name": "Counter Shield",
+        "cooldown": 40,
         "type": "area",
         "cc": null,
         "buff": null,
         "element": "water",
-        "power": 27.05
+        "power": 19.55
       },
       {
         "name": "Whirlpool",
@@ -6135,7 +6393,25 @@
         "cc": null,
         "buff": null,
         "element": "water",
-        "power": 24.23
+        "power": 24.19
+      },
+      {
+        "name": "Shadow Melting",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ghost",
+        "power": 25.62
+      },
+      {
+        "name": "Dive",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water",
+        "power": 27.11
       }
     ]
   },
@@ -6179,7 +6455,6 @@
     "tier": "T2",
     "role": "burst_dd",
     "wiki": "https://wiki.pokexgames.com/index.php/Gyarados",
-    "todo": "calibrate skills",
     "skills": [
       {
         "name": "Splash",
@@ -6187,7 +6462,17 @@
         "type": "area",
         "cc": "stun",
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 15.66
+      },
+      {
+        "name": "Surf",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water",
+        "power": 28.32
       },
       {
         "name": "Hydro Pump",
@@ -6195,15 +6480,26 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 16.67
       },
       {
         "name": "Hydro Cannon",
         "cooldown": 40,
-        "type": "area",
+        "type": "frontal",
         "cc": null,
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 25.33
+      },
+      {
+        "name": "Dragon Breath",
+        "cooldown": 40,
+        "type": "frontal",
+        "cc": null,
+        "buff": null,
+        "element": "dragon",
+        "power": 14.82
       }
     ]
   },
@@ -6213,7 +6509,6 @@
     "tier": "T2",
     "role": "burst_dd",
     "wiki": "https://wiki.pokexgames.com/index.php/Shiny_Kingler",
-    "todo": "calibrate skills",
     "skills": [
       {
         "name": "Swords Dance",
@@ -6224,12 +6519,22 @@
         "element": "normal"
       },
       {
-        "name": "Aqua Impact",
-        "cooldown": 70,
+        "name": "Water Pulse",
+        "cooldown": 40,
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 13.70
+      },
+      {
+        "name": "Razor Shell",
+        "cooldown": 45,
+        "type": "frontal",
+        "cc": null,
+        "buff": null,
+        "element": "water",
+        "power": 20.95
       },
       {
         "name": "Crabhammer",
@@ -6237,7 +6542,17 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 23.55
+      },
+      {
+        "name": "Aqua Impact",
+        "cooldown": 70,
+        "type": "frontal",
+        "cc": null,
+        "buff": null,
+        "element": "water",
+        "power": 28.48
       }
     ]
   },
@@ -6247,7 +6562,6 @@
     "tier": "T3",
     "role": "burst_dd",
     "wiki": "https://wiki.pokexgames.com/index.php/Vaporeon",
-    "todo": "calibrate skills",
     "skills": [
       {
         "name": "Flip Turn",
@@ -6255,7 +6569,26 @@
         "type": "area",
         "cc": "stun",
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 13.40
+      },
+      {
+        "name": "Water Ball",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water",
+        "power": 11.31
+      },
+      {
+        "name": "Water Pulse",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water",
+        "power": 13.69
       },
       {
         "name": "Hydro Pump",
@@ -6263,7 +6596,8 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 14.43
       },
       {
         "name": "Surf",
@@ -6271,7 +6605,8 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 25.27
       }
     ]
   },
@@ -6541,7 +6876,6 @@
     "tier": "T2",
     "role": "burst_dd",
     "wiki": "https://wiki.pokexgames.com/index.php/Lapras",
-    "todo": "calibrate skills",
     "skills": [
       {
         "name": "Sing",
@@ -6549,15 +6883,26 @@
         "type": "area",
         "cc": "stun",
         "buff": null,
-        "element": "normal"
+        "element": "normal",
+        "power": 0
       },
       {
-        "name": "Blizzard",
-        "cooldown": 55,
+        "name": "Power Snow",
+        "cooldown": 40,
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "ice"
+        "element": "ice",
+        "power": 17.93
+      },
+      {
+        "name": "Frost Power",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice",
+        "power": 19.85
       },
       {
         "name": "Ice Storm",
@@ -6565,7 +6910,17 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "ice"
+        "element": "ice",
+        "power": 25.65
+      },
+      {
+        "name": "Blizzard",
+        "cooldown": 55,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice",
+        "power": 27.69
       }
     ]
   },
@@ -6672,20 +7027,110 @@
     ]
   },
   {
+    "id": "frosmoth",
+    "name": "Frosmoth",
+    "tier": "T2",
+    "role": "offensive_tank",
+    "wiki": "https://wiki.pokexgames.com/index.php/Frosmoth",
+    "skills": [
+      {
+        "name": "Quiver Dance",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "bug",
+        "def": true
+      },
+      {
+        "name": "Infestation",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "bug",
+        "power": 0.34
+      },
+      {
+        "name": "Ice Windy",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice",
+        "power": 14.65
+      },
+      {
+        "name": "Power Snow",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice",
+        "power": 17.79
+      },
+      {
+        "name": "Ice Storm",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice",
+        "power": 21.34
+      },
+      {
+        "name": "Frenzy Snow",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice",
+        "power": 22.26
+      }
+    ]
+  },
+  {
     "id": "froslass",
     "name": "Froslass",
     "tier": "T3",
     "role": "burst_dd",
     "wiki": "https://wiki.pokexgames.com/index.php/Froslass",
-    "todo": "calibrate skills",
     "skills": [
+      {
+        "name": "Aurora Veil",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "ice",
+        "def": true
+      },
       {
         "name": "Hail",
         "cooldown": 55,
         "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "ice",
+        "power": 20.40
+      },
+      {
+        "name": "Frost Breath",
+        "cooldown": 35,
+        "type": "frontal",
         "cc": null,
-        "buff": "self",
-        "element": "ice"
+        "buff": null,
+        "element": "ice",
+        "power": 15.72
+      },
+      {
+        "name": "Power Snow",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice",
+        "power": 15.94
       },
       {
         "name": "Blizzard",
@@ -6693,15 +7138,8 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "ice"
-      },
-      {
-        "name": "Frost Breath",
-        "cooldown": 35,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "ice"
+        "element": "ice",
+        "power": 24.35
       }
     ]
   },
@@ -6854,16 +7292,8 @@
     "tier": "T2",
     "role": "offensive_tank",
     "wiki": "https://wiki.pokexgames.com/index.php/Shiny_Qwilfish",
-    "todo": "calibrate skills",
+    "todo": "Mortal Gas e Toxic calibrados clean (10 ticks subtraídos em cada)",
     "skills": [
-      {
-        "name": "Barb Barrage",
-        "cooldown": 40,
-        "type": "area",
-        "cc": "silence",
-        "buff": null,
-        "element": "poison"
-      },
       {
         "name": "Minimize",
         "cooldown": 40,
@@ -6874,12 +7304,22 @@
         "def": true
       },
       {
-        "name": "Mortal Gas",
-        "cooldown": 50,
+        "name": "Barb Barrage",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "silence",
+        "buff": null,
+        "element": "poison",
+        "power": 29.67
+      },
+      {
+        "name": "Poison Tail",
+        "cooldown": 35,
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "poison"
+        "element": "poison",
+        "power": 13.34
       },
       {
         "name": "Toxic",
@@ -6887,7 +7327,17 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "poison"
+        "element": "poison",
+        "power": 10.93
+      },
+      {
+        "name": "Mortal Gas",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison",
+        "power": 21.56
       }
     ]
   },
@@ -7235,40 +7685,7 @@
     "tier": "T2",
     "role": "offensive_tank",
     "wiki": "https://wiki.pokexgames.com/index.php/Cofagrigus",
-    "todo": "calibrate skills",
     "skills": [
-      {
-        "name": "Trick Room",
-        "cooldown": 40,
-        "type": "area",
-        "cc": "stun",
-        "buff": null,
-        "element": "psychic"
-      },
-      {
-        "name": "Nasty Plot",
-        "cooldown": 40,
-        "type": "area",
-        "cc": null,
-        "buff": "self",
-        "element": "dark"
-      },
-      {
-        "name": "Shadow Storm",
-        "cooldown": 50,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "ghost"
-      },
-      {
-        "name": "Curse",
-        "cooldown": 40,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "ghost"
-      },
       {
         "name": "Confide",
         "cooldown": 40,
@@ -7277,6 +7694,105 @@
         "buff": "self",
         "def": true,
         "element": "normal"
+      },
+      {
+        "name": "Trick Room",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "psychic",
+        "power": 9.71
+      },
+      {
+        "name": "Nasty Plot",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "next",
+        "element": "dark",
+        "power": 1.08
+      },
+      {
+        "name": "Spectral Grap",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ghost",
+        "power": 18.52
+      },
+      {
+        "name": "Curse",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ghost",
+        "power": 19.82
+      },
+      {
+        "name": "Shadow Storm",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ghost",
+        "power": 24.26
+      }
+    ]
+  },
+  {
+    "id": "mightyena",
+    "name": "Mightyena",
+    "tier": "T2",
+    "role": "offensive_tank",
+    "wiki": "https://wiki.pokexgames.com/index.php/Mightyena",
+    "skills": [
+      {
+        "name": "Snarl",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "def": true,
+        "element": "dark"
+      },
+      {
+        "name": "Nasty Plot",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "next",
+        "element": "dark",
+        "power": 7.35
+      },
+      {
+        "name": "Night Daze",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark",
+        "power": 14.06
+      },
+      {
+        "name": "Howl",
+        "cooldown": 45,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "dark",
+        "power": 19.34
+      },
+      {
+        "name": "Payback",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark",
+        "power": 23.25
       }
     ]
   },
@@ -7371,7 +7887,6 @@
     "tier": "T2",
     "role": "burst_dd",
     "wiki": "https://wiki.pokexgames.com/index.php/Gengar",
-    "todo": "calibrate skills",
     "skills": [
       {
         "name": "Hypnosis",
@@ -7379,15 +7894,17 @@
         "type": "area",
         "cc": "stun",
         "buff": null,
-        "element": "ghost"
+        "element": "ghost",
+        "power": 17.53
       },
       {
-        "name": "Shadow Storm",
-        "cooldown": 60,
+        "name": "Astonish",
+        "cooldown": 40,
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "ghost"
+        "element": "ghost",
+        "power": 21.57
       },
       {
         "name": "Shadow Claw",
@@ -7395,15 +7912,17 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "ghost"
+        "element": "ghost",
+        "power": 24.60
       },
       {
-        "name": "Shadow Ball",
-        "cooldown": 12,
-        "type": "frontal",
+        "name": "Shadow Storm",
+        "cooldown": 60,
+        "type": "area",
         "cc": null,
         "buff": null,
-        "element": "ghost"
+        "element": "ghost",
+        "power": 28.34
       }
     ]
   },
@@ -7542,13 +8061,22 @@
         "element": "ghost"
       },
       {
+        "name": "Night Shade",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ghost",
+        "power": 15.86
+      },
+      {
         "name": "Curse",
         "cooldown": 50,
         "type": "area",
         "cc": null,
         "buff": null,
         "element": "ghost",
-        "power": 18.41
+        "power": 18.51
       },
       {
         "name": "Shadow Storm",
@@ -7557,7 +8085,7 @@
         "cc": null,
         "buff": null,
         "element": "ghost",
-        "power": 24.72
+        "power": 25.06
       },
       {
         "name": "Shadow Claw",
@@ -7566,16 +8094,7 @@
         "cc": null,
         "buff": null,
         "element": "ghost",
-        "power": 27.33
-      },
-      {
-        "name": "Night Shade",
-        "cooldown": 40,
-        "type": "area",
-        "cc": null,
-        "buff": null,
-        "element": "ghost",
-        "power": 15.8
+        "power": 27.41
       }
     ]
   },
@@ -7778,6 +8297,60 @@
         "buff": "self",
         "element": "ice",
         "def": true
+      }
+    ]
+  },
+  {
+    "id": "zoroark",
+    "name": "Zoroark",
+    "tier": "T1H",
+    "role": "burst_dd",
+    "wiki": "https://wiki.pokexgames.com/index.php/Zoroark",
+    "skills": [
+      {
+        "name": "Hone Claws",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "next",
+        "element": "normal",
+        "power": 0
+      },
+      {
+        "name": "Black Hole",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark",
+        "power": 24.49
+      },
+      {
+        "name": "Shadow End",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ghost",
+        "power": 24.76
+      },
+      {
+        "name": "Night Daze",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "silence",
+        "buff": null,
+        "element": "dark",
+        "power": 27.05
+      },
+      {
+        "name": "Night Slash",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark",
+        "power": 27.08
       }
     ]
   }

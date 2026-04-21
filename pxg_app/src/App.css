@@ -607,6 +607,12 @@
   border: 1px solid #2ecc7155;
 }
 
+.step-finish.revive {
+  background: #9b59b633;
+  color: #bb8fce;
+  border: 1px solid #9b59b655;
+}
+
 .step-plus {
   color: #888;
   font-weight: 600;

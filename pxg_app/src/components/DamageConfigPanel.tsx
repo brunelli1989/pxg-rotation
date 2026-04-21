@@ -61,6 +61,7 @@ interface Props {
   onMobChange: (mob: Partial<MobConfig>) => void;
   onDeviceChange: (device: Partial<DeviceHeld>) => void;
   onUseElixirAtkChange: (v: boolean) => void;
+  onReviveChange: (v: "none" | "normal" | "superior") => void;
 }
 
 export function DamageConfigPanel({
@@ -71,6 +72,7 @@ export function DamageConfigPanel({
   onMobChange,
   onDeviceChange,
   onUseElixirAtkChange,
+  onReviveChange,
 }: Props) {
   const mobsForHunt = mobs
     .filter((m) => m.hunt === config.hunt)
@@ -188,6 +190,18 @@ export function DamageConfigPanel({
             onChange={(e) => onUseElixirAtkChange(e.target.checked)}
           />
           Usar Elixir Atk
+        </label>
+
+        <label title="Revive reseta CDs de 1 poke na lure, permitindo castar o kit 2x. CD independente do disk.">
+          Revive:
+          <select
+            value={config.revive ?? "none"}
+            onChange={(e) => onReviveChange(e.target.value as "none" | "normal" | "superior")}
+          >
+            <option value="none">Nenhum</option>
+            <option value="normal">Nightmare Revive ($10k, 5min)</option>
+            <option value="superior">Superior Nightmare Revive ($50k, 4min)</option>
+          </select>
         </label>
       </div>
 

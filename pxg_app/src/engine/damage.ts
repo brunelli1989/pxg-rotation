@@ -411,6 +411,27 @@ export function estimateLureDamagePerMob(
     }
   }
 
+  // Revive: o poke target casta o kit de novo. Append segunda sequência ao cast sequence.
+  // Buff next não "atravessa" o revive item (reset do kit = buff pendente também zera),
+  // mas como segunda sequência tem buff-next no meio, o flag pendente é re-estabelecido.
+  if (lure.reviveTier && lure.revivePokemonId) {
+    const target: Pokemon | null =
+      lure.starter.id === lure.revivePokemonId
+        ? lure.starter
+        : lure.second?.id === lure.revivePokemonId
+          ? lure.second
+          : (lure.extraMembers.find((m) => m.poke.id === lure.revivePokemonId)?.poke ?? null);
+    const targetSkills: Skill[] =
+      target === lure.starter
+        ? lure.starterSkills
+        : target === lure.second
+          ? lure.secondSkills
+          : (lure.extraMembers.find((m) => m.poke.id === lure.revivePokemonId)?.skills ?? []);
+    if (target) {
+      for (const s of targetSkills) castSequence.push({ poke: target, skill: s });
+    }
+  }
+
   // Buff "next" fica pendente até ser consumido pela próxima skill de DANO
   // (pula self-buffs e outras skills sem power, pra que o buff vá na skill forte)
   let buffPending = false;

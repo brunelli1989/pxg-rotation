@@ -135,6 +135,10 @@ export function useDamageConfig() {
     setConfig((c) => ({ ...c, useElixirAtk: v }));
   }, []);
 
+  const setRevive = useCallback((v: "none" | "normal" | "superior") => {
+    setConfig((c) => ({ ...c, revive: v }));
+  }, []);
+
   const setSkillCalibration = useCallback(
     (pokeId: string, skillName: string, skillPower: number) => {
       setConfig((c) => ({
@@ -166,6 +170,7 @@ export function useDamageConfig() {
     setSkillCalibration,
     clearSkillCalibration,
     setUseElixirAtk,
+    setRevive,
   };
 }
 

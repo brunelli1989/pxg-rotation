@@ -76,6 +76,11 @@ export interface Lure {
   usesDevice: boolean;
   /** ID do poke que usa o elixir atk (buff +70% nas skills dele por 8s). Null se usesElixirAtk=false. */
   elixirAtkHolderId: string | null;
+  /** Tier do revive usado na lure (null se sem revive). Revive reseta CDs do target e ele
+   *  casta o kit 2 vezes. Cost de 1s extra pra cast do item. */
+  reviveTier: "normal" | "superior" | null;
+  /** ID do poke revivido (tipicamente o mais forte da lure). Null se reviveTier=null. */
+  revivePokemonId: string | null;
 }
 
 export interface RotationStep {
@@ -157,4 +162,7 @@ export interface DamageConfig {
   /** Permite uso de Elixir Atk nas lures (solo_elixir, dupla+elixir, group+elixir).
    *  Não afeta Elixir Def. Default true. */
   useElixirAtk?: boolean;
+  /** Revive disponível: "none" = não usa, "normal" = Nightmare Revive ($10k, 5min),
+   *  "superior" = Superior Nightmare Revive ($50k, 4min). Default "none". */
+  revive?: "none" | "normal" | "superior";
 }

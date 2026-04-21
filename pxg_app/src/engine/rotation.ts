@@ -9,6 +9,7 @@ import type {
 } from "../types";
 import {
   ELIXIR_ATK_COOLDOWN,
+  REVIVE_COOLDOWN,
   bagRate,
 } from "./cooldown";
 import { getClanElements, lureFinalizesBox, resolveSkillPower } from "./damage";
@@ -99,15 +100,22 @@ export function generateLureTemplates(
     /** Permite gerar lures com Elixir Atk (solo_elixir, dupla+elixir, group+elixir).
      *  Default true. Não afeta Elixir Def. */
     allowElixirAtk?: boolean;
+    /** Tier de revive disponível ("none" = não gera variants revive). Revive reseta CDs
+     *  do poke mais forte da lure e ele casta o kit 2 vezes na mesma lure. */
+    reviveTier?: "none" | "normal" | "superior";
   } = {}
 ): Lure[] {
   const allowElixirAtk = options.allowElixirAtk ?? true;
+  const reviveTier = options.reviveTier ?? "none";
+  const reviveEnabled = reviveTier !== "none";
   const lures: Lure[] = [];
   const n = bag.length;
 
-  // Starter preference: offtank, T1H-do-clã, ou (resto somente se a lure usa Elixir Atk).
-  // A 3ª categoria "qualquer poke" fica gated pelo 210s CD do Elixir Atk → o player
-  // naturalmente usa starter fraco só pontualmente. Substitui o antigo starterRoleFilter.
+  // Starter preference depende do hunt level:
+  //   Hunt 300:  offtank || T1H-clã || lure usa consumível (elixir atk OU revive)
+  //   Hunt 400+: offtank || T1H-clã APENAS (consumível não desbloqueia starter fraco).
+  // Em 400+ os mobs são tank-demais pra player lurar com starter TR/T2/T3 mesmo com item.
+  const hunt400 = options.hunt === "400+";
   const clanEls = options.clan ? getClanElements(options.clan) : [];
   const isOfftank = (p: Pokemon) => p.role === "offensive_tank";
   const isT1HClan = (p: Pokemon) =>
@@ -137,8 +145,8 @@ export function generateLureTemplates(
   // Solo T1H + device. Starter sem frontal (frontal não protege os 6 mobs da box).
   // Sem elixir → precisa ser offtank ou T1H-do-clã pra starter.
   if (devicePoke && devicePoke.tier === "T1H" && hardCC[deviceIdx] && !frontal[deviceIdx] && offtankOrClan[deviceIdx]) {
-    lures.push({
-      type: "solo_device",
+    const soloDeviceBase = {
+      type: "solo_device" as const,
       starter: devicePoke,
       second: null,
       starterSkills: getOptimalSkillOrder(devicePoke),
@@ -148,11 +156,20 @@ export function generateLureTemplates(
       usesDevice: true,
       extraMembers: [],
       elixirAtkHolderId: null,
-    });
+    };
+    lures.push({ ...soloDeviceBase, reviveTier: null, revivePokemonId: null });
+    if (reviveEnabled) {
+      lures.push({
+        ...soloDeviceBase,
+        reviveTier: reviveTier as "normal" | "superior",
+        revivePokemonId: devicePoke.id,
+      });
+    }
   }
 
   // Solo T2/T3/TR + elixir atk (starter must have CC, no frontal).
-  // usesElixirAtk=true → canStarter sempre true (elixir "desbloqueia" starter).
+  // Hunt 300: consumível desbloqueia. Hunt 400+: só offtank (T1H-clã não entra aqui
+  // porque solo_elixir proíbe T1H tier) — efetivamente só T2/T3 offtanks.
   for (let i = 0; i < n; i++) {
     if (!allowElixirAtk) break;
     if (i === deviceIdx) continue;
@@ -160,9 +177,10 @@ export function generateLureTemplates(
     if (p.tier === "T1H") continue;
     if (!hardCC[i]) continue;
     if (frontal[i]) continue;
+    if (hunt400 && !offtankOrClan[i]) continue;
 
-    lures.push({
-      type: "solo_elixir",
+    const soloElixirBase = {
+      type: "solo_elixir" as const,
       starter: p,
       second: null,
       starterSkills: getOptimalSkillOrder(p),
@@ -172,7 +190,15 @@ export function generateLureTemplates(
       usesDevice: false,
       extraMembers: [],
       elixirAtkHolderId: p.id,
-    });
+    };
+    lures.push({ ...soloElixirBase, reviveTier: null, revivePokemonId: null });
+    if (reviveEnabled) {
+      lures.push({
+        ...soloElixirBase,
+        reviveTier: reviveTier as "normal" | "superior",
+        revivePokemonId: p.id,
+      });
+    }
   }
 
   // Dupla: starter (com CC área, sem frontal) + second (qualquer — second é finalizer
@@ -181,9 +207,11 @@ export function generateLureTemplates(
   // e de "second" role — não faz sentido ser starter e second ao mesmo tempo).
   for (let i = 0; i < n; i++) {
     if (!hardCC[i] || frontal[i]) continue;
+    // Hunt 400+: só offtank/T1H-clã pode starter (mesmo com consumível, fica proibido).
+    if (hunt400 && !offtankOrClan[i]) continue;
     const starter = bag[i];
     const starterHarden = harden[i];
-    // Starter não-offtank e não-T1H-clã só entra se a lure usa Elixir Atk.
+    // Starter não-offtank e não-T1H-clã só entra se a lure usa Elixir Atk (hunt 300).
     const needsElixirToStarter = !offtankOrClan[i];
 
     for (let j = 0; j < n; j++) {
@@ -203,13 +231,34 @@ export function generateLureTemplates(
         usesDevice: false,
         extraMembers: [],
       };
+      const duplaMembers = [starter, second];
+      const reviveTarget = reviveEnabled ? pickElixirHolder(duplaMembers) : null;
       if (!needsElixirToStarter) {
-        lures.push({ ...baseDupla, usesElixirAtk: false, elixirAtkHolderId: null });
+        lures.push({ ...baseDupla, usesElixirAtk: false, elixirAtkHolderId: null, reviveTier: null, revivePokemonId: null });
+        if (reviveTarget) {
+          lures.push({
+            ...baseDupla, usesElixirAtk: false, elixirAtkHolderId: null,
+            reviveTier: reviveTier as "normal" | "superior", revivePokemonId: reviveTarget.id,
+          });
+        }
+      }
+      // Revive também habilita starter "fraco" (não-offtank, não-T1H-clã) — gasto de item.
+      if (needsElixirToStarter && reviveTarget) {
+        lures.push({
+          ...baseDupla, usesElixirAtk: false, elixirAtkHolderId: null,
+          reviveTier: reviveTier as "normal" | "superior", revivePokemonId: reviveTarget.id,
+        });
       }
       // Dupla + elixir atk: útil em hunt 400+ quando a dupla raw não finaliza a box.
       if (options.includeDuplaElixir && allowElixirAtk) {
-        const holder = pickElixirHolder([starter, second]);
-        lures.push({ ...baseDupla, usesElixirAtk: true, elixirAtkHolderId: holder.id });
+        const holder = pickElixirHolder(duplaMembers);
+        lures.push({ ...baseDupla, usesElixirAtk: true, elixirAtkHolderId: holder.id, reviveTier: null, revivePokemonId: null });
+        if (reviveTarget) {
+          lures.push({
+            ...baseDupla, usesElixirAtk: true, elixirAtkHolderId: holder.id,
+            reviveTier: reviveTier as "normal" | "superior", revivePokemonId: reviveTarget.id,
+          });
+        }
       }
     }
   }
@@ -223,6 +272,7 @@ export function generateLureTemplates(
   if (options.includeGroup) {
     for (let i = 0; i < n; i++) {
       if (!hardCC[i] || frontal[i]) continue;
+      if (hunt400 && !offtankOrClan[i]) continue;
       const starter = bag[i];
       const starterHarden = harden[i];
       const needsElixirToStarter = !offtankOrClan[i];
@@ -268,12 +318,15 @@ export function generateLureTemplates(
             usesDevice: false,
             extraMembers: rest,
           };
+          // Group+revive não é gerado: explosão de variantes (C(5,k) × elixir × revive) causa
+          // OOM em pools médias. Revive em group não é padrão comum no jogo anyway — high-value
+          // use case é solo + dupla (mesmo poke castando 2×).
           if (!needsElixirToStarter) {
-            lures.push({ ...base, usesElixirAtk: false, elixirAtkHolderId: null });
+            lures.push({ ...base, usesElixirAtk: false, elixirAtkHolderId: null, reviveTier: null, revivePokemonId: null });
           }
           if (allowElixirAtk) {
             const holder = pickElixirHolder([starter, second, ...rest.map((m) => m.poke)]);
-            lures.push({ ...base, usesElixirAtk: true, elixirAtkHolderId: holder.id });
+            lures.push({ ...base, usesElixirAtk: true, elixirAtkHolderId: holder.id, reviveTier: null, revivePokemonId: null });
           }
         }
       }
@@ -336,6 +389,7 @@ export interface SimState {
   // Per-poke counter indexado por bag index. othersCastTotal[i] = clock - selfCastTotal[i].
   selfCastTotal: Float64Array;
   elixirAtkReady: number;
+  reviveReady: number;
   totalIdle: number;
   steps: RotationStep[];
 }
@@ -350,6 +404,7 @@ export function emptyState(ctx: SimContext): SimState {
     skillSelfSnap: new Float64Array(ctx.skillSlotCount),
     selfCastTotal: new Float64Array(ctx.n),
     elixirAtkReady: 0,
+    reviveReady: 0,
     totalIdle: 0,
     steps: [],
   };
@@ -376,6 +431,7 @@ export class SimStatePool {
       s.skillSelfSnap.fill(0);
       s.selfCastTotal.fill(0);
       s.elixirAtkReady = 0;
+      s.reviveReady = 0;
       s.totalIdle = 0;
       s.steps.length = 0;
       return s;
@@ -393,6 +449,7 @@ export class SimStatePool {
         skillSelfSnap: new Float64Array(source.skillSelfSnap),
         selfCastTotal: new Float64Array(source.selfCastTotal),
         elixirAtkReady: source.elixirAtkReady,
+        reviveReady: source.reviveReady,
         totalIdle: source.totalIdle,
         steps: source.steps.slice(),
       };
@@ -403,6 +460,7 @@ export class SimStatePool {
     s.skillSelfSnap.set(source.skillSelfSnap);
     s.selfCastTotal.set(source.selfCastTotal);
     s.elixirAtkReady = source.elixirAtkReady;
+    s.reviveReady = source.reviveReady;
     s.totalIdle = source.totalIdle;
     // Reuse steps array: overwrite in place, resize
     const srcSteps = source.steps;
@@ -426,6 +484,12 @@ export interface CompiledLure {
   starterIdx: number;
   secondIdx: number;                // -1 se sem second
   holderIdx: number;                // poke que paga o cast do elixir (starterIdx fallback)
+  /** Bag index do poke revivido (-1 se sem revive). Skills dele ficam com CD=0 pós-revive
+   *  e são castadas novamente na mesma lure. */
+  reviveIdx: number;
+  /** Slots do poke revivido, pra reset em applyLure. Vazio se reviveIdx === -1. */
+  reviveSlots: Int32Array;
+  reviveCDs: Float64Array;
   starterSlots: Int32Array;
   starterCDs: Float64Array;
   secondSlots: Int32Array;          // length 0 se sem second
@@ -505,6 +569,34 @@ export function compileLures(
         ? (ctx.pokeIdx.get(lure.elixirAtkHolderId) ?? starterIdx)
         : starterIdx;
 
+    // Revive: resolve bag index + slots/CDs do poke revivido (pro reset em applyLure).
+    let reviveIdx = -1;
+    let reviveSlots = new Int32Array(0);
+    let reviveCDs = new Float64Array(0);
+    if (lure.reviveTier && lure.revivePokemonId) {
+      reviveIdx = ctx.pokeIdx.get(lure.revivePokemonId) ?? -1;
+      if (reviveIdx >= 0) {
+        // Skills do revivido: se é starter, usa starterSkills; se second, secondSkills;
+        // senão busca no extraMembers. A cast sequence pós-revive é o MESMO kit que já foi
+        // castado, então reaproveita os slots/CDs já computados onde possível.
+        let skills: Skill[] = [];
+        if (reviveIdx === starterIdx) skills = lure.starterSkills;
+        else if (reviveIdx === secondIdx) skills = lure.secondSkills;
+        else {
+          const m = lure.extraMembers.find((m) => ctx.pokeIdx.get(m.poke.id) === reviveIdx);
+          if (m) skills = m.skills;
+        }
+        const nR = skills.length;
+        reviveSlots = new Int32Array(nR);
+        reviveCDs = new Float64Array(nR);
+        const pokeId = lure.revivePokemonId;
+        for (let i = 0; i < nR; i++) {
+          reviveSlots[i] = ctx.skillSlotByKey.get(`${pokeId}:${skills[i].name}`)!;
+          reviveCDs[i] = skills[i].cooldown;
+        }
+      }
+    }
+
     // Preferência pro starter, 3 tiers:
     //   type ∈ (bestStarterElements ∩ clan_elements)  → 0.60 (ideal: tanka + clan bonus)
     //   type ∈ bestStarterElements (fora do clã)       → 0.75 (só defesa)
@@ -527,6 +619,9 @@ export function compileLures(
       starterIdx,
       secondIdx,
       holderIdx,
+      reviveIdx,
+      reviveSlots,
+      reviveCDs,
       starterSlots,
       starterCDs,
       secondSlots,
@@ -558,17 +653,21 @@ const KILL_TIME = 10; // seconds of kill time after each lure's finisher (all po
 const SILENCE_STARTER_PENALTY = 0.10;
 
 /**
- * True se o ciclo, repetido em loop, produz 3+ lures consecutivas com o mesmo starter
- * (considerando wrap-around). Ciclos length ≤ 2 são ignorados — representam bags com
- * poucos starters válidos (solo_device loop legítimo em PxG). Só bloqueia p≥3.
+ * True se o ciclo, repetido em loop, produz 3+ lures IDÊNTICAS consecutivas (wrap-aware).
+ * Ciclos length ≤ 2 ignorados — solo_device loop legítimo (ex: bag só tem 1 T1H-clã).
+ *
+ * Rule: compara referência do CompiledLure (único por base Lure após compile). Lures com
+ * starter igual mas membros diferentes NÃO são contadas como idênticas — ex:
+ * "Heatmor+Ninetales, Heatmor+Chandelure, Heatmor+Magby" é permitida (3 starters iguais
+ * mas 3 lures distintas → composição legítima que aparece em rotações reais).
  */
-function cycleHas3ConsecutiveStarter(cycle: CompiledLure[]): boolean {
+function cycleHas3ConsecutiveIdentical(cycle: CompiledLure[]): boolean {
   const p = cycle.length;
   if (p < 3) return false;
   for (let i = 0; i < p; i++) {
-    const a = cycle[i].starterIdx;
-    const b = cycle[(i + 1) % p].starterIdx;
-    const c = cycle[(i + 2) % p].starterIdx;
+    const a = cycle[i];
+    const b = cycle[(i + 1) % p];
+    const c = cycle[(i + 2) % p];
     if (a === b && b === c) return true;
   }
   return false;
@@ -697,6 +796,14 @@ export function applyLure(
     if (elixirWait > 0) wait += elixirWait;
   }
 
+  // Step 3b: Check revive CD. Revive cast acontece após normal casts, antes do finisher.
+  if (lure.reviveTier && compiled.reviveIdx >= 0) {
+    const preReviveCasts = numStarterSkills + numSecondSkills + compiled.totalExtraSkills;
+    const reviveCastAt = state.clock + wait + preReviveCasts;
+    const rw = state.reviveReady - reviveCastAt;
+    if (rw > 0) wait += rw;
+  }
+
   // Step 4: Advance clock by wait. Durante wait, starter "selected-idle" ganha self-cast 1:1;
   // os demais ficam em bag — mas othersInBag é derivado (clock - self), então basta avançar clock.
   if (wait > 0) {
@@ -744,6 +851,27 @@ export function applyLure(
       state.skillCastTime[slot] = state.clock;
       state.skillBaseCD[slot] = cds[j];
       state.skillSelfSnap[slot] = state.selfCastTotal[memberIdx];
+    }
+  }
+
+  // Step 6c: Revive — 1s cast do item + revive target casta o kit de novo (CDs resetados).
+  // Primeiro cast já aconteceu em steps 5/6/6b; aqui é o SEGUNDO cast do mesmo poke.
+  const reviveIdx = compiled.reviveIdx;
+  if (reviveIdx >= 0 && lure.reviveTier) {
+    // Cast do item (1s). Não conta como self-cast de nenhum poke — é uso de item.
+    state.clock += CAST_TIME;
+    state.reviveReady = state.clock + REVIVE_COOLDOWN[lure.reviveTier];
+
+    const reviveSlots = compiled.reviveSlots;
+    const reviveCDs = compiled.reviveCDs;
+    const nR = reviveSlots.length;
+    for (let i = 0; i < nR; i++) {
+      state.clock += CAST_TIME;
+      state.selfCastTotal[reviveIdx] += CAST_TIME;
+      const slot = reviveSlots[i];
+      state.skillCastTime[slot] = state.clock;
+      state.skillBaseCD[slot] = reviveCDs[i];
+      state.skillSelfSnap[slot] = state.selfCastTotal[reviveIdx];
     }
   }
 
@@ -863,6 +991,7 @@ export function findBestRotation(
       includeDuplaElixir: true,
       includeGroup: true,
       allowElixirAtk: cfg.useElixirAtk ?? true,
+      reviveTier: cfg.revive ?? "none",
     };
     lures = filter(generateLureTemplates(bag, devicePokemonId, genOpts));
 
@@ -904,15 +1033,12 @@ export function findBestRotation(
     for (const state of beam) {
       const seq = state.sequence;
       const len = seq.length;
-      // Regra: no máximo 2 lures consecutivas com o mesmo starter. Evita padrões
-      // anti-natural tipo "3x Sh.Heatmor seguidas" que o engine usaria pra encher
-      // gap de elixir CD (210s). Starters alternam → pokes em bag recuperam CD →
-      // idle cai naturalmente.
-      const last1 = len >= 1 ? seq[len - 1].starterIdx : -1;
-      const last2 = len >= 2 ? seq[len - 2].starterIdx : -1;
-      const blockStarter = (last1 >= 0 && last1 === last2) ? last1 : -1;
+      // Regra: no máximo 2 lures IDÊNTICAS consecutivas (mesmo starter + mesmos membros
+      // + mesmo finisher). Evita o padrão mecânico "3x solo_device enfileiradas" mas
+      // permite "Heatmor+A, Heatmor+B, Heatmor+C" (starter igual, composição diferente).
+      const blockLure = (len >= 2 && seq[len - 1] === seq[len - 2]) ? seq[len - 1] : null;
       for (const c of compiled) {
-        if (c.starterIdx === blockStarter) continue;
+        if (c === blockLure) continue;
         const newSim = pool.acquireClone(state.sim);
         applyLure(newSim, c, diskLevel);
         candidates.push({
@@ -957,9 +1083,8 @@ export function findBestRotation(
       for (const s of topN) {
         const period = minPeriod(s.cand.sequence);
         const truePeriodSeq = s.cand.sequence.slice(0, period);
-        // Rejeita ciclos que, em loop, produzam 3+ starters iguais consecutivos
-        // via wrap (ex: [H, X, H, H] → ...H, H, H...).
-        if (cycleHas3ConsecutiveStarter(truePeriodSeq)) continue;
+        // Rejeita ciclos que, em loop, produzam 3+ lures IDÊNTICAS consecutivas via wrap.
+        if (cycleHas3ConsecutiveIdentical(truePeriodSeq)) continue;
         const ev = evaluateCycle(truePeriodSeq, diskLevel, ctx, pool);
         const tpl = ev.result.totalTime / truePeriodSeq.length;
         let sumResist = 0;

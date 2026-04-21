@@ -1,12 +1,10 @@
 import type { Lure, RotationResult as RotationResultType } from "../types";
 import { SkillBadge } from "./SkillBadge";
+import { ELIXIR_PRICE, REVIVE_PRICE } from "../engine/cooldown";
 
 interface Props {
   result: RotationResultType;
 }
-
-// Preço fixo por elixir (gold). Ajuste se necessário.
-const ELIXIR_PRICE = 500;
 
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60);
@@ -14,12 +12,14 @@ function formatTime(seconds: number): string {
   return m > 0 ? `${m}m${s.toString().padStart(2, "0")}s` : `${s}s`;
 }
 
-function countElixirsPerCycle(result: RotationResultType): { atk: number } {
-  let atk = 0;
+function countConsumablesPerCycle(result: RotationResultType) {
+  let elixirAtk = 0, reviveNormal = 0, reviveSuperior = 0;
   for (const step of result.steps) {
-    if (step.lure.usesElixirAtk) atk++;
+    if (step.lure.usesElixirAtk) elixirAtk++;
+    if (step.lure.reviveTier === "normal") reviveNormal++;
+    if (step.lure.reviveTier === "superior") reviveSuperior++;
   }
-  return { atk };
+  return { elixirAtk, reviveNormal, reviveSuperior };
 }
 
 function lureFinisherLabel(lure: Lure): string {
@@ -40,10 +40,16 @@ function lureFinisherClass(lure: Lure): string {
 }
 
 export function RotationResultView({ result }: Props) {
-  const elixirs = countElixirsPerCycle(result);
+  const c = countConsumablesPerCycle(result);
   const cyclePerHour = 3600 / result.totalTime;
-  const elixirAtkPerHour = elixirs.atk * cyclePerHour;
-  const totalCostPerHour = elixirAtkPerHour * ELIXIR_PRICE;
+  const elixirAtkPerHour = c.elixirAtk * cyclePerHour;
+  const reviveNormalPerHour = c.reviveNormal * cyclePerHour;
+  const reviveSuperiorPerHour = c.reviveSuperior * cyclePerHour;
+  const totalCostPerHour =
+    elixirAtkPerHour * ELIXIR_PRICE +
+    reviveNormalPerHour * REVIVE_PRICE.normal +
+    reviveSuperiorPerHour * REVIVE_PRICE.superior;
+  const hasConsumables = c.elixirAtk + c.reviveNormal + c.reviveSuperior > 0;
 
   return (
     <section className="rotation-result">
@@ -62,9 +68,12 @@ export function RotationResultView({ result }: Props) {
           <span className="stat">
             Ocioso: <strong>{formatTime(result.totalIdle)}</strong>
           </span>
-          {elixirs.atk > 0 && (
-            <span className="stat" title={`${ELIXIR_PRICE} gold por elixir`}>
-              Elixirs/h: <strong>{elixirAtkPerHour.toFixed(1)} atk</strong>
+          {hasConsumables && (
+            <span className="stat" title="Custo total de consumíveis por hora">
+              Consumíveis/h:{" "}
+              {c.elixirAtk > 0 && <strong>{elixirAtkPerHour.toFixed(1)} elixir</strong>}
+              {c.reviveNormal > 0 && <> {c.elixirAtk > 0 && "+ "}<strong>{reviveNormalPerHour.toFixed(1)} revive</strong></>}
+              {c.reviveSuperior > 0 && <> {(c.elixirAtk + c.reviveNormal) > 0 && "+ "}<strong>{reviveSuperiorPerHour.toFixed(1)} revive+</strong></>}
               {" "}(<strong>${Math.round(totalCostPerHour).toLocaleString()}/h</strong>)
             </span>
           )}
@@ -105,6 +114,18 @@ export function RotationResultView({ result }: Props) {
                   <span className={`step-finish ${lureFinisherClass(lure)}`}>
                     {lureFinisherLabel(lure)}
                   </span>
+                  {lure.reviveTier && (() => {
+                    const target =
+                      lure.starter.id === lure.revivePokemonId ? lure.starter.name
+                      : lure.second?.id === lure.revivePokemonId ? lure.second.name
+                      : lure.extraMembers.find((m) => m.poke.id === lure.revivePokemonId)?.poke.name;
+                    const label = lure.reviveTier === "superior" ? "🔄 Revive+" : "🔄 Revive";
+                    return (
+                      <span className="step-finish revive" title={`${target} casta o kit 2×`}>
+                        {label} ({target})
+                      </span>
+                    );
+                  })()}
                   {lure.starterUsesHarden && (
                     <span className="step-defense harden">Harden</span>
                   )}

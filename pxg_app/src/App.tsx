@@ -11,7 +11,14 @@ import { PokeSetupEditor } from "./components/PokeSetupEditor";
 import { LureDamagePreview } from "./components/LureDamagePreview";
 import { useRotation } from "./hooks/useRotation";
 import { useDamageConfig } from "./hooks/useDamageConfig";
+import { ELIXIR_PRICE, REVIVE_PRICE } from "./engine/cooldown";
 import "./App.css";
+
+const CONSUMABLE_PRICES = {
+  elixir: ELIXIR_PRICE,
+  reviveNormal: REVIVE_PRICE.normal,
+  reviveSuperior: REVIVE_PRICE.superior,
+};
 
 const pokemonWithSkillsRaw = pokemonData as Pokemon[];
 const roster = rosterData as RosterPokemon[];
@@ -116,12 +123,23 @@ function buildReport(
   lines.push(`Boxes/h: ${boxesPerHour} | Pokémons/h: ${pokesPerHour}`);
 
   const elixirAtk = result.steps.filter((s) => s.lure.usesElixirAtk).length;
-  if (elixirAtk > 0) {
+  const reviveNormal = result.steps.filter((s) => s.lure.reviveTier === "normal").length;
+  const reviveSuperior = result.steps.filter((s) => s.lure.reviveTier === "superior").length;
+  if (elixirAtk + reviveNormal + reviveSuperior > 0) {
     const cyclePerHour = 3600 / result.totalTime;
     const atkPerHour = elixirAtk * cyclePerHour;
-    const ELIXIR_PRICE = 500;
-    const cost = Math.round(atkPerHour * ELIXIR_PRICE);
-    lines.push(`Elixirs/h: ${atkPerHour.toFixed(1)} atk (~$${cost.toLocaleString()}/h)`);
+    const rNormalPerHour = reviveNormal * cyclePerHour;
+    const rSupPerHour = reviveSuperior * cyclePerHour;
+    const cost = Math.round(
+      atkPerHour * CONSUMABLE_PRICES.elixir +
+      rNormalPerHour * CONSUMABLE_PRICES.reviveNormal +
+      rSupPerHour * CONSUMABLE_PRICES.reviveSuperior
+    );
+    const parts: string[] = [];
+    if (atkPerHour > 0) parts.push(`${atkPerHour.toFixed(1)} elixir`);
+    if (rNormalPerHour > 0) parts.push(`${rNormalPerHour.toFixed(1)} revive`);
+    if (rSupPerHour > 0) parts.push(`${rSupPerHour.toFixed(1)} revive+`);
+    lines.push(`Consumíveis/h: ${parts.join(" + ")} (~$${cost.toLocaleString()}/h)`);
   }
 
   const devicePoke = result.devicePokemonId
@@ -140,13 +158,17 @@ function buildReport(
         : lure.type === "dupla"
           ? "Dupla"
           : "Solo";
-    const finisher = lure.usesDevice
+    const finisherBase = lure.usesDevice
       ? "Device"
       : lure.usesElixirAtk
         ? lure.type === "solo_elixir"
           ? "Elixir Atk"
           : `${typeLabel} + Elixir Atk`
         : typeLabel;
+    const reviveLabel = lure.reviveTier
+      ? ` + ${lure.reviveTier === "superior" ? "Revive+" : "Revive"}`
+      : "";
+    const finisher = finisherBase + reviveLabel;
     const defStr = lure.starterUsesHarden ? ` | Defesa: Harden` : "";
 
     const names = [lure.starter.name, lure.second?.name, ...lure.extraMembers.map((m) => m.poke.name)].filter(
@@ -245,6 +267,7 @@ function App() {
           onMobChange={damage.setMob}
           onDeviceChange={damage.setDevice}
           onUseElixirAtkChange={damage.setUseElixirAtk}
+          onReviveChange={damage.setRevive}
         />
 
         <PokeSetupEditor

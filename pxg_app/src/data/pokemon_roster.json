@@ -1855,6 +1855,18 @@
   },
   {
     "id": "shiny-rhydon",
+    "name": "Shiny Rhydon",
+    "tier": "T2",
+    "clans": [
+      "orebound"
+    ],
+    "role": "burst_dd",
+    "elements": [
+      "ground"
+    ]
+  },
+  {
+    "id": "tm-shiny-rhydon",
     "name": "TM Shiny Rhydon",
     "tier": "TM",
     "clans": [
@@ -2163,6 +2175,33 @@
     "role": "burst_dd",
     "elements": [
       "dark"
+    ]
+  },
+  {
+    "id": "alolan-ninetales",
+    "name": "Alolan Ninetales",
+    "tier": "T3",
+    "clans": [
+      "psycraft",
+      "seavell"
+    ],
+    "role": "burst_dd",
+    "elements": [
+      "ice",
+      "fairy"
+    ]
+  },
+  {
+    "id": "crystal-onix",
+    "name": "Crystal Onix",
+    "tier": "TM",
+    "clans": [
+      "orebound"
+    ],
+    "role": "offensive_tank",
+    "elements": [
+      "rock",
+      "steel"
     ]
   }
 ]

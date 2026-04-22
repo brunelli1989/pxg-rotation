@@ -1095,7 +1095,7 @@
     ]
   },
   {
-    "id": "shiny-rhydon",
+    "id": "tm-shiny-rhydon",
     "name": "TM Shiny Rhydon",
     "tier": "TM",
     "role": "burst_dd",
@@ -1145,7 +1145,7 @@
     ]
   },
   {
-    "id": "shiny-rhydon-regular",
+    "id": "shiny-rhydon",
     "name": "Shiny Rhydon",
     "tier": "T2",
     "role": "burst_dd",
@@ -8351,6 +8351,108 @@
         "buff": null,
         "element": "dark",
         "power": 27.08
+      }
+    ]
+  },
+  {
+    "id": "alolan-ninetales",
+    "name": "Alolan Ninetales",
+    "tier": "T3",
+    "role": "burst_dd",
+    "wiki": "https://wiki.pokexgames.com/index.php/Alolan_Ninetales",
+    "todo": "calibrate skills",
+    "skills": [
+      {
+        "name": "Ice Spin",
+        "cooldown": 35,
+        "type": "frontal",
+        "cc": "stun",
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Heart Pound",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Freeze-Dry",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Aurora Beam",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Blizzard",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      }
+    ]
+  },
+  {
+    "id": "crystal-onix",
+    "name": "Crystal Onix",
+    "tier": "TM",
+    "role": "offensive_tank",
+    "wiki": "https://wiki.pokexgames.com/index.php/Crystal_Onix",
+    "todo": "calibrate skills + confirm tier (T3 vs TM) + clans",
+    "skills": [
+      {
+        "name": "Harden",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      },
+      {
+        "name": "Camouflage",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "steel",
+        "def": true
+      },
+      {
+        "name": "Earth Power",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Falling Rocks",
+        "cooldown": 45,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Earthquake",
+        "cooldown": 45,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
       }
     ]
   }

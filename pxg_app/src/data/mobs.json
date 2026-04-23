@@ -2067,6 +2067,7 @@
     ],
     "hunt": "400+",
     "group": "Goodra",
+    "hp": 448035,
     "todo": "calibrate defense",
     "bestStarterElements": [
       "dragon"

@@ -54,26 +54,12 @@ function minPeriod(seq: CompiledLure[]): number {
  */
 const SILENCE_STARTER_PENALTY = 0.10;
 
-/**
- * True se o ciclo, repetido em loop, produz 3+ lures IDÊNTICAS consecutivas (wrap-aware).
- * Ciclos length ≤ 2 ignorados — solo_device loop legítimo (ex: bag só tem 1 T1H-clã).
- *
- * Rule: compara referência do CompiledLure (único por base Lure após compile). Lures com
- * starter igual mas membros diferentes NÃO são contadas como idênticas — ex:
- * "Heatmor+Ninetales, Heatmor+Chandelure, Heatmor+Magby" é permitida (3 starters iguais
- * mas 3 lures distintas → composição legítima que aparece em rotações reais).
- */
-function cycleHas3ConsecutiveIdentical(cycle: CompiledLure[]): boolean {
-  const p = cycle.length;
-  if (p < 3) return false;
-  for (let i = 0; i < p; i++) {
-    const a = cycle[i];
-    const b = cycle[(i + 1) % p];
-    const c = cycle[(i + 2) % p];
-    if (a === b && b === c) return true;
-  }
-  return false;
-}
+// Removido: cycleHas3ConsecutiveIdentical (wrap-aware check).
+// Razão: a regra bloqueava rotações válidas onde a simulação já garante viabilidade via
+// waitForSkill. Ex: [A,A,X,A,Y,A] tem wrap 6→1→2 = A×3, mas se CDs de A recuperam durante
+// X e Y, a rotação é feasible — e pode ser a ótima. A simulação adiciona idle quando CDs
+// não recuperam, baixando bph naturalmente. O "forward block" (beam inner loop) ainda
+// previne geração de [A,A,A,...] em sequência direta.
 
 function starterUsesSilence(lure: Lure): boolean {
   // Só penaliza starter com silence-only (sem opção de stun área).
@@ -145,19 +131,14 @@ export function findBestRotation(
       return els.some((e) => best.includes(e));
     };
     const lureSize = (l: Lure) => 1 + (l.second ? 1 : 0) + l.extraMembers.length;
-    // Stun starter preferido sobre silence (silence é situacionalmente pior pra tankar).
-    // Se alguma lure tem stun-starter válido, todas silence-only ficam fora.
-    const hasStunStarter = (l: Lure): boolean => {
-      return l.starter.skills.some(
-        (s) => s.cc === "stun" && s.type !== "frontal"
-      );
-    };
+    // Stun starter preferido sobre silence via SILENCE_STARTER_PENALTY (soft score penalty).
+    // Antes: hard filter removia silence-starters quando stun existia — eliminava rotações
+    // silence que eram objetivamente melhores (ex: Omastar silence starter num bag onde
+    // o resto das lures aproveita melhor com ele ativo). Agora só o score decide.
     const filter = (ls: Lure[]) => {
       const dmgOk = ls.filter((l) => lureFinalizesBox(l, cfg, cfg.mob));
       const typeOk = dmgOk.filter(starterTypeOk);
-      const typeFiltered = typeOk.length > 0 ? typeOk : dmgOk;
-      const stunOnly = typeFiltered.filter(hasStunStarter);
-      return stunOnly.length > 0 ? stunOnly : typeFiltered;
+      return typeOk.length > 0 ? typeOk : dmgOk;
     };
 
     // Gera TODOS os tiers de lure (solo + dupla + dupla+elixir + group) de uma vez.
@@ -262,8 +243,6 @@ export function findBestRotation(
       for (const s of topN) {
         const period = minPeriod(s.cand.sequence);
         const truePeriodSeq = s.cand.sequence.slice(0, period);
-        // Rejeita ciclos que, em loop, produzam 3+ lures IDÊNTICAS consecutivas via wrap.
-        if (cycleHas3ConsecutiveIdentical(truePeriodSeq)) continue;
         const ev = evaluateCycle(truePeriodSeq, diskLevel, ctx, pool);
         const tpl = ev.result.totalTime / truePeriodSeq.length;
         let sumResist = 0;

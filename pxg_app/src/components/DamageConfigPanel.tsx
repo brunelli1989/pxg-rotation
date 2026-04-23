@@ -140,8 +140,8 @@ export function DamageConfigPanel({
       <fieldset className="damage-config-group">
         <legend>Player</legend>
         <div className="damage-config-row">
-          <label title="Nível efetivo = base + Nightmare Level Bonus (indicado com (+X) no char ao entrar no Nightmare World). Fora do NW, use o nível base. A fórmula do NL bonus não é pública — use o valor que aparece no jogo.">
-            Player lvl (com NW):
+          <label title="Nível BASE do char (ignorar o (+X) do Nightmare Level Bonus — NL não afeta dano, só HP/def). Validado empiricamente com char Orebound 369(+48) vs Volcanic 600(+0).">
+            Player lvl (base):
             <input
               type="number"
               min={1}

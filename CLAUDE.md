@@ -193,7 +193,7 @@ Valida se uma lure finaliza a box (`HP_mob × 6`) e filtra lures inviáveis. Tes
 dmg = (player_lvl + 1.3 × boost + 150) × skill_power × (1 + Σ atk%) × clã × eff × def_mob
 ```
 
-**⚠ `player_lvl` = nível EFETIVO (base + Nightmare Level bonus)**, não base. Dentro do Nightmare World o char ganha um `(+X)` bônus ao nível. Fórmula do NL bonus não é pública — user digita o nível efetivo direto no `DamageConfigPanel` (label "Player lvl (com NW)"). Calibrações devem ser feitas com o nível efetivo visível no jogo durante o cast.
+**`player_lvl` = nível BASE do char (NÃO soma NL bonus).** Validado empiricamente 2026-04-22 pt2 com char Orebound 369(+48) vs Volcanic 600(+0): predição com base 369 bate <0.4%, predição com efetivo 417 erra -7.3%. NL bonus só afeta HP/def, não damage. UI label: "Player lvl (base)". Calibrações antigas com chars NL=0 continuam válidas.
 
 Modificador: `× 1.5` se skill anterior tem `buff: "next"` (Dragon Rage, Hone Claws, Focus Energy, Swords Dance, Sunny Day).
 
@@ -291,7 +291,7 @@ Fallback `DEFAULT_MOB_DEF_FACTOR = 0.85` (média aproximada) pros demais mobs co
 
 - `PokemonCard`: ⚠️ quando `pokemon.todo` existe (ação pendente)
 - `DamageConfigPanel`: ⚠️/✓ nos mobs da dropdown + aviso "defesa aproximada" quando `defFactor` undefined
-- Label do player lvl: "Player lvl (com NW)" — tooltip explica que é nível efetivo (base + NL bonus)
+- Label do player lvl: "Player lvl (base)" — tooltip explica que é BASE do char (NL bonus NÃO afeta dano)
 - Linguagem user-facing: "medido no jogo" (✓) vs "aproximado / estimado" (⚠️) — evitar "calibrado"
 
 Contexto histórico na memória: `project_pxg_damage_formula.md`.

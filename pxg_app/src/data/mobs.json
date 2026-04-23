@@ -2677,5 +2677,176 @@
     "bestStarterElements": ["rock", "ghost"],
     "wiki": "https://wiki.pokexgames.com/index.php/Nightmare_Hunt_-_Ursaring",
     "effectiveElements": ["fighting"]
+  },
+  {
+    "name": "Zorua",
+    "types": ["dark"],
+    "hunt": "400+",
+    "group": "T1H - Zoroark",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["fighting", "bug", "fairy"]
+  },
+  {
+    "name": "Mawile",
+    "types": ["steel", "fairy"],
+    "hunt": "400+",
+    "group": "T1H - Shiny Mawile",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["poison", "steel"]
+  },
+  {
+    "name": "Pachirisu",
+    "types": ["electric"],
+    "hunt": "400+",
+    "group": "T1H - Shiny Pachirisu",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["ground"]
+  },
+  {
+    "name": "Heatmor",
+    "types": ["fire"],
+    "hunt": "400+",
+    "group": "T1H - Shiny Heatmor",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["water", "ground", "rock"]
+  },
+  {
+    "name": "Makuhita",
+    "types": ["fighting"],
+    "hunt": "400+",
+    "group": "T1H - Shiny Hariyama",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["flying", "psychic", "fairy"]
+  },
+  {
+    "name": "Hariyama",
+    "types": ["fighting"],
+    "hunt": "400+",
+    "group": "T1H - Shiny Hariyama",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["flying", "psychic", "fairy"]
+  },
+  {
+    "name": "T1H Snorunt",
+    "types": ["ice"],
+    "hunt": "400+",
+    "group": "T1H - Mega Glalie",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["fire", "fighting", "rock", "steel"]
+  },
+  {
+    "name": "T1H Glalie",
+    "types": ["ice"],
+    "hunt": "400+",
+    "group": "T1H - Mega Glalie",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["fire", "fighting", "rock", "steel"]
+  },
+  {
+    "name": "T1H Cranidos",
+    "types": ["rock"],
+    "hunt": "400+",
+    "group": "T1H - Shiny Rampardos",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["water", "grass", "fighting", "ground", "steel"]
+  },
+  {
+    "name": "T1H Rampardos",
+    "types": ["rock"],
+    "hunt": "400+",
+    "group": "T1H - Shiny Rampardos",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["water", "grass", "fighting", "ground", "steel"]
+  },
+  {
+    "name": "Treecko",
+    "types": ["grass"],
+    "hunt": "400+",
+    "group": "T1H - Shiny Sceptile",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["fire", "ice", "flying", "bug", "poison"]
+  },
+  {
+    "name": "Grovyle",
+    "types": ["grass"],
+    "hunt": "400+",
+    "group": "T1H - Shiny Sceptile",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["fire", "ice", "flying", "bug", "poison"]
+  },
+  {
+    "name": "Sceptile",
+    "types": ["grass"],
+    "hunt": "400+",
+    "group": "T1H - Shiny Sceptile",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["fire", "ice", "flying", "bug", "poison"]
+  },
+  {
+    "name": "Pidgey",
+    "types": ["normal", "flying"],
+    "hunt": "400+",
+    "group": "T1H - Mega Pidgeot",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["electric", "ice", "rock"]
+  },
+  {
+    "name": "Pidgeotto",
+    "types": ["normal", "flying"],
+    "hunt": "400+",
+    "group": "T1H - Mega Pidgeot",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["electric", "ice", "rock"]
+  },
+  {
+    "name": "T1H Pidgeot",
+    "types": ["normal", "flying"],
+    "hunt": "400+",
+    "group": "T1H - Mega Pidgeot",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["electric", "ice", "rock"]
+  },
+  {
+    "name": "T1H Ralts",
+    "types": ["psychic", "fairy"],
+    "hunt": "400+",
+    "group": "T1H - Shiny Gardevoir",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["poison", "steel"]
+  },
+  {
+    "name": "T1H Kirlia",
+    "types": ["psychic", "fairy"],
+    "hunt": "400+",
+    "group": "T1H - Shiny Gardevoir",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["poison", "steel"]
+  },
+  {
+    "name": "T1H Gardevoir",
+    "types": ["psychic", "fairy"],
+    "hunt": "400+",
+    "group": "T1H - Shiny Gardevoir",
+    "todo": "calibrate hp + defense + bestStarterElements",
+    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
+    "effectiveElements": ["poison", "steel"]
   }
 ]

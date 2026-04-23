@@ -159,4 +159,136 @@ const errPidgeot = Math.abs(predictedPidgeot - observedPidgeotFR) / observedPidg
 console.log(`Sh.Ramp FR em Pidgeot (dual-type rule): predito ${predictedPidgeot.toFixed(0)}, obs ~${observedPidgeotFR}, err ${(errPidgeot * 100).toFixed(2)}%`);
 // Sem a fix (eff=1.0 antigo): predito ~14k → erro ~50%.
 
-console.log("\nSe todos os erros estão <1%, engine está correto.");
+// =========================================================
+// Validation session 2026-04-22 pt2 — formula components isolation tests
+// Cada teste varia UMA variável mantendo resto constante pra isolar o termo.
+// =========================================================
+
+let failures = 0;
+const TOLERANCE = 0.01; // 1%
+
+function assert(name: string, observed: number, predicted: number) {
+  const err = Math.abs(predicted - observed) / observed;
+  const ok = err <= TOLERANCE;
+  const mark = ok ? "✓" : "✗";
+  console.log(`  ${mark} ${name}: predito ${predicted.toFixed(0)}, obs ${observed}, err ${(err * 100).toFixed(2)}%`);
+  if (!ok) failures++;
+}
+
+const florges: Pokemon = {
+  id: "florges",
+  name: "Florges",
+  tier: "T2",
+  role: "offensive_tank",
+  skills: [],
+};
+
+const ninetales: Pokemon = {
+  id: "ninetales",
+  name: "Ninetales",
+  tier: "T2",
+  role: "burst_dd",
+  skills: [],
+};
+
+const heatmor: Pokemon = {
+  id: "shiny-heatmor",
+  name: "Shiny Heatmor",
+  tier: "T1H",
+  role: "burst_dd",
+  skills: [],
+};
+
+// ---- Florges at lvl 600 Volcanic (non-fire skills, clã=1) ----
+console.log("\nFlorges Volcanic lvl 600 +50 XA5 (clã non-match = 1.0):");
+const florgesBase = {
+  playerLvl: 600,
+  clan: "volcanic" as const,
+  hunt: "400+" as const,
+  mob: { name: "dummy", types: ["psychic" as const], hp: 0, defFactor: 1 },
+  device: { kind: "x-attack" as const, tier: 0 as const },
+  pokeSetups: { florges: { boost: 50, held: { kind: "x-attack" as const, tier: 5 as const }, hasDevice: false } },
+  skillCalibrations: {},
+};
+const heartPound: Skill = { name: "Heart Pound", cooldown: 35, type: "area", cc: null, buff: null, element: "fairy", power: 14.50 };
+const floralStorm: Skill = { name: "Floral Storm", cooldown: 55, type: "area", cc: null, buff: null, element: "fairy", power: 25.12 };
+const petalBlizzard: Skill = { name: "Petal Blizzard", cooldown: 45, type: "area", cc: null, buff: null, element: "grass", power: 23.18 };
+const grassyTerrain: Skill = { name: "Grassy Terrain", cooldown: 45, type: "area", cc: "stun", buff: null, element: "grass", power: 12.85 };
+
+assert("Heart Pound", 14421, computeSkillDamage(florgesBase, florges, heartPound));
+assert("Floral Storm", 24973, computeSkillDamage(florgesBase, florges, floralStorm));
+assert("Petal Blizzard", 23050, computeSkillDamage(florgesBase, florges, petalBlizzard));
+assert("Grassy Terrain", 12773, computeSkillDamage(florgesBase, florges, grassyTerrain));
+
+// ---- Florges at lvl 369 Orebound (player lvl BASE, no NL bonus) ----
+console.log("\nFlorges Orebound lvl 369 BASE +50 XA5 (player lvl = base, não efetivo):");
+const florgesOrebound: DamageConfig = {
+  ...florgesBase,
+  playerLvl: 369,
+  clan: "orebound",
+};
+assert("Petal Blizzard @ lvl 369", 16557, computeSkillDamage(florgesOrebound, florges, petalBlizzard));
+assert("Floral Storm @ lvl 369", 17951, computeSkillDamage(florgesOrebound, florges, floralStorm));
+assert("Grassy Terrain @ lvl 369", 9194, computeSkillDamage(florgesOrebound, florges, grassyTerrain));
+
+// ---- Florges at lvl 369 Orebound + device X-Boost T7 ----
+console.log("\nFlorges Orebound lvl 369 +50 XA5 + device X-Boost T7 (valida 2X rule):");
+const florgesDevice: DamageConfig = {
+  ...florgesOrebound,
+  device: { kind: "x-boost", tier: 7 },
+  pokeSetups: { florges: { boost: 50, held: { kind: "x-attack", tier: 5 }, hasDevice: true } },
+};
+assert("Petal Blizzard + X-Boost T7", 19128, computeSkillDamage(florgesDevice, florges, petalBlizzard));
+assert("Heart Pound + X-Boost T7", 11974, computeSkillDamage(florgesDevice, florges, heartPound));
+assert("Floral Storm + X-Boost T7", 20716, computeSkillDamage(florgesDevice, florges, floralStorm));
+assert("Grassy Terrain + X-Boost T7", 10596, computeSkillDamage(florgesDevice, florges, grassyTerrain));
+
+// ---- Sh.Heatmor Volcanic lvl 600 fire skills (clã MATCH = 1.28) ----
+console.log("\nSh.Heatmor Volcanic lvl 600 XA8 (clã fire match = 1.28):");
+const heatmorBase70: DamageConfig = {
+  playerLvl: 600,
+  clan: "volcanic",
+  hunt: "400+",
+  mob: { name: "dummy", types: ["psychic"], hp: 0, defFactor: 1 },
+  device: { kind: "x-attack", tier: 0 },
+  pokeSetups: { "shiny-heatmor": { boost: 70, held: { kind: "x-attack", tier: 8 }, hasDevice: false } },
+  skillCalibrations: {},
+};
+const heatmorBase80: DamageConfig = {
+  ...heatmorBase70,
+  pokeSetups: { "shiny-heatmor": { boost: 80, held: { kind: "x-attack", tier: 8 }, hasDevice: false } },
+};
+const burningJealousy: Skill = { name: "Burning Jealousy", cooldown: 40, type: "area", cc: "stun", buff: null, element: "fire", power: 22.65 };
+const shadowFire: Skill = { name: "Shadow Fire", cooldown: 50, type: "area", cc: null, buff: null, element: "fire", power: 24.20 };
+const fireLash: Skill = { name: "Fire Lash", cooldown: 50, type: "area", cc: null, buff: null, element: "fire", power: 25.17 };
+
+assert("Heatmor +70 BJ", 31949, computeSkillDamage(heatmorBase70, heatmor, burningJealousy));
+assert("Heatmor +80 BJ", 32425, computeSkillDamage(heatmorBase80, heatmor, burningJealousy));
+assert("Heatmor +80 Shadow Fire", 34675, computeSkillDamage(heatmorBase80, heatmor, shadowFire));
+assert("Heatmor +80 Fire Lash", 36025, computeSkillDamage(heatmorBase80, heatmor, fireLash));
+
+// ---- Ninetales Volcanic lvl 600 XA5 vs XA8 (valida X-Atk T5 + T8) ----
+console.log("\nNinetales Volcanic lvl 600 +70 (XA5 vs XA8 → valida helds):");
+const ninetalesXA8: DamageConfig = {
+  playerLvl: 600,
+  clan: "volcanic",
+  hunt: "400+",
+  mob: { name: "dummy", types: ["psychic"], hp: 0, defFactor: 1 },
+  device: { kind: "x-attack", tier: 0 },
+  pokeSetups: { ninetales: { boost: 70, held: { kind: "x-attack", tier: 8 }, hasDevice: false } },
+  skillCalibrations: {},
+};
+const ninetalesXA5: DamageConfig = {
+  ...ninetalesXA8,
+  pokeSetups: { ninetales: { boost: 70, held: { kind: "x-attack", tier: 5 }, hasDevice: false } },
+};
+const ninetalesBJ: Skill = { name: "Burning Jealousy", cooldown: 40, type: "area", cc: "stun", buff: null, element: "fire", power: 22.47 };
+
+assert("Ninetales XA8 BJ", 31697, computeSkillDamage(ninetalesXA8, ninetales, ninetalesBJ));
+// Ninetales XA5 ball tinha food 1% → observado é 1.01× predito
+const ninetalesXA5Predicted = computeSkillDamage(ninetalesXA5, ninetales, ninetalesBJ);
+assert("Ninetales XA5 BJ (sem food bonus)", Math.round(29788 / 1.01), ninetalesXA5Predicted);
+
+// ---- Summary ----
+console.log(`\n=== Validation tests: ${failures === 0 ? "PASSED" : `${failures} FAILED`} ===`);
+if (failures > 0) throw new Error(`${failures} assertion(s) failed`);

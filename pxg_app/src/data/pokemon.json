@@ -1697,6 +1697,7 @@
     "role": "burst_dd",
     "wiki": "https://wiki.pokexgames.com/index.php/Ninetales",
     "config": "lvl 600, +70, XA8, Volcanic (+28% fire), sem device, neutro",
+    "observacao": "Burning Jealousy single-hit; Inferno 3-hit + burn DoT; Hellfire Storm 3-hit + burn DoT; Flame Wheel 8-hit sem burn; Fire Ball 1-hit + burn DoT",
     "skills": [
       {
         "name": "Burning Jealousy",
@@ -1705,8 +1706,8 @@
         "cc": "stun",
         "buff": null,
         "element": "fire",
-        "power": 22.50,
-        "dano": 31730
+        "power": 22.47,
+        "dano": 31697
       },
       {
         "name": "Nasty Plot",
@@ -1725,8 +1726,8 @@
         "cc": null,
         "buff": null,
         "element": "fire",
-        "power": 18.37,
-        "dano": 25900
+        "power": 26.25,
+        "dano": 37020
       },
       {
         "name": "Hellfire Storm",
@@ -1735,8 +1736,8 @@
         "cc": null,
         "buff": null,
         "element": "fire",
-        "power": 27.73,
-        "dano": 39100
+        "power": 27.17,
+        "dano": 38331
       },
       {
         "name": "Flame Wheel",
@@ -1745,8 +1746,8 @@
         "cc": null,
         "buff": "self",
         "element": "fire",
-        "power": 6.24,
-        "dano": 8800
+        "power": 6.22,
+        "dano": 8775
       },
       {
         "name": "Fire Ball",
@@ -1755,8 +1756,8 @@
         "cc": null,
         "buff": null,
         "element": "fire",
-        "power": 7.09,
-        "dano": 10000
+        "power": 7.07,
+        "dano": 9968
       }
     ]
   },

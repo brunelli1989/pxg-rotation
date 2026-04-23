@@ -2773,7 +2773,9 @@
     "types": ["grass"],
     "hunt": "400+",
     "group": "T1H - Shiny Sceptile",
-    "todo": "calibrate hp + defense + bestStarterElements",
+    "hp": 179095,
+    "defFactor": 1.00,
+    "todo": "calibrate bestStarterElements",
     "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
     "effectiveElements": ["fire", "ice", "flying", "bug", "poison"]
   },
@@ -2782,7 +2784,9 @@
     "types": ["grass"],
     "hunt": "400+",
     "group": "T1H - Shiny Sceptile",
-    "todo": "calibrate hp + defense + bestStarterElements",
+    "hp": 214720,
+    "defFactor": 0.90,
+    "todo": "calibrate bestStarterElements",
     "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
     "effectiveElements": ["fire", "ice", "flying", "bug", "poison"]
   },
@@ -2791,7 +2795,9 @@
     "types": ["grass"],
     "hunt": "400+",
     "group": "T1H - Shiny Sceptile",
-    "todo": "calibrate hp + defense + bestStarterElements",
+    "hp": 241795,
+    "defFactor": 0.62,
+    "todo": "calibrate bestStarterElements",
     "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
     "effectiveElements": ["fire", "ice", "flying", "bug", "poison"]
   },

@@ -2779,7 +2779,7 @@
     ]
   },
   {
-    "name": "T1H Zorua",
+    "name": "T1H - Zoroark",
     "types": [
       "dark"
     ],
@@ -2796,7 +2796,7 @@
     ]
   },
   {
-    "name": "T1H Mawile",
+    "name": "T1H - Shiny Mawile",
     "types": [
       "fairy",
       "steel"
@@ -2813,7 +2813,7 @@
     ]
   },
   {
-    "name": "T1H Pachirisu",
+    "name": "T1H - Shiny Pachirisu",
     "types": [
       "electric"
     ],
@@ -2828,7 +2828,7 @@
     ]
   },
   {
-    "name": "T1H Heatmor",
+    "name": "T1H - Shiny Heatmor",
     "types": [
       "fire"
     ],
@@ -2845,24 +2845,7 @@
     ]
   },
   {
-    "name": "T1H Makuhita",
-    "types": [
-      "fighting"
-    ],
-    "hunt": "400+",
-    "group": "T1H - Shiny Hariyama",
-    "hp": 214720,
-    "defFactor": 0.85,
-    "todo": "calibrate bestStarterElements",
-    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
-    "effectiveElements": [
-      "flying",
-      "psychic",
-      "fairy"
-    ]
-  },
-  {
-    "name": "T1H Hariyama",
+    "name": "T1H - Shiny Hariyama",
     "types": [
       "fighting"
     ],
@@ -2879,25 +2862,7 @@
     ]
   },
   {
-    "name": "T1H Snorunt",
-    "types": [
-      "ice"
-    ],
-    "hunt": "400+",
-    "group": "T1H - Mega Glalie",
-    "hp": 214720,
-    "defFactor": 0.8,
-    "todo": "calibrate bestStarterElements",
-    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
-    "effectiveElements": [
-      "fire",
-      "fighting",
-      "rock",
-      "steel"
-    ]
-  },
-  {
-    "name": "T1H Glalie",
+    "name": "T1H - Mega Glalie",
     "types": [
       "ice"
     ],
@@ -2915,26 +2880,7 @@
     ]
   },
   {
-    "name": "T1H Cranidos",
-    "types": [
-      "rock"
-    ],
-    "hunt": "400+",
-    "group": "T1H - Shiny Rampardos",
-    "hp": 214720,
-    "defFactor": 0.9,
-    "todo": "calibrate bestStarterElements",
-    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
-    "effectiveElements": [
-      "water",
-      "grass",
-      "fighting",
-      "ground",
-      "steel"
-    ]
-  },
-  {
-    "name": "T1H Rampardos",
+    "name": "T1H - Shiny Rampardos",
     "types": [
       "rock"
     ],
@@ -2953,45 +2899,7 @@
     ]
   },
   {
-    "name": "T1H Treecko",
-    "types": [
-      "grass"
-    ],
-    "hunt": "400+",
-    "group": "T1H - Shiny Sceptile",
-    "hp": 179095,
-    "defFactor": 1,
-    "todo": "calibrate bestStarterElements",
-    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
-    "effectiveElements": [
-      "fire",
-      "ice",
-      "flying",
-      "bug",
-      "poison"
-    ]
-  },
-  {
-    "name": "T1H Grovyle",
-    "types": [
-      "grass"
-    ],
-    "hunt": "400+",
-    "group": "T1H - Shiny Sceptile",
-    "hp": 214720,
-    "defFactor": 0.9,
-    "todo": "calibrate bestStarterElements",
-    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
-    "effectiveElements": [
-      "fire",
-      "ice",
-      "flying",
-      "bug",
-      "poison"
-    ]
-  },
-  {
-    "name": "T1H Sceptile",
+    "name": "T1H - Shiny Sceptile",
     "types": [
       "grass"
     ],
@@ -3010,43 +2918,7 @@
     ]
   },
   {
-    "name": "T1H Pidgey",
-    "types": [
-      "normal",
-      "flying"
-    ],
-    "hunt": "400+",
-    "group": "T1H - Mega Pidgeot",
-    "hp": 179095,
-    "defFactor": 1,
-    "todo": "calibrate bestStarterElements",
-    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
-    "effectiveElements": [
-      "electric",
-      "ice",
-      "rock"
-    ]
-  },
-  {
-    "name": "T1H Pidgeotto",
-    "types": [
-      "normal",
-      "flying"
-    ],
-    "hunt": "400+",
-    "group": "T1H - Mega Pidgeot",
-    "hp": 214720,
-    "defFactor": 1,
-    "todo": "calibrate bestStarterElements",
-    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
-    "effectiveElements": [
-      "electric",
-      "ice",
-      "rock"
-    ]
-  },
-  {
-    "name": "T1H Pidgeot",
+    "name": "T1H - Mega Pidgeot",
     "types": [
       "normal",
       "flying"
@@ -3064,41 +2936,7 @@
     ]
   },
   {
-    "name": "T1H Ralts",
-    "types": [
-      "psychic",
-      "fairy"
-    ],
-    "hunt": "400+",
-    "group": "T1H - Shiny Gardevoir",
-    "hp": 164845,
-    "defFactor": 0.96,
-    "todo": "calibrate bestStarterElements",
-    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
-    "effectiveElements": [
-      "poison",
-      "steel"
-    ]
-  },
-  {
-    "name": "T1H Kirlia",
-    "types": [
-      "psychic",
-      "fairy"
-    ],
-    "hunt": "400+",
-    "group": "T1H - Shiny Gardevoir",
-    "hp": 200470,
-    "defFactor": 0.95,
-    "todo": "calibrate bestStarterElements",
-    "wiki": "https://wiki.pokexgames.com/index.php/T1H_-_Cosmic_Island",
-    "effectiveElements": [
-      "poison",
-      "steel"
-    ]
-  },
-  {
-    "name": "T1H Gardevoir",
+    "name": "T1H - Shiny Gardevoir",
     "types": [
       "psychic",
       "fairy"

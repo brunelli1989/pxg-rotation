@@ -475,6 +475,7 @@
     ],
     "hunt": "300",
     "group": "Klink/Klang",
+    "hp": 216626,
     "todo": "calibrate defense",
     "bestStarterElements": [
       "fire"
@@ -494,6 +495,7 @@
     ],
     "hunt": "300",
     "group": "Klink/Klang",
+    "hp": 180414,
     "todo": "calibrate defense",
     "bestStarterElements": [
       "fire"

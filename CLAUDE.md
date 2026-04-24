@@ -233,7 +233,11 @@ Calibração = soma todos os hits da skill. Os valores per-hit às vezes variam 
 - `Σ atk%`: aditivo (X-Atk T1=8% ... T8=31%, device=+19% equivalente T4)
 - **X-Boost held**: contribui `2X` ao eff_boost (wiki: "dobro desse valor como bônus de ataque") — validado 2026-04-20
 - `clã`: multiplicativo se skill é do tipo do clã (Orebound rock/ground=1.25, Volcanic fire=1.28, etc — ver `clans.json`)
-- `eff`: chart padrão Pokémon (0×/0.5×/1×/2×). **PxG usa FULL DUAL-TYPE** — multiplica o efeito de cada tipo do defender. Ex: fighting vs Mawile [fairy, steel] = ×0.5 × ×2 = ×1 (neutro). Validado 2026-04-22. Pidgeot [normal, flying] vs rock = ×1 × ×2 = ×2 (igual ao antigo last-only por coincidência). Ver `computeEffectiveness`
+- `eff`: **PxG usa tabela PIECEWISE** (oficial user 2026-04-24), NÃO multiplicativa.
+  - **Single**: weak 2.0 / neutral 1.0 / resistant 0.5 / null NW 0.5
+  - **Dual**: 2weak=2.0 / 1weak+1neutral=**1.75** / 1weak+1resistant=1.0 / 2neutral=1.0 / 1resistant+1neutral=0.75 / 2resistant=0.5 / qualquer-null NW=0.5
+  - Ex: Alolan Diglett [ground, steel] vs ground = 1w+1n = **1.75** (não 2.0 mult). Mawile [steel, fairy] vs fighting = 1w+1r = 1.0 (neutro, mesmo resultado que mult por coincidência).
+  - Ver `computeEffectiveness(attacker, defenderTypes[])` e wrapper `skillEffectiveness(skill, defenderTypes[])`.
 - `def_mob`: multiplicador < 1, empírico por mob
 
 **`skill_power` varia per-instância**, não por espécie: Fire Ball no Ninetales = 6.07, no Charizard = 13.77.
@@ -290,6 +294,8 @@ Quando `skill.power` é undefined, `resolveSkillPower(skill, poke)` usa `getDefa
 
 **Heurística HP/def**: mob com mais HP tem defFactor MAIOR (recebe mais dmg por hit) pra balancear time-to-kill. Descoberto 2026-04-24 validando com 2+ skills em 3 mobs Mixed Grass. Estimativa: `def_novo ≈ HP_novo × (def_cal / HP_cal)` pra mobs da mesma hunt.
 
+**Tracker cores (PokeXGamesTools, 2026-04-24)**: log agora emite `(color=N)` por hit indicando elemento da skill. **color=164** = ground, **color=180** = rock, **color=129** = normal/DoT. Filtrar por color do elemento esperado isola hits limpos e resolve muita misatrib.
+
 Fallback `DEFAULT_MOB_DEF_FACTOR = 0.85` (média aproximada) pros demais mobs com `todo: "calibrate defense"`.
 
 ### Calibração
@@ -304,6 +310,7 @@ Fallback `DEFAULT_MOB_DEF_FACTOR = 0.85` (média aproximada) pros demais mobs co
 - `Pokemon.todo` — ação pendente (ex: "RECALIBRAR", "calibrate skills"), DISPARA ⚠️ na UI
 - `Skill.dano` — valor observado no dummy (input bruto antes de derivar power)
 - `Skill.power` — skill_power derivado da fórmula inversa
+- `Skill.calibrations[]` — array opcional com múltiplas observações: `{config, dano, power?, note?}`. Engine usa `power` canônico; se ausente, média de `calibrations[].power`; senão fallback tier/role.
 
 **Log-based calibration tool** (PokeXGamesTools — repo separado):
 - Arquivo `D:\git\PokeXGamesTools\src\SysMetricsWinDivert\bin\Debug\net9.0-windows\skill_summary_log.txt`

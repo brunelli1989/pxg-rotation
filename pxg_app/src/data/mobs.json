@@ -392,6 +392,7 @@
     ],
     "hunt": "300",
     "group": "Rockruff",
+    "hp": 206220,
     "todo": "calibrate defense",
     "bestStarterElements": [
       "fighting",
@@ -905,7 +906,7 @@
     "hunt": "300",
     "group": "Elekid",
     "hp": 209984,
-    "todo": "calibrate defense",
+    "defFactor": 0.732,
     "bestStarterElements": [
       "ground"
     ],
@@ -922,7 +923,7 @@
     "hunt": "300",
     "group": "Tynamo/Eelektrik",
     "hp": 239169,
-    "todo": "calibrate defense",
+    "defFactor": 0.653,
     "bestStarterElements": [
       "ground",
       "rock"
@@ -940,7 +941,7 @@
     "hunt": "300",
     "group": "Tynamo/Eelektrik",
     "hp": 203680,
-    "todo": "calibrate defense",
+    "defFactor": 0.555,
     "bestStarterElements": [
       "ground",
       "rock"
@@ -1166,7 +1167,7 @@
     "hunt": "400+",
     "group": "Lycanroc",
     "hp": 495264,
-    "todo": "calibrate defense",
+    "defFactor": 0.57,
     "bestStarterElements": [
       "fighting",
       "ground",
@@ -1708,7 +1709,7 @@
     "hunt": "400+",
     "group": "Sandaconda",
     "hp": 440100,
-    "todo": "calibrate defense",
+    "defFactor": 0.57,
     "bestStarterElements": [
       "grass",
       "bug"
@@ -1773,7 +1774,7 @@
     "hunt": "400+",
     "group": "Glalie",
     "hp": 455700,
-    "todo": "calibrate defense",
+    "defFactor": 0.64,
     "bestStarterElements": [
       "fire",
       "steel"
@@ -1923,7 +1924,7 @@
     "hunt": "400+",
     "group": "Chandelure",
     "hp": 469384,
-    "todo": "calibrate defense",
+    "defFactor": 0.62,
     "bestStarterElements": [
       "normal",
       "dark"
@@ -1946,7 +1947,7 @@
     "hunt": "400+",
     "group": "Mixed Fire",
     "hp": 391590,
-    "todo": "calibrate defense",
+    "defFactor": 0.58,
     "bestStarterElements": [
       "water",
       "rock"
@@ -2082,7 +2083,8 @@
     ],
     "hunt": "400+",
     "group": "Rampardos/Sudowoodo",
-    "todo": "calibrate defense",
+    "hp": 504189,
+    "defFactor": 0.643,
     "bestStarterElements": [
       "fighting",
       "ground",
@@ -2104,7 +2106,8 @@
     ],
     "hunt": "400+",
     "group": "Rampardos/Sudowoodo",
-    "todo": "calibrate defense",
+    "hp": 480080,
+    "defFactor": 0.613,
     "bestStarterElements": [
       "fighting",
       "ground",
@@ -2304,7 +2307,7 @@
     "hunt": "400+",
     "group": "Mixed Grass",
     "hp": 477598,
-    "todo": "calibrate defense",
+    "defFactor": 0.55,
     "bestStarterElements": [
       "fire",
       "flying",
@@ -2328,7 +2331,7 @@
     "hunt": "400+",
     "group": "Mixed Grass",
     "hp": 536400,
-    "todo": "calibrate defense",
+    "defFactor": 0.604,
     "bestStarterElements": [
       "fire",
       "flying",
@@ -2352,7 +2355,7 @@
     "hunt": "400+",
     "group": "Mixed Grass",
     "hp": 678137,
-    "todo": "calibrate defense",
+    "defFactor": 0.681,
     "bestStarterElements": [
       "fire",
       "flying",
@@ -2400,7 +2403,7 @@
     "hunt": "400+",
     "group": "Piloswine",
     "hp": 454886,
-    "todo": "calibrate defense",
+    "defFactor": 0.62,
     "bestStarterElements": [
       "fire",
       "fighting",
@@ -2673,13 +2676,32 @@
     "effectivenessNotes": "Scizor é bug/steel — Fire é 4× efetivo (dupla fraqueza)."
   },
   {
+    "name": "Small Sentinel",
+    "types": [
+      "normal"
+    ],
+    "hunt": "300",
+    "group": "Sentinel",
+    "hp": 83453,
+    "todo": "calibrate defense",
+    "bestStarterElements": [
+      "ghost"
+    ],
+    "wiki": "https://wiki.pokexgames.com/index.php/Nightmare_Hunt_-_Sentinel",
+    "effectiveElements": [
+      "fighting"
+    ],
+    "effectivenessNotes": "Mobs aplicam Blind (mitigável com Nomel Berry)."
+  },
+  {
     "name": "Sentinel",
     "types": [
       "normal"
     ],
     "hunt": "300",
     "group": "Sentinel",
-    "todo": "calibrate hp + defense",
+    "hp": 84833,
+    "todo": "calibrate defense",
     "bestStarterElements": [
       "ghost"
     ],
@@ -2720,7 +2742,8 @@
     ],
     "hunt": "400+",
     "group": "Togetic/Togekiss",
-    "todo": "calibrate hp + defense",
+    "hp": 560441,
+    "todo": "calibrate defense",
     "bestStarterElements": [
       "steel",
       "poison"

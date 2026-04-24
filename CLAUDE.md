@@ -220,7 +220,11 @@ Modificador: `× 1.5` se skill anterior tem `buff: "next"` (Dragon Rage, Hone Cl
 - Mamaragan (Electabuzz): 5 hits
 - Leafage (Tropius): 4 hits
 - Hurricane (Pidgeot): 9 hits
-- Ancient Power (Golem): 5 hits
+- Ancient Power (Golem/**Shiny Rampardos**): 5 hits
+- **Fake Out (Shiny Hariyama)**: 4 hits (descoberto 2026-04-24)
+- **Whirlpool (Shiny Floatzel)**: 4 hits (2026-04-24)
+- **Counter Shield (Shiny Floatzel)**: 8 hits (2026-04-24)
+- **Sand Field / Sandstorm (Hippowdon Female)**: 3 hits (2026-04-24)
 
 Calibração = soma todos os hits da skill. Os valores per-hit às vezes variam (ex: Shadow Storm 28k + 21k).
 
@@ -257,16 +261,34 @@ Quando `skill.power` é undefined, `resolveSkillPower(skill, poke)` usa `getDefa
 
 ### Defesas de mobs calibrados
 
+**Hunt 400+** (range típico 0.55-0.70):
 | Mob | Tipo | defFactor |
 |---|---|---|
-| Torkoal | fire | 0.55 (hunt 400+) |
-| Pinsir | bug | 0.58 (hunt 400+, calibrado) |
-| Pidgeot | normal/flying | 0.59 (hunt 400+) |
-| Dragonair | dragon | 0.68 (outlier) |
+| Torkoal | fire | 0.55 |
+| Shiftry | grass/dark | 0.55 |
+| Pinsir | bug | 0.58 |
+| Sandaconda | ground | 0.57 |
+| Lycanroc | rock | 0.57 |
+| Houndoom | dark/fire | 0.58 |
+| Pidgeot | normal/flying | 0.59 |
+| Lilligant | grass | 0.604 |
+| Sudowoodo | rock | 0.613 |
+| Chandelure | ghost/fire | 0.62 |
+| Piloswine | ice/ground | 0.62 |
+| Glalie | ice | 0.64 |
+| Rampardos | rock | 0.643 |
+| Tangela | grass | 0.681 |
+| Dragonair | dragon | 0.68 |
+
+**Hunt 300** (typical mais alto):
+| Mob | Tipo | defFactor |
+|---|---|---|
 | Dratini | dragon | 0.80 |
 | Magby | fire | 0.88 |
 | Pansear | fire | 0.90 |
 | Espurr | psy | 0.92 |
+
+**Heurística HP/def**: mob com mais HP tem defFactor MAIOR (recebe mais dmg por hit) pra balancear time-to-kill. Descoberto 2026-04-24 validando com 2+ skills em 3 mobs Mixed Grass. Estimativa: `def_novo ≈ HP_novo × (def_cal / HP_cal)` pra mobs da mesma hunt.
 
 Fallback `DEFAULT_MOB_DEF_FACTOR = 0.85` (média aproximada) pros demais mobs com `todo: "calibrate defense"`.
 

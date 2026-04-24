@@ -31,11 +31,22 @@ pxg_app/src/
 ├── engine/
 │   ├── cooldown.ts         # Fórmula de CD com disk, cooldowns de elixir
 │   ├── scoring.ts          # Ordem ótima de skills, helpers (hasHarden, hasSilence, hasFrontal, hasHardCC)
-│   ├── rotation.ts         # Core: geração de lures + beam search + simulação com active time
+│   ├── rotation.ts         # Barrel re-export de rotation/ submodules
+│   ├── rotation/           # Split em submódulos:
+│   │   ├── generate.ts     #   - Lure template generation (solo_device, solo_elixir, dupla, group)
+│   │   ├── simulation.ts   #   - SimState/SimContext/SimStatePool, compileLures, applyLure, CD math
+│   │   └── beam-search.ts  #   - findBestRotation, findBestForBag, evaluateCycle
 │   ├── rotation.worker.ts  # Worker que processa chunks de bags
 │   ├── rotationAsync.ts    # Orquestrador: distribui bags entre workers, junta resultado
-│   ├── damage.ts           # Fórmula de dano, fallback por (tier, role), resolveSkillPower
-│   └── damage.test.ts      # Testes de regressão vs dados reais (<0.25% erro)
+│   ├── damage.ts           # Barrel re-export de damage/ submodules
+│   ├── damage/             # Split em submódulos:
+│   │   ├── fallback.ts     #   - BURST_POWER_BY_TIER_CC + resolveSkillPower
+│   │   ├── mob.ts          #   - resolveMobConfig + hp/def hierarchy
+│   │   ├── multipliers.ts  #   - TYPE_CHART + CLAN_ATK_BONUS (eff + clã)
+│   │   ├── formula.ts      #   - X-Atk/X-Boost tables + computeSkillDamage + deriveSkillPower
+│   │   └── lure.ts         #   - estimateLureDamagePerMob + lureFinalizesBox + estimatePokeSoloDamage
+│   ├── damage.test.ts      # Testes de regressão vs dados reais (<0.1% erro)
+│   └── beam-search.test.ts # Regression test pro bug wrap-check (81 b/h Magby/Pansear bag)
 ├── components/
 │   ├── PokemonSelector.tsx / PokemonCard.tsx / SkillBadge.tsx
 │   ├── DiskSelector.tsx
@@ -81,7 +92,7 @@ UI label: "Elixir Atk" foi renomeado pra **"Swordsman Elixir"** (nome real do jo
   - Não tem → depende do tier (T1H tanka sem; outros precisam via player-strength rule)
 - **Player-strength rule:** se nenhuma lure de ≤3 membros finaliza a box, starter precisa ter `def:true` (T1H burst_dd sem Harden fica banido). Heurística do user: "a partir do momento que finaliza com 3 pokes, dá pra lurar com T1H".
 - **Consumable-gate starter filter:** `canStarter(p) = isOfftank(p) || isT1HClan(p) || lure.usesElixirAtk || lure.reviveTier`. **Hunt 300:** consumível desbloqueia starter fraco. **Hunt 400+:** strict — só offtank/T1H-clã, mesmo com item.
-- **Max 2 lures IDÊNTICAS consecutivas:** regra estrutural bloqueia sequências com 3 lures exatamente iguais (mesma composição). Beam filter + wrap-around check em evaluateCycle. Permite "Heatmor+A, Heatmor+B, Heatmor+C" (starter igual, composição diferente) mas bloqueia "Heatmor solo_device × 3".
+- **Max 2 lures IDÊNTICAS consecutivas (forward only):** beam filter bloqueia `seq[i-2] === seq[i-1] === new`. **Wrap-check REMOVIDO** — sequências onde pos N→1→2 são idênticas (via wrap) são permitidas. Simulação garante feasibility via `waitForSkill` (CDs que não recuperam → idle crescente). Permite "Heatmor+A, Heatmor+B, Heatmor+C" (composição diferente) e rotações como "[ShR_D, Ramp_E, Gol+Hip_Du, Om+Tyr_Du, ShR_D, ShR_D]" onde wrap 5→6→1 tem 3 ShR_D consecutivas.
 - **Starter type hard filter:** se `mob.bestStarterElements` populado e bag tem ≥1 poke matching, outros tipos ficam **proibidos como starter** (podem ser second/extra). Fallback se filter esvazia.
 - **Starter score 3-tier** (em `compileLures`, multiplica beam score): `type ∈ (bestStarterElements ∩ user_clan_elements)` → 0.60; `type ∈ bestStarterElements` → 0.75; senão 1.00.
 - **Stun > silence hard filter:** se bag tem stun-starter, silence-only filtrados. + silence score penalty 10% no beam.
@@ -323,7 +334,7 @@ Contexto histórico na memória: `project_pxg_damage_formula.md`.
 - **NÃO** tratar Flame Wheel como buff:self puro — ela tem damage + self-buff. Se user calibrou power, usar esse valor em `resolveSkillPower`.
 - **NÃO** comparar bags entre workers por `bestIdle` — idle absoluto não é comparável entre rotações com número de lures diferente (4-lure/200s tem menos idle que 6-lure/280s com bph maior). Use `bestScore` (adjusted tpl) em `rotationAsync.ts`.
 - **NÃO** gerar variantes revive em group lures — C(n,k) × elixir × revive explode o espaço e causa OOM em pools ≥10. Revive apenas solo_device/solo_elixir/dupla.
-- **NÃO** permitir 3+ lures IDÊNTICAS consecutivas (starter + members + finisher exato). Beam filter: `if (seq[n-1] === seq[n-2]) skip c === seq[n-1]`. Também verificar wrap-around em `evaluateCycle` via `cycleHas3ConsecutiveIdentical`. Ciclos p ≤ 2 escapam (solo_device loop legítimo).
+- **NÃO** re-introduzir `cycleHas3ConsecutiveIdentical` wrap-check. Bug: bloqueava rotações ótimas onde 3 idênticas apareciam via wrap (pos N→1→2). Beam forward filter (`if (seq[n-1] === seq[n-2]) skip c === seq[n-1]`) é suficiente — simulação valida feasibility via `waitForSkill`. Regression test em `beam-search.test.ts`.
 - **NÃO** aplicar `DEFAULT_MOB_DEF_FACTOR=0.85` direto sem checar hunt tier — fallback agora é `huntAvgDefFactor(hunt, allMobs)` que faz média dos calibrados do MESMO tier. Hunt 300 → ~0.811; hunt 400+ → ~0.573.
 - **NÃO** permitir starter fraco (T2/T3/TR burst_dd non-clã) em hunt 400+ mesmo com consumível — filtro strict aplica. Hunt 300 permite via elixir/revive gate.
 

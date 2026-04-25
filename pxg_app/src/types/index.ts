@@ -1,4 +1,4 @@
-export type SkillType = "area" | "frontal";
+export type SkillType = "area" | "frontal" | "target";
 export type CCType = "stun" | "silence" | "locked";
 export type BuffType = "self" | "next";
 export type Tier = "T1A" | "T1B" | "T1H" | "T1C" | "T2" | "T3" | "TR" | "TM";
@@ -13,7 +13,7 @@ export type ClanName =
   | "volcanic" | "raibolt" | "orebound" | "naturia" | "gardestrike"
   | "ironhard" | "wingeon" | "psycraft" | "seavell" | "malefic";
 
-export type PokemonRole = "offensive_tank" | "burst_dd";
+export type PokemonRole = "offensive_tank" | "burst_dd" | "otdd";
 
 export interface Clan {
   name: ClanName;
@@ -60,6 +60,9 @@ export interface Skill {
   /** Observações adicionais da mesma skill em setups diferentes (cross-validation, variance).
    *  Engine usa `power` canônico; este array é histórico/info. */
   calibrations?: SkillCalibration[];
+  /** Nota visível pro player na UI (ex: "Variável 2-5 hits — calibrado pra best case").
+   *  Diferente de `Pokemon.observacao` (poke-level) e `calibrations[].note` (técnico). */
+  playerNote?: string;
 }
 
 export interface Pokemon {
@@ -78,6 +81,26 @@ export interface Pokemon {
   /** Elementos defensivos do poke (do roster). Usado pra calcular resistência
    *  do starter contra ataques do mob. Ausência = neutro (factor 1.0). */
   elements?: PokemonElement[];
+  /** Auto-attack (melee/básico). Calibrado parando o poke parado no dummy e
+   *  observando hits no tracker (color=129 normal). Power deriva da fórmula padrão
+   *  com `cooldown` substituído pelo `attackInterval`. Usado em OTDD pra dano sustained. */
+  melee?: MeleeStats;
+}
+
+export interface MeleeStats {
+  /** skill_power equivalente do melee (mesma fórmula que skills). */
+  power: number;
+  /** Segundos entre hits do auto-attack (~2.1s típico). */
+  attackInterval: number;
+  /** Elemento do melee (normal por padrão; alguns pokes podem ter STAB melee). */
+  element?: PokemonElement;
+  /** Tipo do auto-attack: "melee" (close, não conta no OTDD pq player não fica adjacente
+   *  em boss) ou "ranged" (TM, contribui no OTDD). Default "melee" se omitido. */
+  kind?: "melee" | "ranged";
+  /** Setup usado na calibração. */
+  config?: string;
+  /** Calibrations adicionais pra cross-validation. */
+  calibrations?: SkillCalibration[];
 }
 
 export type LureType = "solo_device" | "solo_elixir" | "dupla" | "group";

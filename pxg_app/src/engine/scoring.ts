@@ -19,10 +19,11 @@ const cacheMap = new WeakMap<Pokemon, PokemonCache>();
 
 function computeOrder(pokemon: Pokemon, silenceActiveInLure: boolean): Skill[] {
   const hasSilenceSelf = pokemon.skills.some((s) => s.cc === "silence");
-  const excludeFrontal = silenceActiveInLure || hasSilenceSelf;
+  const excludeNonArea = silenceActiveInLure || hasSilenceSelf;
 
-  const available = excludeFrontal
-    ? pokemon.skills.filter((s) => s.type !== "frontal")
+  // Quando silence está ativo, exclui frontal E target — ambos não cobrem 6 mobs.
+  const available = excludeNonArea
+    ? pokemon.skills.filter((s) => s.type === "area")
     : pokemon.skills.slice();
 
   const ccSkill = available.find((s) => s.cc !== null);
@@ -51,21 +52,22 @@ function getCache(p: Pokemon): PokemonCache {
   if (!c) {
     c = {
       // Starter: CC em área (cobre os 6 mobs) ou locked (qualquer tipo).
-      // Frontal stun/silence não vale pra starter — só hita 1 mob.
+      // Frontal/target stun/silence não vale pra starter — só hita 1-poucos mobs.
       hasHardCC: p.skills.some(
         (s) =>
           s.cc === "locked" ||
-          ((s.cc === "stun" || s.cc === "silence") && s.type !== "frontal")
+          ((s.cc === "stun" || s.cc === "silence") && s.type === "area")
       ),
-      // Member/second: CC de qualquer tipo (stun/silence/locked, área OU frontal).
-      // Frontal reaplica stun brevemente — suficiente pra não morrer entre casts.
+      // Member/second: CC de qualquer tipo (stun/silence/locked, área OU frontal/target).
+      // Frontal/target reaplica stun brevemente — suficiente pra não morrer entre casts.
       // Poke SEM CC nenhuma (ex: Sh.Donphan) não pode ser member — player morre no switch.
       hasAnyCC: p.skills.some((s) => s.cc !== null),
       // Starter dispensa Elixir Def quando tem alguma skill com flag `def: true`
       // (Harden, Intimidate, Iron Defense, etc). Fonte de verdade: a própria skill.
       hasHarden: p.skills.some((s) => s.def === true),
-      hasSilence: p.skills.some((s) => s.cc === "silence" && s.type !== "frontal"),
-      hasFrontal: p.skills.some((s) => s.type === "frontal"),
+      hasSilence: p.skills.some((s) => s.cc === "silence" && s.type === "area"),
+      // Frontal e target são tratados igual — nenhum cobre 6 mobs (starter inválido).
+      hasFrontal: p.skills.some((s) => s.type === "frontal" || s.type === "target"),
       skillOrderNormal: computeOrder(p, false),
       skillOrderSilenced: computeOrder(p, true),
     };

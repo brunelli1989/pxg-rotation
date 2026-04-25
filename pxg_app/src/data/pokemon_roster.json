@@ -1627,6 +1627,42 @@
     ]
   },
   {
+    "id": "shiny-marowak",
+    "name": "Shiny Marowak",
+    "tier": "T2",
+    "clans": [
+      "orebound"
+    ],
+    "role": "otdd",
+    "elements": [
+      "ground"
+    ]
+  },
+  {
+    "id": "tm-shiny-marowak",
+    "name": "TM Shiny Marowak",
+    "tier": "TM",
+    "clans": [
+      "orebound"
+    ],
+    "role": "otdd",
+    "elements": [
+      "ground"
+    ]
+  },
+  {
+    "id": "shiny-gogoat",
+    "name": "Shiny Gogoat",
+    "tier": "T2",
+    "clans": [
+      "naturia"
+    ],
+    "role": "otdd",
+    "elements": [
+      "grass"
+    ]
+  },
+  {
     "id": "dusknoir",
     "name": "TM Dusknoir",
     "tier": "TM",

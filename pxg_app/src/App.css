@@ -25,6 +25,200 @@
   color: #fff;
 }
 
+/* ===== Page Navigation ===== */
+.page-nav {
+  display: flex;
+  gap: 4px;
+}
+
+.page-tab {
+  background: #16213e;
+  color: #aaa;
+  border: 1px solid #444;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.page-tab:hover {
+  background: #1e2d5a;
+  color: #e0e0e0;
+}
+
+.page-tab.active {
+  background: #4a90d9;
+  color: #fff;
+  border-color: #4a90d9;
+}
+
+/* ===== OTDD Page ===== */
+.otdd-page {
+  padding: 16px 0;
+}
+
+.otdd-page h2 {
+  font-size: 1.3rem;
+  color: #ccc;
+  margin: 0 0 8px;
+}
+
+.otdd-hint {
+  color: #888;
+  font-size: 0.85rem;
+  margin: 0 0 16px;
+  font-style: italic;
+}
+
+.otdd-config {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: #16213e;
+  padding: 14px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.otdd-config label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  color: #aaa;
+  gap: 4px;
+}
+
+.otdd-config input,
+.otdd-config select {
+  background: #0f1a2e;
+  color: #e0e0e0;
+  border: 1px solid #444;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  min-width: 100px;
+}
+
+.otdd-config input[type="number"] {
+  width: 80px;
+}
+
+.otdd-search {
+  width: 100%;
+  background: #0f1a2e;
+  color: #e0e0e0;
+  border: 1px solid #444;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+.otdd-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.otdd-row {
+  display: grid;
+  grid-template-columns: 2fr 0.5fr 0.5fr 1fr 0.7fr 1fr;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+}
+
+.otdd-header-row {
+  background: #0a1020;
+  border-radius: 6px;
+  font-weight: 600;
+  color: #888;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.otdd-poke {
+  background: #16213e;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+
+.otdd-poke:hover {
+  border-color: #2d3a5e;
+}
+
+.otdd-poke-row {
+  cursor: pointer;
+  user-select: none;
+}
+
+.otdd-poke-row.expanded {
+  background: #1e2d5a;
+  border-radius: 6px 6px 0 0;
+}
+
+.otdd-poke-row .poke-name {
+  font-weight: 500;
+  color: #e0e0e0;
+}
+
+.otdd-poke-row .poke-tier {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.dps-col {
+  text-align: right;
+  color: #ffb347;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.otdd-skills {
+  background: #0f1a2e;
+  border-radius: 0 0 6px 6px;
+  padding: 8px 12px 10px;
+}
+
+.otdd-skill-row {
+  display: grid;
+  grid-template-columns: 2fr 0.8fr 0.5fr 0.7fr 1fr 1fr;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 0.825rem;
+  color: #c0c0c0;
+}
+
+.otdd-skill-header {
+  color: #777;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid #2d3a5e;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+}
+
+.otdd-melee-row {
+  background: #1a2540;
+  margin: 4px 0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border-left: 3px solid #ffb347;
+}
+
+.otdd-player-note {
+  font-size: 0.75rem;
+  color: #ffb347;
+  padding: 2px 12px 6px;
+  font-style: italic;
+}
+
 /* ===== Disk Selector ===== */
 .disk-selector {
   display: flex;

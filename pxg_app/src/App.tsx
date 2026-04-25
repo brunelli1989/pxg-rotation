@@ -9,6 +9,7 @@ import { SkillTimeline } from "./components/SkillTimeline";
 import { DamageConfigPanel } from "./components/DamageConfigPanel";
 import { PokeSetupEditor } from "./components/PokeSetupEditor";
 import { LureDamagePreview } from "./components/LureDamagePreview";
+import { OtddPage } from "./components/OtddPage";
 import { useRotation } from "./hooks/useRotation";
 import { useDamageConfig } from "./hooks/useDamageConfig";
 import { ELIXIR_PRICE, REVIVE_PRICE } from "./engine/cooldown";
@@ -183,11 +184,25 @@ function buildReport(
   return lines.join("\n");
 }
 
+type Page = "rotation" | "otdd";
+
+const PAGE_STORAGE_KEY = "pxg_current_page";
+
+function loadCurrentPage(): Page {
+  const raw = localStorage.getItem(PAGE_STORAGE_KEY);
+  return raw === "otdd" ? "otdd" : "rotation";
+}
+
 function App() {
+  const [currentPage, setCurrentPage] = useState<Page>(() => loadCurrentPage());
   const [selectedIds, setSelectedIds] = useState<string[]>(() => loadSelectedIds());
   const [diskLevel, setDiskLevel] = useState<DiskLevel>(() => loadDiskLevel());
   const [showResult, setShowResult] = useState(false);
   const [copyFeedback, setCopyFeedback] = useState<string | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem(PAGE_STORAGE_KEY, currentPage);
+  }, [currentPage]);
 
   const damage = useDamageConfig();
 
@@ -235,7 +250,23 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>PxG Rotation Generator</h1>
-        <DiskSelector diskLevel={diskLevel} onChange={setDiskLevel} />
+        <nav className="page-nav">
+          <button
+            className={`page-tab ${currentPage === "rotation" ? "active" : ""}`}
+            onClick={() => setCurrentPage("rotation")}
+          >
+            Rotação
+          </button>
+          <button
+            className={`page-tab ${currentPage === "otdd" ? "active" : ""}`}
+            onClick={() => setCurrentPage("otdd")}
+          >
+            OTDD
+          </button>
+        </nav>
+        {currentPage === "rotation" && (
+          <DiskSelector diskLevel={diskLevel} onChange={setDiskLevel} />
+        )}
         <button
           className="clear-cache-btn"
           title="Reseta disk, seleção de pokes e configs de dano"
@@ -251,6 +282,11 @@ function App() {
         </button>
       </header>
 
+      {currentPage === "otdd" ? (
+        <main>
+          <OtddPage />
+        </main>
+      ) : (
       <main>
         <PokemonSelector
           allPokemon={allPokemon}
@@ -361,6 +397,7 @@ function App() {
           </>
         )}
       </main>
+      )}
     </div>
   );
 }

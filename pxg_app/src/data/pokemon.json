@@ -1800,7 +1800,7 @@
     "role": "burst_dd",
     "wiki": "https://wiki.pokexgames.com/index.php/Ninetales",
     "config": "lvl 600, +70, XA8, Volcanic (+28% fire), sem device, neutro",
-    "observacao": "Burning Jealousy single-hit; Inferno 3-hit + burn DoT; Hellfire Storm 3-hit + burn DoT; Flame Wheel 8-hit sem burn; Fire Ball 1-hit + burn DoT",
+    "observacao": "Burning Jealousy single-hit; Inferno 2-3 hit variável (avg ~2.2) + burn DoT; Hellfire Storm 3-hit + burn DoT; Flame Wheel 8-hit sem burn; Fire Ball 1-hit + burn DoT; Nasty Plot buff:next ×1.5 confirmado (janela 10s; dano próprio 550 irrisório)",
     "skills": [
       {
         "name": "Burning Jealousy",
@@ -1810,7 +1810,11 @@
         "buff": null,
         "element": "fire",
         "power": 22.47,
-        "dano": 31697
+        "dano": 31697,
+        "calibrations": [
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro", "dano": 31697, "power": 22.47, "note": "single-hit sem burn, color=198" },
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro (re-validation)", "dano": 31725, "power": 22.49, "note": "re-cast 2026-04-25, single-hit color=198 confirmado" }
+        ]
       },
       {
         "name": "Nasty Plot",
@@ -1820,7 +1824,11 @@
         "buff": "next",
         "element": "dark",
         "power": 0.50,
-        "dano": 553
+        "dano": 553,
+        "calibrations": [
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro", "dano": 553, "power": 0.50, "note": "self-buff (buff:next), single dark hit color=87" },
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro (re-validation)", "dano": 550, "power": 0.499, "note": "re-cast 2026-04-25 confirma color=87 dark" }
+        ]
       },
       {
         "name": "Inferno",
@@ -1829,8 +1837,12 @@
         "cc": null,
         "buff": null,
         "element": "fire",
-        "power": 26.25,
-        "dano": 37020
+        "power": 19.90,
+        "dano": 28067,
+        "calibrations": [
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro (5 samples 2026-04-25)", "dano": 28067, "power": 19.90, "note": "Inferno hits 2-3× variável (5 casts: 2,2,2,3,2 → avg 2.2). Per-hit baseline 11167, buffed 16746 (ratio 1.500 confirma ×1.5 do Nasty Plot). Avg per cast: 2.2 × 11167 + 10 × 350 burn = 28067." },
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro (calibração antiga, descartada)", "dano": 37020, "power": 26.25, "note": "ASSUMIA 3-hit consistente — superestimou. Mantido pra histórico." }
+        ]
       },
       {
         "name": "Hellfire Storm",
@@ -1840,7 +1852,11 @@
         "buff": null,
         "element": "fire",
         "power": 27.17,
-        "dano": 38331
+        "dano": 38331,
+        "calibrations": [
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro", "dano": 38331, "power": 27.17, "note": "3-hit + burn DoT, color=198" },
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro (re-validation)", "dano": 39018, "power": 27.66, "note": "re-cast 2026-04-25: 3 hits (~11606 avg) + 12 burn ticks 350 confirmados" }
+        ]
       },
       {
         "name": "Flame Wheel",
@@ -1850,7 +1866,11 @@
         "buff": "self",
         "element": "fire",
         "power": 6.22,
-        "dano": 8775
+        "dano": 8775,
+        "calibrations": [
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro", "dano": 8775, "power": 6.22, "note": "8-hit sem burn, color=198" },
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro (re-validation)", "dano": 7645, "power": 5.42, "note": "re-cast 2026-04-25: 7 hits capturados ~1092 each (1 perdido na captura → power 8-hit estimado ~6.20)" }
+        ]
       },
       {
         "name": "Fire Ball",
@@ -1860,7 +1880,11 @@
         "buff": null,
         "element": "fire",
         "power": 7.07,
-        "dano": 9968
+        "dano": 9968,
+        "calibrations": [
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro", "dano": 9968, "power": 7.07, "note": "1-hit + burn DoT (5 ticks 350), color=198" },
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro (re-validation)", "dano": 9973, "power": 7.07, "note": "re-cast 2026-04-25: 8223 + 5×350 burn confirmados" }
+        ]
       }
     ]
   },
@@ -1871,7 +1895,7 @@
     "role": "burst_dd",
     "wiki": "https://wiki.pokexgames.com/index.php/Shiny_Ninetales",
     "config": "lvl 600, +70, XA8, Volcanic (+28% fire), sem device, neutro",
-    "observacao": "Inferno/Fire Blast/Flamethrower/Fire Ball podem incluir burn DoT",
+    "observacao": "Inferno 2-3 hit variável (avg ~2.2) + burn DoT; Fire Blast 1-hit + burn DoT; Flamethrower 1-hit + burn DoT; Flame Wheel 8-hit sem burn (per-hit ~5898, 5.4× mais que Ninetales); Fire Ball 1-hit + burn DoT",
     "skills": [
       {
         "name": "Inferno",
@@ -1880,8 +1904,12 @@
         "cc": null,
         "buff": null,
         "element": "fire",
-        "power": 27.94,
-        "dano": 39400
+        "power": 34.06,
+        "dano": 48042,
+        "calibrations": [
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro (5 samples 2026-04-25)", "dano": 48042, "power": 34.06, "note": "Inferno 2-3 hit variável (5 casts: 3,2,3,3,2 → avg 2.5). Per-hit ~17817 (range 17850-18006). Power = 2.5 × 17817 + 10 × 350 = 48042. Per-hit Shiny vs Ninetales: 17817 vs 11167 = 1.6× mais forte." },
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro (calibração antiga)", "dano": 39400, "power": 27.94, "note": "ASSUMIA 2-hit fixo. Mantido pra histórico." }
+        ]
       },
       {
         "name": "Fire Blast",
@@ -1891,7 +1919,11 @@
         "buff": null,
         "element": "fire",
         "power": 19.64,
-        "dano": 27700
+        "dano": 27700,
+        "calibrations": [
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro", "dano": 27700, "power": 19.64, "note": "1-hit + burn DoT, color=198" },
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro (re-validation)", "dano": 28456, "power": 20.18, "note": "re-cast 2026-04-25: 26006 single-hit + 7 burn ticks. Diff +2.7% vs antiga (capture noise)" }
+        ]
       },
       {
         "name": "Flamethrower",
@@ -1901,7 +1933,11 @@
         "buff": null,
         "element": "fire",
         "power": 12.91,
-        "dano": 18200
+        "dano": 18200,
+        "calibrations": [
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro", "dano": 18200, "power": 12.91, "note": "1-hit + burn DoT, color=198" },
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro (re-validation)", "dano": 17804, "power": 12.62, "note": "re-cast 2026-04-25: 16404 single-hit (leak no Fire Blast bucket) + 4 burn ticks. Diff -2.2% vs antiga" }
+        ]
       },
       {
         "name": "Fire Ball",
@@ -1911,7 +1947,11 @@
         "buff": null,
         "element": "fire",
         "power": 8.01,
-        "dano": 11300
+        "dano": 11300,
+        "calibrations": [
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro", "dano": 11300, "power": 8.01, "note": "1-hit + burn DoT, color=198" },
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro (re-validation)", "dano": 11319, "power": 8.03, "note": "re-cast 2026-04-25: 9569 + 5 burn ticks. Match exato" }
+        ]
       },
       {
         "name": "Flame Wheel",
@@ -1921,7 +1961,11 @@
         "buff": "self",
         "element": "fire",
         "power": 33.47,
-        "dano": 47200
+        "dano": 47200,
+        "calibrations": [
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro", "dano": 47200, "power": 33.47, "note": "8-hit sem burn, color=198" },
+          { "config": "lvl 600, +70, XA8, Volcanic, sem device, neutro (re-validation)", "dano": 47188, "power": 33.46, "note": "re-cast 2026-04-25: 8 hits ~5898 each (5890,5896,5902,5896,5896,5891,5907,5910) — match EXATO. Per-hit 5.4× mais que Ninetales (1092)" }
+        ]
       }
     ]
   },
@@ -5572,7 +5616,7 @@
   {
     "id": "haxorus",
     "name": "Haxorus",
-    "tier": "T1H",
+    "tier": "T2",
     "role": "offensive_tank",
     "wiki": "https://wiki.pokexgames.com/index.php/Haxorus",
     "config": "lvl 600, +70, XA5, Volcanic, sem device, neutro",

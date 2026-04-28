@@ -207,7 +207,10 @@ export function PokeSetupEditor({ pokes, config, onChange }: Props) {
         </tbody>
       </table>
       <div className="mt-3">
-        <button className="small-btn" onClick={handleEstimate}>
+        <button
+          className="bg-[#2a3f5f] text-text border border-[#444] px-2 py-0.5 rounded text-[0.75rem] cursor-pointer mr-1 hover:bg-[#3a5080]"
+          onClick={handleEstimate}
+        >
           Estimar dano
         </button>
       </div>

@@ -11,7 +11,6 @@ import { OtddPage } from "./components/OtddPage";
 import { useRotation } from "./hooks/useRotation";
 import { useDamageConfig } from "./hooks/useDamageConfig";
 import { ELIXIR_PRICE, REVIVE_PRICE } from "./engine/cooldown";
-import "./App.css";
 
 const CONSUMABLE_PRICES = {
   elixir: ELIXIR_PRICE,
@@ -23,7 +22,6 @@ const allPokemon: Pokemon[] = (pokemonData as Pokemon[]).slice().sort((a, b) =>
   a.name.localeCompare(b.name)
 );
 
-// Map id → elements (legado; manter enquanto UI usa)
 const pokeElements: Record<string, string[]> = Object.fromEntries(
   allPokemon.map((p) => [p.id, p.elements ?? []])
 );
@@ -45,7 +43,6 @@ function loadSelectedIds(): string[] {
   try {
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed) && parsed.every((x) => typeof x === "string")) {
-      // Filter out IDs that no longer exist in the data
       const validIds = new Set(allPokemon.map((p) => p.id));
       return parsed.filter((id) => validIds.has(id));
     }
@@ -168,6 +165,13 @@ function loadCurrentPage(): Page {
   return raw === "otdd" ? "otdd" : "rotation";
 }
 
+const tabBaseCls = "border px-4.5 py-2 rounded-md text-[0.9rem] font-medium cursor-pointer transition-[background,color,border-color] duration-150";
+const tabActiveCls = "bg-accent-blue text-white border-accent-blue";
+const tabIdleCls = "bg-bg-card text-text-muted border-border-default hover:bg-bg-card-hover hover:text-text hover:border-accent-blue";
+
+const headerBtnCls =
+  "bg-bg-card text-text border border-[#444] px-4 py-2 rounded-md text-[0.85rem] cursor-pointer transition-[border-color,background] duration-200 hover:bg-border-card hover:border-accent-blue";
+
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>(() => loadCurrentPage());
   const [selectedIds, setSelectedIds] = useState<string[]>(() => loadSelectedIds());
@@ -222,12 +226,12 @@ function App() {
   const pct = progress.total > 0 ? Math.round((progress.done / progress.total) * 100) : 0;
 
   return (
-    <div className="app">
-      <header className="app-header">
-        <div className="header-top">
-          <h1>PxG Rotation Generator</h1>
+    <div className="max-w-[960px] mx-auto p-5 text-text bg-bg-app min-h-screen">
+      <header className="pb-4 border-b-2 border-[#333] mb-6">
+        <div className="flex justify-between items-center mb-3.5">
+          <h1 className="m-0 text-2xl text-white tracking-[0.01em]">PxG Rotation Generator</h1>
           <button
-            className="clear-cache-btn"
+            className={headerBtnCls}
             title="Reseta disk, seleção de pokes e configs de dano"
             onClick={() => {
               if (!confirm("Limpar todas as configurações salvas (disk, seleção, dano)?")) return;
@@ -240,15 +244,15 @@ function App() {
             🗑️ Clear cache
           </button>
         </div>
-        <nav className="page-nav">
+        <nav className="flex gap-1.5">
           <button
-            className={`page-tab ${currentPage === "rotation" ? "active" : ""}`}
+            className={`${tabBaseCls} ${currentPage === "rotation" ? tabActiveCls : tabIdleCls}`}
             onClick={() => setCurrentPage("rotation")}
           >
             Rotação
           </button>
           <button
-            className={`page-tab ${currentPage === "otdd" ? "active" : ""}`}
+            className={`${tabBaseCls} ${currentPage === "otdd" ? tabActiveCls : tabIdleCls}`}
             onClick={() => setCurrentPage("otdd")}
           >
             OTDD
@@ -288,42 +292,45 @@ function App() {
           onChange={damage.setPokeSetup}
         />
 
-        <div className="generate-section">
+        <div className="text-center my-5">
           <button
-            className="generate-btn"
+            className="bg-accent-blue text-white border-0 px-8 py-3 rounded-lg text-base font-semibold cursor-pointer transition-[background] duration-200 hover:bg-[#357abd] disabled:bg-[#333] disabled:text-[#666] disabled:cursor-not-allowed"
             onClick={handleGenerate}
             disabled={pool.length === 0 || loading}
           >
             {loading ? "Calculando..." : `Gerar Rotação (${pool.length} pokémon selecionados)`}
           </button>
           {pool.length > 6 && !loading && (
-            <p className="pool-hint">
+            <p className="text-[0.8rem] text-warn mt-2">
               Mais de 6 selecionados — o gerador vai encontrar a melhor composição de 6
             </p>
           )}
         </div>
 
         {loading && (
-          <div className="loading-card">
-            <div className="spinner" />
-            <div className="loading-text">
-              <div className="loading-title">Calculando melhor rotação...</div>
+          <div className="flex items-center gap-4 p-5 bg-bg-card border border-accent-blue-soft rounded-lg mt-5">
+            <div className="w-8 h-8 border-[3px] border-[#333] border-t-accent-blue rounded-full animate-spin shrink-0" />
+            <div className="flex-1">
+              <div className="text-[0.95rem] font-semibold text-text mb-2">Calculando melhor rotação...</div>
               {progress.total > 0 && (
                 <>
-                  <div className="progress-bar-wrapper">
-                    <div className="progress-bar" style={{ width: `${pct}%` }} />
+                  <div className="h-1.5 bg-bg-app rounded-sm overflow-hidden mb-1">
+                    <div
+                      className="h-full bg-gradient-to-r from-accent-blue to-accent-blue-light transition-[width] duration-200 ease-out"
+                      style={{ width: `${pct}%` }}
+                    />
                   </div>
-                  <div className="progress-text">
+                  <div className="text-[0.75rem] text-text-dim">
                     {progress.done.toLocaleString()} / {progress.total.toLocaleString()} composições ({pct}%)
                   </div>
                 </>
               )}
               {progress.total === 0 && (
-                <div className="progress-text">Preparando workers...</div>
+                <div className="text-[0.75rem] text-text-dim">Preparando workers...</div>
               )}
             </div>
             <button
-              className="cancel-btn"
+              className="ml-auto bg-[#8b2e2e] text-white border-0 px-4 py-2 rounded-md cursor-pointer font-semibold transition-[background] duration-200 hover:bg-[#a63737]"
               onClick={() => {
                 cancel();
                 setShowResult(false);
@@ -336,15 +343,15 @@ function App() {
 
         {!loading && result && (
           <>
-            <div className="result-info">
+            <div className="mt-5 flex flex-col gap-2.5">
               {pool.length > 6 && (
-                <div className="chosen-bag">
-                  <h3>Melhor composição de 6:</h3>
-                  <div className="chosen-names">
+                <div className="mt-5 p-3 bg-bg-card border border-accent-blue-soft rounded-lg">
+                  <h3 className="text-[0.9rem] text-accent-blue m-0 mb-2">Melhor composição de 6:</h3>
+                  <div className="flex flex-wrap gap-1.5">
                     {result.selectedIds.map((id) => {
                       const poke = allPokemon.find((p) => p.id === id);
                       return (
-                        <span key={id} className="chosen-name">
+                        <span key={id} className="bg-accent-blue/20 text-accent-blue-light px-2.5 py-0.5 rounded text-[0.8rem] font-semibold border border-accent-blue-soft">
                           {poke?.name ?? id}
                         </span>
                       );
@@ -352,19 +359,19 @@ function App() {
                   </div>
                 </div>
               )}
-              <div className="device-info">
-                <span className="device-label">Device:</span>
+              <div className="flex items-center gap-2 px-3.5 py-2.5 bg-bg-card border border-warn/35 rounded-lg">
+                <span className="text-[0.875rem] text-warn font-semibold">Device:</span>
                 {devicePokeName ? (
-                  <span className="device-pokemon">{devicePokeName}</span>
+                  <span className="text-[0.875rem] text-warn-strong font-bold">{devicePokeName}</span>
                 ) : (
-                  <span className="device-none">Nenhum (todos usam swordsman)</span>
+                  <span className="text-[0.875rem] text-text-dim">Nenhum (todos usam swordsman)</span>
                 )}
               </div>
-              <div className="copy-section">
-                <button className="copy-btn" onClick={handleCopy}>
+              <div className="flex items-center gap-2.5 mt-1">
+                <button className={headerBtnCls} onClick={handleCopy}>
                   📋 Copiar dados
                 </button>
-                {copyFeedback && <span className="copy-feedback">{copyFeedback}</span>}
+                {copyFeedback && <span className="text-[0.85rem] text-success font-semibold">{copyFeedback}</span>}
               </div>
             </div>
             <RotationResultView result={result} />

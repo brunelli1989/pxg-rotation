@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Boss, BossCategory, DamageConfig, Pokemon, PokemonElement, XAtkTier } from "../types";
 import pokemonData from "../data/pokemon.json";
 import bossesData from "../data/bosses.json";
@@ -12,8 +12,30 @@ const allPokes: Pokemon[] = pokemonData as Pokemon[];
 const SIM_DURATION = 600; // 10 min em segundos
 const CAST_TIME = 1; // 1s por cast
 
+const HELDS_STORAGE_KEY = "pxg_otdd_helds";
+
+interface PokeHeld {
+  boost: number;
+  xAtkTier: XAtkTier;
+  xBoostTier: XAtkTier;
+}
+
+const DEFAULT_HELD: PokeHeld = { boost: 70, xAtkTier: 8, xBoostTier: 0 };
+
+function loadHelds(): Record<string, PokeHeld> {
+  try {
+    const raw = localStorage.getItem(HELDS_STORAGE_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    return typeof parsed === "object" && parsed !== null ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
 interface PokeRow {
   poke: Pokemon;
+  held: PokeHeld;
   totalDmg: number;
   meleeDmg: number;
   meleeIncludedInTotal: boolean;
@@ -41,9 +63,7 @@ interface SkillRow {
  */
 function buildConfig(
   playerLvl: number,
-  xAtkTier: XAtkTier,
-  xBoostTier: XAtkTier,
-  boost: number,
+  held: PokeHeld,
   pokeId: string,
   targetTypes: PokemonElement[]
 ): DamageConfig {
@@ -52,12 +72,12 @@ function buildConfig(
     clan: null,
     hunt: "300",
     mob: { name: "target", types: targetTypes, hp: 0, defFactor: 1 },
-    device: xBoostTier > 0 ? { kind: "x-boost", tier: xBoostTier } : { kind: "x-attack", tier: 0 },
+    device: held.xBoostTier > 0 ? { kind: "x-boost", tier: held.xBoostTier } : { kind: "x-attack", tier: 0 },
     pokeSetups: {
       [pokeId]: {
-        boost,
-        held: { kind: "x-attack", tier: xAtkTier },
-        hasDevice: xBoostTier > 0,
+        boost: held.boost,
+        held: { kind: "x-attack", tier: held.xAtkTier },
+        hasDevice: held.xBoostTier > 0,
       },
     },
     skillCalibrations: {},
@@ -98,17 +118,15 @@ function simulate10min(
   let totalCasts = 0;
 
   while (t < SIM_DURATION) {
-    // Procura skill com maior dano que está ready
     let bestIdx = -1;
     for (let i = 0; i < skillData.length; i++) {
       if (cooldowns[i] <= t) {
         bestIdx = i;
-        break; // skillData já está ordenado por dano descendente
+        break;
       }
     }
 
     if (bestIdx === -1) {
-      // Nenhuma skill ready — avança até a próxima ficar pronta
       const nextReady = Math.min(...cooldowns.filter((c) => c > t));
       t = nextReady;
       continue;
@@ -120,7 +138,6 @@ function simulate10min(
     totalDmg += dano;
     totalCasts++;
 
-    // CD começa do início do cast
     cooldowns[bestIdx] = t + skill.cooldown;
     t += CAST_TIME;
   }
@@ -135,12 +152,21 @@ function simulate10min(
 
 export function OtddPage() {
   const [playerLvl, setPlayerLvl] = useState(600);
-  const [xAtkTier, setXAtkTier] = useState<XAtkTier>(8);
-  const [xBoostTier, setXBoostTier] = useState<XAtkTier>(0);
-  const [boost, setBoost] = useState(70);
   const [bossId, setBossId] = useState<string>("");
   const [search, setSearch] = useState("");
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [helds, setHelds] = useState<Record<string, PokeHeld>>(loadHelds);
+
+  useEffect(() => {
+    localStorage.setItem(HELDS_STORAGE_KEY, JSON.stringify(helds));
+  }, [helds]);
+
+  const updateHeld = (pokeId: string, patch: Partial<PokeHeld>) => {
+    setHelds((prev) => ({
+      ...prev,
+      [pokeId]: { ...DEFAULT_HELD, ...prev[pokeId], ...patch },
+    }));
+  };
 
   const selectedBoss = useMemo(() => bosses.find((b) => b.id === bossId), [bossId]);
   const bossesByCategory = useMemo(() => {
@@ -160,7 +186,8 @@ export function OtddPage() {
       if (poke.role !== "otdd") continue;
       const damageSkills = poke.skills.filter((s) => (resolveSkillPower(s, poke) ?? 0) > 0);
 
-      const cfg = buildConfig(playerLvl, xAtkTier, xBoostTier, boost, poke.id, targetTypes);
+      const held = helds[poke.id] ?? DEFAULT_HELD;
+      const cfg = buildConfig(playerLvl, held, poke.id, targetTypes);
       const sim = simulate10min(poke, cfg);
 
       const skillRows: SkillRow[] = damageSkills.map((skill) => {
@@ -179,9 +206,6 @@ export function OtddPage() {
         };
       });
 
-      // Auto-attack runs in parallel with casts. Hits/10min = floor(600/interval).
-      // Included in OTDD total ONLY if ranged (TM): close melee does not count because
-      // player is not adjacent to boss in real fights.
       let meleeHits = 0;
       let meleeDmg = 0;
       let meleeIncludedInTotal = false;
@@ -203,6 +227,7 @@ export function OtddPage() {
 
       result.push({
         poke,
+        held,
         totalDmg: sim.totalDmg + (meleeIncludedInTotal ? meleeDmg : 0),
         meleeDmg,
         meleeIncludedInTotal,
@@ -215,7 +240,7 @@ export function OtddPage() {
 
     result.sort((a, b) => b.totalDmg - a.totalDmg);
     return result;
-  }, [playerLvl, xAtkTier, xBoostTier, boost, selectedBoss]);
+  }, [playerLvl, helds, selectedBoss]);
 
   const filtered = useMemo(() => {
     if (!search) return rows;
@@ -230,9 +255,9 @@ export function OtddPage() {
       <h2>OTDD — Dano em 10 min</h2>
       <p className="otdd-hint">
         Simulação greedy de 600s (casta a skill com maior dano sempre que ready).
-        Selecione tipo(s) do target pra aplicar efetividade (PxG piecewise).
-        Bônus de clã NÃO se aplica em boss fight. Buffs (Rage ×2/20s) ainda não modelados —
-        valores são baseline sem buff.
+        Selecione o boss pra aplicar efetividade (PxG piecewise). Cada poke tem seu próprio
+        held (X-Atk/X-Boost/boost) salvo no navegador. Bônus de clã NÃO se aplica em boss fight.
+        Buffs (Rage ×2/20s) ainda não modelados — valores são baseline sem buff.
       </p>
 
       <div className="otdd-config">
@@ -245,37 +270,6 @@ export function OtddPage() {
             min={1}
             max={1000}
           />
-        </label>
-        <label>
-          Boost
-          <input
-            type="number"
-            value={boost}
-            onChange={(e) => setBoost(Number(e.target.value) || 0)}
-            min={0}
-            max={150}
-          />
-        </label>
-        <label>
-          X-Atk Tier
-          <select value={xAtkTier} onChange={(e) => setXAtkTier(Number(e.target.value) as XAtkTier)}>
-            {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((t) => (
-              <option key={t} value={t}>
-                T{t}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          X-Boost Device
-          <select value={xBoostTier} onChange={(e) => setXBoostTier(Number(e.target.value) as XAtkTier)}>
-            <option value={0}>Sem device</option>
-            {[1, 2, 3, 4, 5, 6, 7].map((t) => (
-              <option key={t} value={t}>
-                T{t}
-              </option>
-            ))}
-          </select>
         </label>
         <label>
           Boss
@@ -306,12 +300,16 @@ export function OtddPage() {
         <div className="otdd-row otdd-header-row">
           <span>Poke</span>
           <span>Tier</span>
+          <span>Held</span>
           <span>Melee/10m</span>
           <span>Skills/10m</span>
           <span className="dps-col">Total/10m</span>
         </div>
         {filtered.map((row) => {
           const expanded = expandedId === row.poke.id;
+          const heldSummary = row.held.xBoostTier > 0
+            ? `+${row.held.boost} XB${row.held.xBoostTier}`
+            : `+${row.held.boost} XA${row.held.xAtkTier}`;
           return (
             <div key={row.poke.id} className="otdd-poke">
               <div
@@ -320,6 +318,7 @@ export function OtddPage() {
               >
                 <span className="poke-name">{row.poke.name}</span>
                 <span className="poke-tier">{row.poke.tier}</span>
+                <span className="poke-held">{heldSummary}</span>
                 <span className={!row.meleeIncludedInTotal && row.meleeDmg > 0 ? "melee-excluded" : ""}>
                   {row.meleeDmg > 0 ? `${fmt(row.meleeDmg)}${!row.meleeIncludedInTotal ? " (close — não soma)" : ""}` : "—"}
                 </span>
@@ -328,6 +327,41 @@ export function OtddPage() {
               </div>
               {expanded && (
                 <div className="otdd-skills">
+                  <div className="otdd-held-config" onClick={(e) => e.stopPropagation()}>
+                    <label>
+                      Boost
+                      <input
+                        type="number"
+                        value={row.held.boost}
+                        onChange={(e) => updateHeld(row.poke.id, { boost: Number(e.target.value) || 0 })}
+                        min={0}
+                        max={150}
+                      />
+                    </label>
+                    <label>
+                      X-Atk
+                      <select
+                        value={row.held.xAtkTier}
+                        onChange={(e) => updateHeld(row.poke.id, { xAtkTier: Number(e.target.value) as XAtkTier })}
+                      >
+                        {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((t) => (
+                          <option key={t} value={t}>{t === 0 ? "—" : `T${t}`}</option>
+                        ))}
+                      </select>
+                    </label>
+                    <label>
+                      X-Boost (device)
+                      <select
+                        value={row.held.xBoostTier}
+                        onChange={(e) => updateHeld(row.poke.id, { xBoostTier: Number(e.target.value) as XAtkTier })}
+                      >
+                        <option value={0}>Sem device</option>
+                        {[1, 2, 3, 4, 5, 6, 7].map((t) => (
+                          <option key={t} value={t}>T{t}</option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
                   <div className="otdd-skill-row otdd-skill-header">
                     <span>Skill</span>
                     <span>Element</span>

@@ -4,83 +4,83 @@
     "name": "Kairiki",
     "category": "Nightmare Terror",
     "types": [],
-    "wiki": "https://wiki.pokexgames.com/index.php/Kairiki"
+    "wiki": "https://wiki.pokexgames.com/index.php/Nightmare_Terror_-_Kairiki"
   },
   {
     "id": "kame",
     "name": "Kame",
     "category": "Nightmare Terror",
     "types": [],
-    "wiki": "https://wiki.pokexgames.com/index.php/Kame"
+    "wiki": "https://wiki.pokexgames.com/index.php/Nightmare_Terror_-_Kame"
   },
   {
     "id": "ptera",
     "name": "Ptera",
     "category": "Nightmare Terror",
     "types": [],
-    "wiki": "https://wiki.pokexgames.com/index.php/Ptera"
+    "wiki": "https://wiki.pokexgames.com/index.php/Nightmare_Terror_-_Ptera"
   },
   {
     "id": "gama",
     "name": "Gama",
     "category": "Nightmare Terror",
     "types": [],
-    "wiki": "https://wiki.pokexgames.com/index.php/Gama"
+    "wiki": "https://wiki.pokexgames.com/index.php/Nightmare_Terror_-_Gama"
   },
   {
     "id": "riza",
     "name": "Riza",
     "category": "Nightmare Terror",
     "types": [],
-    "wiki": "https://wiki.pokexgames.com/index.php/Riza"
+    "wiki": "https://wiki.pokexgames.com/index.php/Nightmare_Terror_-_Riza"
   },
   {
     "id": "raito",
     "name": "Raito",
     "category": "Nightmare Terror",
     "types": [],
-    "wiki": "https://wiki.pokexgames.com/index.php/Raito"
+    "wiki": "https://wiki.pokexgames.com/index.php/Nightmare_Terror_-_Raito"
   },
   {
     "id": "gyakkyo",
     "name": "Gyakkyo",
     "category": "Nightmare Terror",
     "types": [],
-    "wiki": "https://wiki.pokexgames.com/index.php/Gyakkyo"
+    "wiki": "https://wiki.pokexgames.com/index.php/Nightmare_Terror_-_Gyakkyo"
   },
   {
     "id": "seishin-yurei",
     "name": "Seishin & Yurei",
     "category": "Nightmare Terror",
     "types": [],
-    "wiki": "https://wiki.pokexgames.com/index.php/Seishin_%26_Yurei"
+    "wiki": "https://wiki.pokexgames.com/index.php/Nightmare_Terror_-_Seishin_%26_Yurei"
   },
   {
     "id": "kitsune",
     "name": "Kitsune",
     "category": "Nightmare Terror",
     "types": [],
-    "wiki": "https://wiki.pokexgames.com/index.php/Kitsune"
+    "wiki": "https://wiki.pokexgames.com/index.php/Nightmare_Terror_-_Kitsune"
   },
   {
     "id": "raikou",
     "name": "Raikou",
     "category": "Bestas Lendárias",
     "types": ["electric"],
-    "wiki": "https://wiki.pokexgames.com/index.php/Raikou"
+    "wiki": "https://wiki.pokexgames.com/index.php/Boss_Fight_-_Raikou"
   },
   {
     "id": "entei",
     "name": "Entei",
     "category": "Bestas Lendárias",
     "types": ["fire"],
-    "wiki": "https://wiki.pokexgames.com/index.php/Entei"
+    "wiki": "https://wiki.pokexgames.com/index.php/Boss_Fight_-_Entei"
   },
   {
     "id": "suicune",
     "name": "Suicune",
     "category": "Bestas Lendárias",
     "types": ["water"],
-    "wiki": "https://wiki.pokexgames.com/index.php/Suicune"
+    "wiki": "https://wiki.pokexgames.com/index.php/Boss_Fight_-_Suicune"
   }
 ]

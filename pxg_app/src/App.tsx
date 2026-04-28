@@ -9,7 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import LoopIcon from "@mui/icons-material/Loop";
-import WhatshotIcon from "@mui/icons-material/Whatshot";
+import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import CircularProgress from "@mui/material/CircularProgress";
 import type { DiskLevel, Pokemon, RotationResult } from "./types";
@@ -21,9 +21,9 @@ import { DamageConfigPanel } from "./components/DamageConfigPanel";
 import { PokeSetupEditor } from "./components/PokeSetupEditor";
 import { LureDamagePreview } from "./components/LureDamagePreview";
 
-// Code split: OtddPage só baixa quando user clica na tab pela primeira vez.
-const OtddPage = lazy(() =>
-  import("./components/OtddPage").then((m) => ({ default: m.OtddPage }))
+// Code split: ComparePage só baixa quando user clica na tab pela primeira vez.
+const ComparePage = lazy(() =>
+  import("./components/ComparePage").then((m) => ({ default: m.ComparePage }))
 );
 import { useRotation } from "./hooks/useRotation";
 import { useDamageConfig } from "./hooks/useDamageConfig";
@@ -173,13 +173,15 @@ function buildReport(
   return lines.join("\n");
 }
 
-type Page = "rotation" | "otdd";
+type Page = "rotation" | "compare";
 
 const PAGE_STORAGE_KEY = "pxg_current_page";
 
 function loadCurrentPage(): Page {
   const raw = localStorage.getItem(PAGE_STORAGE_KEY);
-  return raw === "otdd" ? "otdd" : "rotation";
+  // "otdd" legado migra pra "compare" (página foi removida)
+  if (raw === "compare" || raw === "otdd") return "compare";
+  return "rotation";
 }
 
 const headerBtnCls =
@@ -193,12 +195,12 @@ function App() {
   const [showResult, setShowResult] = useState(false);
   const [copyFeedback, setCopyFeedback] = useState<string | null>(null);
 
-  // OtddPage só monta na primeira vez que o user clica nela.
+  // ComparePage só monta na primeira vez que o user clica na tab.
   // Depois fica montada (escondida via display:none) — evita re-render caro.
-  const [otddMounted, setOtddMounted] = useState<boolean>(currentPage === "otdd");
+  const [compareMounted, setCompareMounted] = useState<boolean>(currentPage === "compare");
 
   const switchPage = (page: Page) => {
-    if (page === "otdd" && !otddMounted) setOtddMounted(true);
+    if (page === "compare" && !compareMounted) setCompareMounted(true);
     startTabTransition(() => setCurrentPage(page));
   };
 
@@ -284,6 +286,10 @@ function App() {
                 localStorage.removeItem(DISK_STORAGE_KEY);
                 localStorage.removeItem(SELECTED_STORAGE_KEY);
                 localStorage.removeItem("pxg_damage_config");
+                localStorage.removeItem("pxg_otdd_helds");
+                localStorage.removeItem("pxg_compare_selected_ids");
+                localStorage.removeItem("pxg_compare_helds");
+                localStorage.removeItem(PAGE_STORAGE_KEY);
                 location.reload();
               }}
               sx={{
@@ -322,17 +328,17 @@ function App() {
           }}
         >
           <Tab value="rotation" label="Rotação" icon={<LoopIcon fontSize="small" />} iconPosition="start" />
-          <Tab value="otdd" label="OTDD" icon={<WhatshotIcon fontSize="small" />} iconPosition="start" />
+          <Tab value="compare" label="Comparar" icon={<CompareArrowsIcon fontSize="small" />} iconPosition="start" />
         </Tabs>
       </Box>
 
-      {/* OtddPage: monta uma vez e fica viva. display:none preserva estado/scroll
+      {/* ComparePage: monta uma vez e fica viva. display:none preserva estado/scroll
           e evita re-simular dano quando troca de tab. Lazy = JS só baixa no
           primeiro mount. */}
-      {otddMounted && (
-        <main style={{ display: currentPage === "otdd" ? "block" : "none" }}>
-          <Suspense fallback={<div style={{ padding: 24 }}>Carregando OTDD...</div>}>
-            <OtddPage />
+      {compareMounted && (
+        <main style={{ display: currentPage === "compare" ? "block" : "none" }}>
+          <Suspense fallback={<div style={{ padding: 24 }}>Carregando Comparar...</div>}>
+            <ComparePage />
           </Suspense>
         </main>
       )}

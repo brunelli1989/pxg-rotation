@@ -23,11 +23,13 @@ npx tsc --noEmit  # type check
 ```
 pxg_app/src/
 ├── data/
-│   ├── pokemon.json        # Pokes + skills (power calibrado ou via fallback). Tem role, wiki, todo.
-│   ├── pokemon_roster.json # Lista de pokes do jogo com clans/elements/role (fonte do role)
+│   ├── pokemon.json        # Pokes UNIFICADOS (catálogo + calibração). 598 entries (~204 com skills, ~394 sem).
+│   #                          Campos: id, name, tier, clans, role (PvE), pvpRole, elements, skills, melee, wiki, todo.
+│   #                          (Era split em pokemon.json + pokemon_roster.json até 2026-04-28.)
 │   ├── mobs.json           # Mobs por hunt: types, group, hp, defFactor, todo
-│   └── clans.json          # Bônus de atk/def por clã
-├── types/index.ts          # Interfaces (Pokemon, Skill, Lure, RotationStep, DamageConfig, MobConfig, ...)
+│   ├── clans.json          # Bônus de atk/def por clã
+│   └── bosses.json         # Bosses (Nightmare Terror + Bestas Lendárias) — usado pela página OTDD
+├── types/index.ts          # Interfaces (Pokemon, Skill, Lure, RotationStep, DamageConfig, MobConfig, MeleeStats, Boss, ...)
 ├── engine/
 │   ├── cooldown.ts         # Fórmula de CD com disk, cooldowns de elixir
 │   ├── scoring.ts          # Ordem ótima de skills, helpers (hasHarden, hasSilence, hasFrontal, hasHardCC)
@@ -35,9 +37,10 @@ pxg_app/src/
 │   ├── rotation/           # Split em submódulos:
 │   │   ├── generate.ts     #   - Lure template generation (solo_device, solo_elixir, dupla, group)
 │   │   ├── simulation.ts   #   - SimState/SimContext/SimStatePool, compileLures, applyLure, CD math
-│   │   └── beam-search.ts  #   - findBestRotation, findBestForBag, evaluateCycle
+│   │   ├── beam-search.ts  #   - findBestRotation, findBestForBag, evaluateCycle
+│   │   └── post-swap.ts    #   - postProcessSwap: troca pokes equivalentes por mais dano sem perder b/h
 │   ├── rotation.worker.ts  # Worker que processa chunks de bags
-│   ├── rotationAsync.ts    # Orquestrador: distribui bags entre workers, junta resultado
+│   ├── rotationAsync.ts    # Orquestrador: distribui bags entre workers, junta resultado, post-swap pool-completo
 │   ├── damage.ts           # Barrel re-export de damage/ submodules
 │   ├── damage/             # Split em submódulos:
 │   │   ├── fallback.ts     #   - BURST_POWER_BY_TIER_CC + resolveSkillPower
@@ -50,7 +53,8 @@ pxg_app/src/
 ├── components/
 │   ├── PokemonSelector.tsx / PokemonCard.tsx / SkillBadge.tsx
 │   ├── DiskSelector.tsx
-│   ├── DamageConfigPanel.tsx   # Player lvl, clã, hunt, mob alvo, held global do device
+│   ├── DamageConfigPanel.tsx   # Player lvl, clã, hunt, mob alvo, held device, DiskSelector
+│   ├── OtddPage.tsx            # Página OTDD: dano em 10min vs boss (sim greedy 600s + melee ranged)
 │   ├── PokeSetupEditor.tsx     # Boost e held por poke
 │   ├── LureDamagePreview.tsx   # Estimativa de dano vs mob por lure
 │   ├── RotationResult.tsx      # Tabela passo-a-passo
@@ -58,7 +62,7 @@ pxg_app/src/
 ├── hooks/
 │   ├── useRotation.ts      # Hook async c/ loading + progresso (memoiza pool!)
 │   └── useDamageConfig.ts  # Persiste config de dano no localStorage
-└── App.tsx                 # Root + localStorage + botão "copiar dados"
+└── App.tsx                 # Root + localStorage + botão "copiar dados" + tabs Rotação/OTDD
 ```
 
 ## Mecânicas do jogo (LEIA ANTES DE MEXER NO ENGINE)
@@ -102,6 +106,7 @@ UI label: "Elixir Atk" foi renomeado pra **"Swordsman Elixir"** (nome real do jo
 - **Nightmare Revive:** reseta CDs de 1 poke na lure (target = `pickElixirHolder`, o mais forte). Kit castado 2×. Tiers: Normal ($10k, 300s CD) / Superior ($50k, 240s CD). Só gera em solo_device/solo_elixir/dupla (não em group — OOM).
 - **Generator SEM cascading (FIX):** `generateLureTemplates` sempre com `includeDuplaElixir: true, includeGroup: true, allowElixirAtk` e `reviveTier`. Beam search recebe todas opções. Cascading greedy antigo escondia rotações de group superiores em bags com dupla+elixir potente.
 - **`lureFinalizesBox` compara dmg vs `mob.hp` (NÃO hp×6)** — skills são area, hittam todos os 6 mobs simultaneamente; matar 1 = matar os 6.
+- **Post-process swap (após beam):** `postProcessSwap` em `rotation/post-swap.ts` tenta trocar pokes equivalentes (mesmo `role + tier`) por candidatos com mais dano sem perder b/h. Roda em **2 níveis**: (1) dentro do worker per-bag, (2) no main thread após aggregator com **pool completo** (permite trazer pokes de fora da bag de 6 selecionada). Validações: starter precisa hasHardCC + !hasFrontal + harden_se_lure_usa; member/extra precisa hasAnyCC (exceto finalizer); silence+frontal cross-check; dmg lure aumenta; lure ainda finaliza; total_time da rotação resimulada ≤ original (tolerance 0.1%). +5.5% b/h em teste real (73 → 77) trazendo Arcanine/Sh.Chandelure de fora da bag.
 
 ### Cooldown de skills
 
@@ -337,6 +342,79 @@ Fallback `DEFAULT_MOB_DEF_FACTOR = 0.85` (média aproximada) pros demais mobs co
 
 Contexto histórico na memória: `project_pxg_damage_formula.md`.
 
+## Página OTDD (boss damage calculator)
+
+**Diferente da rotação** — calcula **dano em 10 minutos** de OTDD pokes contra bosses (single-target sustained, não lure de 6 mobs).
+
+### Tipos novos
+
+```ts
+PokemonRole = "offensive_tank" | "burst_dd" | "otdd"  // "otdd" novo
+SkillType = "area" | "frontal" | "target"  // "target" = single-target (distinto de frontal cone)
+
+interface MeleeStats {
+  power: number;
+  attackInterval: number;  // ~2.1s típico
+  element?: PokemonElement;
+  kind?: "melee" | "ranged";  // melee close (não soma OTDD), ranged TM (soma)
+}
+Pokemon.melee?: MeleeStats
+Skill.playerNote?: string  // nota player-facing (UI)
+```
+
+### Engine impact
+
+- `hasFrontal` agora detecta **frontal OU target** — ambos não cobrem 6 mobs (starter inválido)
+- `hasHardCC` exige CC em `area` (locked aceita qualquer)
+- Role "otdd" cai no fallback de burst_dd em `getDefaultSkillPower` (engine trata igual)
+- OtddPage **força `clan: null`** no buildConfig — bônus de clã não se aplica em boss
+
+### Auto-attack (melee)
+
+- Calibrado parando o poke ~30s no dummy, capturando hits (color=129 normal pra close, color=164 ground pra ranged STAB)
+- Power calculado pela mesma fórmula das skills, com cooldown = attackInterval
+- **Close melee não soma no OTDD** porque player não fica adjacente em boss
+- **Ranged melee (TM) soma** — ex: TM Sh.Marowak hit ranged ground 2810 each @ 2.09s
+- Buffado por Rage ×2 (validado: ratio 1.999)
+
+### Skill mechanics observadas
+
+- **Bone Rush (Marowak/TM):** descrição PxG: "se atingido 4 vezes recebe extra, 5+ recebe muito menos". Validado TM em 9-hit cast: 3 normais (~4065) + 1 extra (~12137 = 3×) + 5 reduzidos (~402 = 0.1×). Power calibrado assumindo best case (alvo fresh, 10-hit).
+- **Rage (Marowak/TM):** self-buff ×2 dano físico por ~20s. Power 0 (não dá dano direto). Regular CD 80s (uptime 25%), TM CD 40s (uptime 50%). Engine modela como `buff: "next"` ×1.5 simplificado.
+- **Inferno (Ninetales/Sh.Ninetales):** variável 2-3 hits per cast. Avg 2.2 (Ninetales) ou 2.5 (Shiny). Per-hit consistente (~11167 vs ~17817 — Shiny 1.6× mais forte per-hit).
+- **Nasty Plot:** `buff:next` ×1.5 confirmado empiricamente (ratio 1.502 em 10 sample hits). Janela 10s — engine simplifica pra "next skill only".
+- **Tail Whip (Sh.Gogoat):** reduz def do oponente 5s. Só funciona em duel (PVP) — power 0 efetivamente exclui de OTDD.
+- **Mud Sport (Marowak):** 5-hit per cast (apesar wiki dizer "Single Target"). Em PxG verificado por log.
+
+### Tracker color codes catalogados
+
+| Color | Element/Effect |
+|---|---|
+| 26 | grass |
+| 35 | lifesteal heal (Horn Leech) |
+| 87 | dark |
+| 129 | normal / melee close / DoT tick (ambíguo, distinguir por magnitude) |
+| 164 | ground |
+| 172 | self-buff (Harden) |
+| 180 | rock |
+| 198 | fire |
+
+### Bosses (`src/data/bosses.json`)
+
+12 bosses inicializados em 2 categorias:
+- **Bestas Lendárias** (3): Entei (fire), Raikou (electric), Suicune (water)
+- **Nightmare Terror** (9): Kairiki, Kame, Ptera, Gama, Riza, Raito, Gyakkyo, Seishin & Yurei, Kitsune (types vazios — TBD wiki individual)
+
+OtddPage: dropdown único com `<optgroup>` por categoria. Quando selecionado, eff PxG piecewise aplicada vs skills do poke.
+
+### OTDD pokes calibrados (3)
+
+| Poke | Tier | Element | Σ damage | Melee kind |
+|---|---|---|---|---|
+| Shiny Marowak | T1C | ground | 111.68 | close (não soma) |
+| TM Shiny Marowak | TM | ground | 109.50 | **ranged** (soma) |
+| Shiny Gogoat | T1C | grass | ~130 | close (não soma) |
+
 ## Pitfalls conhecidos (não repetir)
 
 - **NÃO** memoize o `pool` fora do hook — array novo a cada render → loop infinito no useEffect
@@ -367,10 +445,20 @@ Contexto histórico na memória: `project_pxg_damage_formula.md`.
 - **NÃO** re-introduzir `cycleHas3ConsecutiveIdentical` wrap-check. Bug: bloqueava rotações ótimas onde 3 idênticas apareciam via wrap (pos N→1→2). Beam forward filter (`if (seq[n-1] === seq[n-2]) skip c === seq[n-1]`) é suficiente — simulação valida feasibility via `waitForSkill`. Regression test em `beam-search.test.ts`.
 - **NÃO** aplicar `DEFAULT_MOB_DEF_FACTOR=0.85` direto sem checar hunt tier — fallback agora é `huntAvgDefFactor(hunt, allMobs)` que faz média dos calibrados do MESMO tier. Hunt 300 → ~0.811; hunt 400+ → ~0.573.
 - **NÃO** permitir starter fraco (T2/T3/TR burst_dd non-clã) em hunt 400+ mesmo com consumível — filtro strict aplica. Hunt 300 permite via elixir/revive gate.
+- **NÃO** rodar post-swap só dentro do worker — o worker tem bag de 6 pokes, post-swap só vê esses 6 e não pode trazer pokes melhor calibrados de fora da bag. Rodar **2× níveis**: dentro do worker E no main thread (`rotationAsync.ts`) com pool completo.
+- **NÃO** usar role check pra starter em OTDD — role "otdd" cai no fallback de burst_dd no engine. OTDD é só pra UI/filtragem da página OTDD; engine de rotação trata igual a burst_dd.
+- **NÃO** somar close melee no OTDD — só ranged (TM `kind: "ranged"`). Close requer player adjacente, raro em boss fight real.
+- **NÃO** confundir cores do tracker: color=129 é AMBÍGUO (normal element OU close melee OU DoT tick). Distinguir por magnitude (melee ~2480, normal skill 7000+).
+- **NÃO** assumir Bone Rush como single-hit — em PxG é multi-hit com **decay**: hits 1-3 normais, hit 4 extra (×3), hits 5+ reduzidos (×0.1). Power calibrado assume best case (alvo fresh, 10-hit max).
+- **NÃO** modelar Rage como `buff: "next"` ×1.5 simplista — na real é ×2 dano físico por 20s (uptime 25% regular / 50% TM). Engine atual subestima; flag em `playerNote`.
+- **NÃO** assumir Inferno como hit-count fixo — é variável 2-3 hits. Calibrado com avg observado (Ninetales 2.2, Sh.Ninetales 2.5).
+- **NÃO** aplicar bônus de clã em OTDD — bosses não dão clã bonus. `OtddPage.buildConfig` força `clan: null`.
+- **NÃO** marcar skill `scope: "duel"` (campo removido) — usar `power: 0` pra skill que não funciona em boss (Tail Whip ex). Página OTDD filtra por `power > 0` automaticamente.
 
 ## Dicas de UI
 
 - Tema escuro (background `#1a1a2e`)
 - Botão "Copiar dados" gera report textual (sem listar skills — foram retiradas)
 - Timeline visual usa cores rotativas por lure
-- localStorage keys: `pxg_disk_level`, `pxg_selected_ids`
+- localStorage keys: `pxg_disk_level`, `pxg_selected_ids`, `pxg_current_page` (Rotação/OTDD)
+- Header em 2 linhas: título + clear cache em cima, tabs Rotação/OTDD embaixo. DiskSelector movido pro fieldset Player do DamageConfigPanel (não mais no header).

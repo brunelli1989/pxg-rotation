@@ -1,16 +1,8 @@
-import type { DamageConfig, Pokemon, RosterPokemon } from "../types";
+import type { DamageConfig, Pokemon } from "../types";
 import pokemonData from "../data/pokemon.json";
-import rosterData from "../data/pokemon_roster.json";
 import { findBestForBag } from "./rotation";
 
-// Replica do merge que App.tsx faz: enriquece pokes com elements do roster
-const elementsById: Record<string, RosterPokemon["elements"]> = Object.fromEntries(
-  (rosterData as RosterPokemon[]).map((r) => [r.id, r.elements])
-);
-const pokes: Pokemon[] = (pokemonData as unknown as Pokemon[]).map((p) => ({
-  ...p,
-  elements: elementsById[p.id] ?? p.elements,
-}));
+const pokes: Pokemon[] = pokemonData as unknown as Pokemon[];
 const get = (id: string) => {
   const p = pokes.find((x) => x.id === id);
   if (!p) throw new Error(`missing ${id}`);
@@ -38,7 +30,7 @@ const bag = [
   get("omastar"),
   get("rampardos"),
   get("shiny-golem"),
-  get("tyranitar"),
+  get("tr-tyranitar"),
 ];
 
 const cfg: DamageConfig = {

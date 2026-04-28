@@ -13,7 +13,14 @@ export type ClanName =
   | "volcanic" | "raibolt" | "orebound" | "naturia" | "gardestrike"
   | "ironhard" | "wingeon" | "psycraft" | "seavell" | "malefic";
 
-export type PokemonRole = "offensive_tank" | "burst_dd" | "otdd";
+export type PokemonRole =
+  | "offensive_tank"
+  | "burst_dd"
+  | "otdd"
+  | "tank"
+  | "speedster"
+  | "support"
+  | "disrupter";
 
 export interface Clan {
   name: ClanName;
@@ -21,14 +28,6 @@ export interface Clan {
   bonuses: { element: PokemonElement; atk: number; def: number }[];
 }
 
-export interface RosterPokemon {
-  id: string;
-  name: string;
-  tier: Tier;
-  clans: ClanName[];
-  role: PokemonRole;
-  elements: PokemonElement[];
-}
 export type DiskLevel = 0 | 1 | 2 | 3 | 4;
 
 export interface SkillCalibration {
@@ -69,7 +68,15 @@ export interface Pokemon {
   id: string;
   name: string;
   tier: Tier;
+  /** Clãs aos quais o poke pertence (do wiki). Vazio se não está em nenhum clã. */
+  clans?: ClanName[];
+  /** Role principal em PvE (lures, hunting). Engine usa pra fallback de skill power. */
   role?: PokemonRole;
+  /** Role em PvP (extraído do wiki). Não afeta engine de rotação. Null = não usado em PvP. */
+  pvpRole?: PokemonRole | null;
+  /** Elementos defensivos do poke. Usado pra calcular resistência do starter contra ataques do mob.
+   *  Ausência = neutro (factor 1.0). */
+  elements?: PokemonElement[];
   wiki?: string;
   /** Ação pendente (ex: "RECALIBRAR"). Presença → ⚠️ na UI. */
   todo?: string;
@@ -77,10 +84,8 @@ export interface Pokemon {
   observacao?: string;
   /** Setup da calibração (ex: "lvl 600, +70, XA8, Volcanic, sem device, neutro"). */
   config?: string;
+  /** Skills calibradas. Vazio = poke catalogado mas sem dados de damage ainda. */
   skills: Skill[];
-  /** Elementos defensivos do poke (do roster). Usado pra calcular resistência
-   *  do starter contra ataques do mob. Ausência = neutro (factor 1.0). */
-  elements?: PokemonElement[];
   /** Auto-attack (melee/básico). Calibrado parando o poke parado no dummy e
    *  observando hits no tracker (color=129 normal). Power deriva da fórmula padrão
    *  com `cooldown` substituído pelo `attackInterval`. Usado em OTDD pra dano sustained. */

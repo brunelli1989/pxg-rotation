@@ -1,9 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
-import type { DiskLevel, Pokemon, RosterPokemon, RotationResult } from "./types";
+import type { DiskLevel, Pokemon, RotationResult } from "./types";
 import pokemonData from "./data/pokemon.json";
-import rosterData from "./data/pokemon_roster.json";
 import { PokemonSelector } from "./components/PokemonSelector";
-import { DiskSelector } from "./components/DiskSelector";
 import { RotationResultView } from "./components/RotationResult";
 import { SkillTimeline } from "./components/SkillTimeline";
 import { DamageConfigPanel } from "./components/DamageConfigPanel";
@@ -21,37 +19,14 @@ const CONSUMABLE_PRICES = {
   reviveSuperior: REVIVE_PRICE.superior,
 };
 
-const pokemonWithSkillsRaw = pokemonData as Pokemon[];
-const roster = rosterData as RosterPokemon[];
-
-// Map id → elements (do roster). Usado pra enriquecer os pokes com tipo defensivo.
-const elementsById: Record<string, RosterPokemon["elements"]> = Object.fromEntries(
-  roster.map((r) => [r.id, r.elements])
-);
-
-// Merge: pokemon.json (com skills) tem prioridade; resto vem do roster com skills vazias.
-// Em ambos enriquecemos com `elements` do roster pra starter resist factor funcionar.
-const pokemonWithSkills: Pokemon[] = pokemonWithSkillsRaw.map((p) => ({
-  ...p,
-  elements: elementsById[p.id] ?? p.elements,
-}));
-const existingIds = new Set(pokemonWithSkills.map((p) => p.id));
-const rosterOnly: Pokemon[] = roster
-  .filter((r) => !existingIds.has(r.id))
-  .map((r) => ({
-    id: r.id,
-    name: r.name,
-    tier: r.tier,
-    skills: [],
-    elements: r.elements,
-  }));
-
-const allPokemon: Pokemon[] = [...pokemonWithSkills, ...rosterOnly].sort((a, b) =>
+const allPokemon: Pokemon[] = (pokemonData as Pokemon[]).slice().sort((a, b) =>
   a.name.localeCompare(b.name)
 );
 
 // Map id → elements (legado; manter enquanto UI usa)
-const pokeElements: Record<string, string[]> = elementsById;
+const pokeElements: Record<string, string[]> = Object.fromEntries(
+  allPokemon.map((p) => [p.id, p.elements ?? []])
+);
 
 const DISK_STORAGE_KEY = "pxg_disk_level";
 const SELECTED_STORAGE_KEY = "pxg_selected_ids";
@@ -249,7 +224,22 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>PxG Rotation Generator</h1>
+        <div className="header-top">
+          <h1>PxG Rotation Generator</h1>
+          <button
+            className="clear-cache-btn"
+            title="Reseta disk, seleção de pokes e configs de dano"
+            onClick={() => {
+              if (!confirm("Limpar todas as configurações salvas (disk, seleção, dano)?")) return;
+              localStorage.removeItem(DISK_STORAGE_KEY);
+              localStorage.removeItem(SELECTED_STORAGE_KEY);
+              localStorage.removeItem("pxg_damage_config");
+              location.reload();
+            }}
+          >
+            🗑️ Clear cache
+          </button>
+        </div>
         <nav className="page-nav">
           <button
             className={`page-tab ${currentPage === "rotation" ? "active" : ""}`}
@@ -264,22 +254,6 @@ function App() {
             OTDD
           </button>
         </nav>
-        {currentPage === "rotation" && (
-          <DiskSelector diskLevel={diskLevel} onChange={setDiskLevel} />
-        )}
-        <button
-          className="clear-cache-btn"
-          title="Reseta disk, seleção de pokes e configs de dano"
-          onClick={() => {
-            if (!confirm("Limpar todas as configurações salvas (disk, seleção, dano)?")) return;
-            localStorage.removeItem(DISK_STORAGE_KEY);
-            localStorage.removeItem(SELECTED_STORAGE_KEY);
-            localStorage.removeItem("pxg_damage_config");
-            location.reload();
-          }}
-        >
-          🗑️ Clear cache
-        </button>
       </header>
 
       {currentPage === "otdd" ? (
@@ -297,6 +271,7 @@ function App() {
 
         <DamageConfigPanel
           config={damage.config}
+          diskLevel={diskLevel}
           onPlayerLvlChange={damage.setPlayerLvl}
           onClanChange={damage.setClan}
           onHuntChange={damage.setHunt}
@@ -304,6 +279,7 @@ function App() {
           onDeviceChange={damage.setDevice}
           onUseElixirAtkChange={damage.setUseElixirAtk}
           onReviveChange={damage.setRevive}
+          onDiskLevelChange={setDiskLevel}
         />
 
         <PokeSetupEditor

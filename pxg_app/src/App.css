@@ -11,40 +11,47 @@
 
 /* ===== Header ===== */
 .app-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding-bottom: 16px;
   border-bottom: 2px solid #333;
   margin-bottom: 24px;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
 }
 
 .app-header h1 {
   margin: 0;
   font-size: 1.5rem;
   color: #fff;
+  letter-spacing: 0.01em;
 }
 
 /* ===== Page Navigation ===== */
 .page-nav {
   display: flex;
-  gap: 4px;
+  gap: 6px;
 }
 
 .page-tab {
   background: #16213e;
   color: #aaa;
-  border: 1px solid #444;
-  padding: 6px 14px;
+  border: 1px solid #2d3a5e;
+  padding: 8px 18px;
   border-radius: 6px;
   font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .page-tab:hover {
   background: #1e2d5a;
   color: #e0e0e0;
+  border-color: #4a90d9;
 }
 
 .page-tab.active {

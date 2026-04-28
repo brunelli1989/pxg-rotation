@@ -1,21 +1,13 @@
 import { useMemo, useState } from "react";
-import type { Boss, BossCategory, DamageConfig, Pokemon, PokemonElement, RosterPokemon, XAtkTier } from "../types";
+import type { Boss, BossCategory, DamageConfig, Pokemon, PokemonElement, XAtkTier } from "../types";
 import pokemonData from "../data/pokemon.json";
-import rosterData from "../data/pokemon_roster.json";
 import bossesData from "../data/bosses.json";
 import { computeSkillDamage, resolveSkillPower } from "../engine/damage";
 
 const bosses = bossesData as Boss[];
 const BOSS_CATEGORIES: BossCategory[] = ["Nightmare Terror", "Bestas Lendárias"];
 
-const elementsById = Object.fromEntries(
-  (rosterData as RosterPokemon[]).map((r) => [r.id, r.elements])
-);
-
-const allPokes: Pokemon[] = (pokemonData as Pokemon[]).map((p) => ({
-  ...p,
-  elements: elementsById[p.id] ?? p.elements,
-}));
+const allPokes: Pokemon[] = pokemonData as Pokemon[];
 
 const SIM_DURATION = 600; // 10 min em segundos
 const CAST_TIME = 1; // 1s por cast

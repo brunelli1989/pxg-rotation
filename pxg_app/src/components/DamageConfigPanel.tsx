@@ -1,6 +1,7 @@
 import type {
   ClanName,
   DamageConfig,
+  DiskLevel,
   HuntLevel,
   MobConfig,
   MobEntry,
@@ -12,6 +13,7 @@ import clansData from "../data/clans.json";
 import mobsData from "../data/mobs.json";
 import { DEFAULT_MOB_DEF_FACTOR, resolveMobConfig } from "../engine/damage";
 import type { MobFieldSource, ResolvedMob } from "../engine/damage";
+import { DiskSelector } from "./DiskSelector";
 
 const mobs = mobsData as MobEntry[];
 const resolvedByName = new Map<string, ResolvedMob>(
@@ -55,6 +57,7 @@ function mobMarker(entries: MobEntry[]): string {
 
 interface Props {
   config: DamageConfig;
+  diskLevel: DiskLevel;
   onPlayerLvlChange: (v: number) => void;
   onClanChange: (v: ClanName | null) => void;
   onHuntChange: (v: HuntLevel) => void;
@@ -62,10 +65,12 @@ interface Props {
   onDeviceChange: (device: Partial<DeviceHeld>) => void;
   onUseElixirAtkChange: (v: boolean) => void;
   onReviveChange: (v: "none" | "normal" | "superior") => void;
+  onDiskLevelChange: (v: DiskLevel) => void;
 }
 
 export function DamageConfigPanel({
   config,
+  diskLevel,
   onPlayerLvlChange,
   onClanChange,
   onHuntChange,
@@ -73,6 +78,7 @@ export function DamageConfigPanel({
   onDeviceChange,
   onUseElixirAtkChange,
   onReviveChange,
+  onDiskLevelChange,
 }: Props) {
   const mobsForHunt = mobs
     .filter((m) => m.hunt === config.hunt)
@@ -196,6 +202,8 @@ export function DamageConfigPanel({
               ))}
             </select>
           </label>
+
+          <DiskSelector diskLevel={diskLevel} onChange={onDiskLevelChange} />
         </div>
 
       </fieldset>

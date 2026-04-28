@@ -1,17 +1,9 @@
-import type { DamageConfig, Pokemon, PokeSetup, RosterPokemon } from "../types";
+import type { DamageConfig, Pokemon, PokeSetup } from "../types";
 import pokemonData from "../data/pokemon.json";
-import rosterData from "../data/pokemon_roster.json";
 import mobsData from "../data/mobs.json";
 import { findBestForBag } from "./rotation";
 
-// Replica do merge que App.tsx faz: enriquece pokes com elements do roster
-const elementsById = Object.fromEntries(
-  (rosterData as RosterPokemon[]).map((r) => [r.id, r.elements])
-);
-const allPokes = (pokemonData as Pokemon[]).map((p) => ({
-  ...p,
-  elements: elementsById[p.id] ?? p.elements,
-}));
+const allPokes = pokemonData as Pokemon[];
 
 function findPoke(name: string): Pokemon {
   const p = allPokes.find((x) => x.name === name);

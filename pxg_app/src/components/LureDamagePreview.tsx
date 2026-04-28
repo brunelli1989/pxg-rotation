@@ -7,6 +7,9 @@ interface Props {
   config: DamageConfig;
 }
 
+const thCls = "text-left px-2 py-1.5 text-text-dim font-medium border-b border-[#333]";
+const tdCls = "px-2 py-1.5 border-b border-[#222]";
+
 export function LureDamagePreview({ result, config }: Props) {
   // Engine aplica override hasDevice=true no device holder. Espelhamos isso aqui
   // pro dano mostrado bater com o que o engine usou pra decidir a rotação.
@@ -24,18 +27,18 @@ export function LureDamagePreview({ result, config }: Props) {
   }, [config, result.devicePokemonId]);
 
   return (
-    <section className="lure-damage">
-      <h2>
+    <section className="bg-bg-card border border-[#333] rounded-lg p-4 mt-4">
+      <h2 className="m-0 mb-3 text-base text-[#ccc]">
         Dano por Lure (vs {effectiveConfig.mob.name} [{effectiveConfig.mob.types.join("/")}] HP {effectiveConfig.mob.hp.toLocaleString()})
       </h2>
-      <table className="lure-damage-table">
+      <table className="w-full border-collapse text-[0.85rem]">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Pokes</th>
-            <th>Dano/mob (estimado)</th>
-            <th>% HP</th>
-            <th>Finaliza?</th>
+            <th className={thCls}>#</th>
+            <th className={thCls}>Pokes</th>
+            <th className={thCls}>Dano/mob (estimado)</th>
+            <th className={thCls}>% HP</th>
+            <th className={thCls}>Finaliza?</th>
           </tr>
         </thead>
         <tbody>
@@ -50,14 +53,15 @@ export function LureDamagePreview({ result, config }: Props) {
             ]
               .filter(Boolean)
               .join(" + ");
+            const rowClr = finalizes ? "text-[#7fd87f]" : "text-[#d87f7f]";
 
             return (
-              <tr key={i} className={finalizes ? "finalizes" : "not-finalizes"}>
-                <td>{i + 1}</td>
-                <td>{pokes}</td>
-                <td>{Math.round(dmg).toLocaleString()}</td>
-                <td>{pct.toFixed(1)}%</td>
-                <td>{finalizes ? "✓" : "✗"}</td>
+              <tr key={i} className={rowClr}>
+                <td className={tdCls}>{i + 1}</td>
+                <td className={tdCls}>{pokes}</td>
+                <td className={tdCls}>{Math.round(dmg).toLocaleString()}</td>
+                <td className={tdCls}>{pct.toFixed(1)}%</td>
+                <td className={tdCls}>{finalizes ? "✓" : "✗"}</td>
               </tr>
             );
           })}

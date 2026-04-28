@@ -22,7 +22,89 @@
     "role": "otdd",
     "pvpRole": "burst_dd",
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Quick Attack",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Knock Off",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Pursuit",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "dark"
+      },
+      {
+        "name": "Foul Play",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Night Slash",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Sucker Punch",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Razor Wind",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Assurance",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Swords Dance",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal"
+      },
+      {
+        "name": "Taunt",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "silence",
+        "buff": "self",
+        "element": "dark"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "accelgor",
@@ -101,7 +183,89 @@
       "rock",
       "flying"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Roar",
+        "cooldown": 30,
+        "type": "area",
+        "cc": "silence",
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Super Sonic",
+        "cooldown": 40,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Rock Throw",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Rock Slide",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Stone Edge",
+        "cooldown": 15,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Ice Fang",
+        "cooldown": 30,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Wing Attack",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Ancient Power",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Falling Rocks",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Hyper Beam",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "aggron",
@@ -296,7 +460,91 @@
     "role": "otdd",
     "pvpRole": "tank",
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Rock Throw",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Rock Slide",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Stone Edge",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Rock Blast",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Automize",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "steel",
+        "def": true
+      },
+      {
+        "name": "Charge",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "electric"
+      },
+      {
+        "name": "Thunder",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Rock Wrecker",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Harden",
+        "cooldown": 60,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      },
+      {
+        "name": "Stealth Rock",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "alolan-graveler",
@@ -507,7 +755,74 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Ice Shard",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Ice Spin",
+        "cooldown": 35,
+        "type": "target",
+        "cc": "stun",
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Icicle Spear",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Frost Breath",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Aurora Beam",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Blizzard",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Sheer Cold",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "ice"
+      },
+      {
+        "name": "Aurora Veil",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "ice",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "alolan-persian",
@@ -548,7 +863,81 @@
       "dark",
       "normal"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Quick Attack",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Bite",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Knock Off",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Pursuit",
+        "cooldown": 22,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "dark"
+      },
+      {
+        "name": "Sucker Punch",
+        "cooldown": 30,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Super Fang",
+        "cooldown": 22,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Assurance",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Scary Face",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Swords Dance",
+        "cooldown": 45,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "alolan-raticate-tm",
@@ -560,7 +949,66 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Dark Pulse",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Pursuit",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "dark"
+      },
+      {
+        "name": "Ruinous Claws",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Quash",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Crunch",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Swords Dance",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      },
+      {
+        "name": "Bite",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "alolan-sandslash",
@@ -576,7 +1024,89 @@
       "ice",
       "steel"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Iron Head",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Ice Punch",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Metal Burst",
+        "cooldown": 32,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Ice Shard",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Icicle Spear",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Rollout",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "rock"
+      },
+      {
+        "name": "Icicle Crash",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Blizzard",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Swords Dance",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "normal"
+      },
+      {
+        "name": "Snowscape",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "ice"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "alomomola",
@@ -614,7 +1144,81 @@
     "elements": [
       "normal"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Shadow Ball",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ghost"
+      },
+      {
+        "name": "Foul Play",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Knock Off",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Fling",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Astonish",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ghost"
+      },
+      {
+        "name": "Shadow Claw",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ghost"
+      },
+      {
+        "name": "Payback",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Nasty Plot",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "dark"
+      },
+      {
+        "name": "Double Team",
+        "cooldown": 10,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "normal"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "ampharos",
@@ -1335,18 +1939,6 @@
     "skills": []
   },
   {
-    "id": "charizard-tr",
-    "name": "Charizard (TR)",
-    "tier": "TR",
-    "clans": [
-      "volcanic"
-    ],
-    "role": "burst_dd",
-    "pvpRole": null,
-    "elements": [],
-    "skills": []
-  },
-  {
     "id": "cinderace",
     "name": "Cinderace",
     "tier": "T2",
@@ -1474,7 +2066,82 @@
     "elements": [
       "fighting"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Rock Throw",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Drain Punch",
+        "cooldown": 30,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Stone Edge",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Rock Tomb",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Hammer Arm",
+        "cooldown": 30,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Wake-Up Slap",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Dynamic Punch",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Chip Away",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Bulk Up",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "fighting",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "conkeldurr-tm",
@@ -2072,7 +2739,89 @@
     "elements": [
       "electric"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Acid Spray",
+        "cooldown": 30,
+        "type": "target",
+        "cc": "locked",
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Knock Off",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Dragon Claw",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dragon"
+      },
+      {
+        "name": "Flamethrower",
+        "cooldown": 15,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Crush Claw",
+        "cooldown": 50,
+        "type": "target",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal"
+      },
+      {
+        "name": "Dragon Pulse",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dragon"
+      },
+      {
+        "name": "Gastro Acid",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Discharge",
+        "cooldown": 70,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Giga Drain",
+        "cooldown": 60,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Scary Face",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "normal"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "electabuzz",
@@ -2217,7 +2966,65 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Feather Dance",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Stickmerang",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Stick Throw",
+        "cooldown": 25,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Stickslash",
+        "cooldown": 18,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Wing Slash",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Air Slash",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Brave Bird",
+        "cooldown": 40,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "elite-hitmonchan",
@@ -2328,7 +3135,82 @@
       "water",
       "steel"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Mud Spot",
+        "cooldown": 40,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Bubble",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Bubble Beam",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Water Pulse",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Aqua Jet",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": "next",
+        "element": "water"
+      },
+      {
+        "name": "Wave Crash",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "silence",
+        "buff": "next",
+        "element": "water"
+      },
+      {
+        "name": "Flash Cannon",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Hydro Pump",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Swords Dance",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "escavalier",
@@ -2941,7 +3823,73 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Body Slam",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Toxic Spikes",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Sludge",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Gunk Shot",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Acid Spray",
+        "cooldown": 25,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Sludge Bomb",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Acid Rain",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Venoshock",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "garchomp",
@@ -3387,7 +4335,74 @@
     "elements": [
       "psychic"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Psy Ball",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Psy Pulse",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Synchronoise",
+        "cooldown": 18,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Instant Teleportation",
+        "cooldown": 90,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "psychic",
+        "def": true
+      },
+      {
+        "name": "Trick",
+        "cooldown": 20,
+        "type": "target",
+        "cc": "stun",
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Psyshock",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Psychic",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Future Sight",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "granbull",
@@ -3650,7 +4665,89 @@
       "fire",
       "steel"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Volcano Shot",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Iron Head",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Crunch",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Earth Power",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Rock Slide",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Stone Edge",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Ancient Power",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Heat Wave",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "silence",
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Magma Storm",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Flash Cannon",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "heracross",
@@ -3907,7 +5004,82 @@
       "electric",
       "grass"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Charge",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "electric",
+        "def": true
+      },
+      {
+        "name": "Bullet Seed",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Electro Ball",
+        "cooldown": 18,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Rollout",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "rock"
+      },
+      {
+        "name": "Grass Knot",
+        "cooldown": 25,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Leaf Storm",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Chloroblast",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Discharge",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Selfdestruction",
+        "cooldown": 80,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "hisuian-qwilfish",
@@ -4048,7 +5220,73 @@
       "dark",
       "dragon"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Bite",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Crunch",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Thief",
+        "cooldown": 40,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "dark"
+      },
+      {
+        "name": "Dark Pulse",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Beat Up",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Payback",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Assurance",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Nasty Plot",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "dark"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "infernape",
@@ -4704,7 +5942,73 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Crunch",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Rock Throw",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Rock Slide",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Rock Tomb",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Rock Blast",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Stone Edge",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Accelerock",
+        "cooldown": 50,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "rock"
+      },
+      {
+        "name": "Howl",
+        "cooldown": 80,
+        "type": "area",
+        "cc": "stun",
+        "buff": "self",
+        "element": "dark"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "lycanroc-midnight-form",
@@ -5021,7 +6325,81 @@
     "role": "otdd",
     "pvpRole": "tank",
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Ice Shard",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Icicle Spear",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Ice Fang",
+        "cooldown": 25,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Icicle Crash",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Avalanche",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Power Snow",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Blizzard",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Earthquake",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Stone Edge",
+        "cooldown": 45,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "manectric",
@@ -5336,7 +6714,74 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Psy Ball",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Psy Pulse",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Trick",
+        "cooldown": 30,
+        "type": "target",
+        "cc": "stun",
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Kinesis",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Psybeam",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Psychic",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Future Sight",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Instant Teleportation",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "psychic",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "mega-altaria-base",
@@ -5413,31 +6858,6 @@
         "element": "fairy"
       }
     ]
-  },
-  {
-    "id": "mega-altaria-dragon-tm",
-    "name": "Mega Altaria Dragon (TM)",
-    "tier": "TM",
-    "clans": [
-      "psycraft",
-      "wingeon"
-    ],
-    "role": "otdd",
-    "pvpRole": null,
-    "elements": [],
-    "skills": []
-  },
-  {
-    "id": "mega-altaria-fairy-tm",
-    "name": "Mega Altaria Fairy (TM)",
-    "tier": "TM",
-    "clans": [
-      "psycraft"
-    ],
-    "role": "offensive_tank",
-    "pvpRole": null,
-    "elements": [],
-    "skills": []
   },
   {
     "id": "mega-ampharos",
@@ -5627,7 +7047,90 @@
       "fire",
       "fighting"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Low Kick",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Ember",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Mega Kick",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Fire Fist",
+        "cooldown": 30,
+        "type": "target",
+        "cc": "stun",
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Blaze Kick",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "fire"
+      },
+      {
+        "name": "Hi Jump Kick",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Sky Uppercut",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Blast Burn",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Flare Blitz",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Bulk Up",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "fighting",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "mega-camerupt",
@@ -6089,7 +7592,65 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Dazzling Gleam",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Magic Trick",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Instant Teleportation",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "fairy"
+      },
+      {
+        "name": "Disaming Voice",
+        "cooldown": 25,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Moonblast",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "silence",
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Magic Beam",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Misty Explosion",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "mega-gengar",
@@ -6260,7 +7821,89 @@
       "fire",
       "dark"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Roar",
+        "cooldown": 35,
+        "type": "area",
+        "cc": "silence",
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Bite",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Crunch",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Ember",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Punishment",
+        "cooldown": 30,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Dark Pulse",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Flamethrower",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Incinerate",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Fire Blast",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Inferno",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "mega-houndoom-tm",
@@ -6272,7 +7915,66 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Ember",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Incinerate",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Flamethrower",
+        "cooldown": 18,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Flame Charge",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "fire",
+        "def": true
+      },
+      {
+        "name": "Fire Fang",
+        "cooldown": 30,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Fire Blast",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Inferno",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "mega-kangaskhan",
@@ -6424,18 +8126,6 @@
     "skills": []
   },
   {
-    "id": "mega-lucario-fighting-tm",
-    "name": "Mega Lucario Fighting (TM)",
-    "tier": "TM",
-    "clans": [
-      "gardestrike"
-    ],
-    "role": "offensive_tank",
-    "pvpRole": null,
-    "elements": [],
-    "skills": []
-  },
-  {
     "id": "mega-lucario-steel-tm",
     "name": "Mega Lucario Steel (TM)",
     "tier": "TM",
@@ -6445,7 +8135,74 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Extreme Speed",
+        "cooldown": 25,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "steel"
+      },
+      {
+        "name": "Bone Rush",
+        "cooldown": 3,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "steel",
+        "def": true
+      },
+      {
+        "name": "Flash Cannon",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Metal Claw",
+        "cooldown": 40,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Bullet Punch",
+        "cooldown": 50,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Aura Sphere",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Meteor Mash",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Aura Burst",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "mega-manectric",
@@ -7025,7 +8782,90 @@
       "rock",
       "dark"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Bite",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Crunch",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Dark Pulse",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Rock Slide",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Fling",
+        "cooldown": 15,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Shadowave",
+        "cooldown": 12,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Assurance",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Hyper Beam",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Epicenter",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Sandstorm",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "rock",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "mega-venusaur",
@@ -7273,7 +9113,73 @@
     "elements": [
       "fighting"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Low Kick",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Close Combat",
+        "cooldown": 45,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "fighting"
+      },
+      {
+        "name": "High Jump Kick",
+        "cooldown": 30,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Vacuum Wave",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Focus Blast",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Aura Sphere",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Reversal",
+        "cooldown": 45,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Agility",
+        "cooldown": 70,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "normal"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "mightyena",
@@ -7869,7 +9775,75 @@
       "bug",
       "flying"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Silver Wind",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Leech Life",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "X-Scissor",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Dual Wingbeat",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Swords Dance",
+        "cooldown": 60,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal"
+      },
+      {
+        "name": "Substitute",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      },
+      {
+        "name": "Protect",
+        "cooldown": 70,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      },
+      {
+        "name": "Baton Pass",
+        "cooldown": 60,
+        "type": "area",
+        "cc": "locked",
+        "buff": "next",
+        "element": "normal"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "noivern",
@@ -7881,7 +9855,74 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Wind Swirl",
+        "cooldown": 8,
+        "type": "target",
+        "cc": "locked",
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Wing Attack",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Air Cutter",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Air Slash",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Hurricane",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Boomburst",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Acrobatics",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Tailwind",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "flying",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "omastar",
@@ -8247,7 +10288,83 @@
     "role": "otdd",
     "pvpRole": "disrupter",
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Cyber Wave",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Cyber Pulse",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Dark Pulse",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Tri-Attack",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Psychic",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Cyber World",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Magic Coat",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "psychic",
+        "def": true
+      },
+      {
+        "name": "Nasty Plot",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "dark"
+      },
+      {
+        "name": "Barrier",
+        "cooldown": 180,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "psychic",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "porygon2",
@@ -8609,7 +10726,74 @@
       "electric",
       "ghost"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Shadow Ball",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ghost"
+      },
+      {
+        "name": "Shadow Sphere",
+        "cooldown": 12,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ghost"
+      },
+      {
+        "name": "Ominous Wind",
+        "cooldown": 15,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ghost"
+      },
+      {
+        "name": "Shock Wave",
+        "cooldown": 30,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Shadow Cannon",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Substitute",
+        "cooldown": 60,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      },
+      {
+        "name": "Shadow Storm",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ghost"
+      },
+      {
+        "name": "Morph",
+        "cooldown": 1,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "psychic"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "runerigus",
@@ -8808,18 +10992,6 @@
     "skills": []
   },
   {
-    "id": "scizor-tr",
-    "name": "Scizor (TR)",
-    "tier": "TR",
-    "clans": [
-      "ironhard"
-    ],
-    "role": "burst_dd",
-    "pvpRole": null,
-    "elements": [],
-    "skills": []
-  },
-  {
     "id": "scolipede",
     "name": "Scolipede",
     "tier": "T2",
@@ -8855,18 +11027,6 @@
     ],
     "role": "burst_dd",
     "pvpRole": "otdd",
-    "elements": [],
-    "skills": []
-  },
-  {
-    "id": "scyther-tr",
-    "name": "Scyther (TR)",
-    "tier": "TR",
-    "clans": [
-      "naturia"
-    ],
-    "role": "burst_dd",
-    "pvpRole": null,
     "elements": [],
     "skills": []
   },
@@ -8946,7 +11106,73 @@
       "grass",
       "dark"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Shadow Ball",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ghost"
+      },
+      {
+        "name": "Knock Off",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Sucker Punch",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Beat Up",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Leaf Blade",
+        "cooldown": 25,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Payback",
+        "cooldown": 60,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Solar Blade",
+        "cooldown": 60,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Sunny Day",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "fire"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-aegislash",
@@ -9007,7 +11233,73 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Iron Head",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Scrap Throw",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Scrap Shot",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Metal Sound",
+        "cooldown": 30,
+        "type": "area",
+        "cc": "silence",
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Flash Cannon",
+        "cooldown": 32,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Meteor Mash",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Heavy Metal",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Smart Strike",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "normal"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-alakazam",
@@ -9070,19 +11362,82 @@
     "elements": [
       "electric"
     ],
-    "skills": []
-  },
-  {
-    "id": "shiny-ampharos-tm",
-    "name": "Shiny Ampharos (TM)",
-    "tier": "TM",
-    "clans": [
-      "raibolt"
+    "skills": [
+      {
+        "name": "Charge",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      },
+      {
+        "name": "Thunder Punch",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Power Gem",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Thunderbolt",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Thunder Shock",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Electro Ball",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Heal Bell",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "next",
+        "element": "normal"
+      },
+      {
+        "name": "Discharge",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Electro Field",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "electric"
+      }
     ],
-    "role": "offensive_tank",
-    "pvpRole": null,
-    "elements": [],
-    "skills": []
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-arbok",
@@ -9386,7 +11741,90 @@
     "elements": [
       "water"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Headbutt",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Bubble",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Water Gun",
+        "cooldown": 15,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Aqua Tail",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Water Pulse",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Brine",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Hydro Cannon",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Skull Bash",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Hydro Pump",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Ancient Armor",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-blastoise-tm",
@@ -9549,7 +11987,98 @@
       "fire",
       "flying"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Ember",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Flamethrower",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Fire Ball",
+        "cooldown": 15,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Fire Punch",
+        "cooldown": 25,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Flame Burst",
+        "cooldown": 18,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Fire Blast",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Air Slash",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Wing Attack",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Magma Storm",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Scary Face",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Ancient Fury",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-charizard-tm",
@@ -9561,7 +12090,74 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Ember",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Fire Ball",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Incinerate",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Smokescreen",
+        "cooldown": 20,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Flamethrower",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Fire Blast",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Hellfire Storm",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Ancient Fury",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-cinderace",
@@ -9637,19 +12233,81 @@
       "poison",
       "flying"
     ],
-    "skills": []
-  },
-  {
-    "id": "shiny-crobat-tr",
-    "name": "Shiny Crobat (TR)",
-    "tier": "TR",
-    "clans": [
-      "malefic"
+    "skills": [
+      {
+        "name": "Super Sonic",
+        "cooldown": 45,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Leech Life",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Pluck",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Toxic",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Air Slash",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Wing Attack",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Air Cutter",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Sky Attack",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Cross Poison",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      }
     ],
-    "role": "burst_dd",
-    "pvpRole": null,
-    "elements": [],
-    "skills": []
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-dedenne",
@@ -9720,7 +12378,81 @@
       "fire",
       "psychic"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Ember",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Will-O-Wisp",
+        "cooldown": 30,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Fire Ball",
+        "cooldown": 12,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Incinerate",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Fire Pledge",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Future Sight",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "psychic"
+      },
+      {
+        "name": "Magic Room",
+        "cooldown": 30,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Mystical Fire",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Role Play",
+        "cooldown": 40,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "psychic"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-dewgong",
@@ -10052,7 +12784,74 @@
     "elements": [
       "electric"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Bind",
+        "cooldown": 25,
+        "type": "target",
+        "cc": "stun",
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Acid",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Spark",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Toxic",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Poison Bomb",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Substitute",
+        "cooldown": 180,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "ghost",
+        "def": true
+      },
+      {
+        "name": "Gastro Acid",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Discharge",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-eelektross-tm",
@@ -10064,7 +12863,65 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Spark",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Thunderbolt",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Zap Cannon",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Wild charge",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "electric"
+      },
+      {
+        "name": "Volt Switcg",
+        "cooldown": 30,
+        "type": "target",
+        "cc": "locked",
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Eerie Impulse",
+        "cooldown": 35,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Discharge",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-electabuzz",
@@ -10222,7 +13079,81 @@
       "water",
       "steel"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Scrap Throw",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Bubble",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Bubble Beam",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Water Pulse",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Metal Claw",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "steel"
+      },
+      {
+        "name": "Liquidation",
+        "cooldown": 22,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Flash Cannon",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Hydro Cannon",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Surf",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-empoleon-tm",
@@ -10234,7 +13165,74 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Bubble",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Bubble Beam",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Liquidation",
+        "cooldown": 18,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Aqua Jet",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "water"
+      },
+      {
+        "name": "Wave Crash",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Surf",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Hydro Pump",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Metal Claw",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "steel",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-espeon",
@@ -10337,7 +13335,73 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Bubble",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Chilling Water",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Aqua Jet",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "water"
+      },
+      {
+        "name": "Liquidation",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Water Pulse",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Scary Face",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Water Sprout",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Surf",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-ferrothorn",
@@ -10364,7 +13428,73 @@
     "elements": [
       "fire"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Ember",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Incinerate",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Fire Spin",
+        "cooldown": 35,
+        "type": "target",
+        "cc": "stun",
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Fire Ball",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Flame Charge",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "stun",
+        "buff": "self",
+        "element": "fire"
+      },
+      {
+        "name": "Will-O-Wisp",
+        "cooldown": 30,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Overheat",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Hellfire Storm",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-floatzel",
@@ -10542,7 +13672,74 @@
       "psychic",
       "fighting"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Psycho Cut",
+        "cooldown": 8,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Psy Pulse",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Heal Pulse",
+        "cooldown": 30,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "psychic"
+      },
+      {
+        "name": "Confusion",
+        "cooldown": 25,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Psychic",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Psyshock",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Expanding Force",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Leer",
+        "cooldown": 45,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "normal",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-gallade-tm",
@@ -10554,7 +13751,67 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Psycho Cut",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Psy Pulse",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Instant Teleportation",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "psychic",
+        "def": true
+      },
+      {
+        "name": "Psybeam",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Expanding Force",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Psy Impact",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Double Team",
+        "cooldown": 30,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-garbodor",
@@ -11150,7 +14407,66 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Razor Leaf",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Grass Knot",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Leaf Blade",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Solar Beam",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Stampede",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Horn Leech",
+        "cooldown": 50,
+        "type": "target",
+        "cc": "locked",
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Sunny Day",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "fire",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-golduck",
@@ -11164,7 +14480,81 @@
     "elements": [
       "water"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Fury Swipes",
+        "cooldown": 18,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Bubbles",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Psy Ball",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Bubble Beam",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Water Pulse",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Confusion",
+        "cooldown": 25,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Aqua Jet",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "water"
+      },
+      {
+        "name": "Hydro Pump",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Stunning Confusion",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "stun",
+        "buff": "self",
+        "element": "water"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-golem",
@@ -11316,7 +14706,73 @@
     "role": "otdd",
     "pvpRole": "tank",
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Roar",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "silence",
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Crunch",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Dazzling Gleam",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Play Rough",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Super Fang",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Take Down",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Last Resort",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Floral Storm",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-granbull-tm",
@@ -11634,7 +15090,74 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Low Kick",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Mega Punch",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Focus Blast",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Arm Thrust",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Revenge",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Dynamic Punch",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Megahorn",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Bug Fighter",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "bug",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-honchkrow",
@@ -11647,7 +15170,90 @@
     "role": "otdd",
     "pvpRole": "offensive_tank",
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Foul Play",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Haze",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "ice",
+        "def": true
+      },
+      {
+        "name": "Flatter",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Night Slash",
+        "cooldown": 8,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Dark Pulse",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Sucker Punch",
+        "cooldown": 25,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Assurance",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Quash",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Nasty Plot",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "dark"
+      },
+      {
+        "name": "Tailwind",
+        "cooldown": 90,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "flying"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-honchkrow-tm",
@@ -11659,7 +15265,74 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Flatter",
+        "cooldown": 8,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Dark Pulse",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Foul Play",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Night Slash",
+        "cooldown": 12,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Crow Swarm",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Quash",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Tailwind",
+        "cooldown": 60,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "flying",
+        "def": true
+      },
+      {
+        "name": "Pursuit",
+        "cooldown": 32,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "dark"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-houndoom",
@@ -11674,7 +15347,73 @@
       "fire",
       "dark"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Ember",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Incinerate",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Fire Fang",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Flamethrower",
+        "cooldown": 28,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Flame Charge",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "fire"
+      },
+      {
+        "name": "Fire Blast",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Inferno",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Nasty Plot",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "dark"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-hydreigon",
@@ -11743,7 +15482,82 @@
       "fire",
       "fighting"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Low Kick",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Mega Kick",
+        "cooldown": 25,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Double Kick",
+        "cooldown": 12,
+        "type": "target",
+        "cc": "stun",
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Close Combat",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "fighting"
+      },
+      {
+        "name": "Backflip",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "flying"
+      },
+      {
+        "name": "Mach Punch",
+        "cooldown": 28,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "fighting"
+      },
+      {
+        "name": "Focus Blast",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Vacuum Wave",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Bulk Up",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "fighting",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-infernape-tm",
@@ -11755,7 +15569,66 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Rock Smash",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Aura Sphere",
+        "cooldown": 18,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Power-Up Punch",
+        "cooldown": 35,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Close combat",
+        "cooldown": 25,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "fighting"
+      },
+      {
+        "name": "Vacuum Wave",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Mach Punch",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "fighting"
+      },
+      {
+        "name": "Bulk Up",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "fighting",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-jolteon",
@@ -11769,7 +15642,83 @@
     "elements": [
       "electric"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Charge",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "electric",
+        "def": true
+      },
+      {
+        "name": "Spark",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Thunderbolt",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Pin Missile",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Electro Ball",
+        "cooldown": 25,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Thunder",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Discharge",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Volt Fang",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "electric"
+      },
+      {
+        "name": "Agility",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "flying",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-jumpluff",
@@ -11897,7 +15846,82 @@
       "water",
       "dragon"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Bubble",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Bubble Beam",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Liquidation",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Scald",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Smokescreen",
+        "cooldown": 35,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Dragon Pulse",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dragon"
+      },
+      {
+        "name": "Twister",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dragon"
+      },
+      {
+        "name": "Waterfall",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "water",
+        "def": true
+      },
+      {
+        "name": "Surf",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-kingler",
@@ -12235,7 +16259,89 @@
       "electric",
       "water"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Super Sonic",
+        "cooldown": 25,
+        "type": "target",
+        "cc": "stun",
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Bubbles",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Bubble Beam",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Spark",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Thunder Wave",
+        "cooldown": 28,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Water Pulse",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Surf",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Electro Ball",
+        "cooldown": 30,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Hydro Pump",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Illuminate",
+        "cooldown": 60,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "electric"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-lapras",
@@ -12250,7 +16356,74 @@
       "water",
       "ice"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Bubble",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Bubble Beam",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Chilling Water",
+        "cooldown": 22,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Giant Water Gun",
+        "cooldown": 32,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Water Pulse",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Hydro Pump",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Rain Dance",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "water"
+      },
+      {
+        "name": "Ice Slider",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "ice",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-leafeon",
@@ -12372,7 +16545,65 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Mach Punch",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Close Combat",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "fighting"
+      },
+      {
+        "name": "Revenge",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Submission",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "fighting"
+      },
+      {
+        "name": "Dynamic Punch",
+        "cooldown": 35,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Strenght",
+        "cooldown": 40,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "fighting"
+      },
+      {
+        "name": "Arm Thrust",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-machoke",
@@ -12458,7 +16689,90 @@
       "fire",
       "rock"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Ember",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Rock Throw",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Rock Slide",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Flamethrower",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Flame Burst",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Lava Plume",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Ancient Power",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Inferno",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Harden",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      },
+      {
+        "name": "Yawn",
+        "cooldown": 45,
+        "type": "target",
+        "cc": "stun",
+        "buff": null,
+        "element": "normal"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-magcargo-tm",
@@ -12470,7 +16784,66 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Rock Throw",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Rock Slide",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Stone Edge",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Ancient Power",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Rock Blast",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Falling Rocks",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Shell Smash",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-magmar",
@@ -12543,19 +16916,81 @@
       "electric",
       "steel"
     ],
-    "skills": []
-  },
-  {
-    "id": "shiny-magneton-tm",
-    "name": "Shiny Magneton (TM)",
-    "tier": "TM",
-    "clans": [
-      "ironhard"
+    "skills": [
+      {
+        "name": "Super Sonic",
+        "cooldown": 25,
+        "type": "target",
+        "cc": "stun",
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Thunder Shock",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Thunderbolt",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Electro Ball",
+        "cooldown": 40,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Thunder",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Tri-Attack",
+        "cooldown": 60,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Flash Cannon",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Discharge",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Magnet Pull",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "steel"
+      }
     ],
-    "role": "burst_dd",
-    "pvpRole": null,
-    "elements": [],
-    "skills": []
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-magnezone",
@@ -12568,7 +17003,83 @@
     "role": "otdd",
     "pvpRole": "burst_dd",
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Thunder Shock",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Electroweb",
+        "cooldown": 35,
+        "type": "target",
+        "cc": "stun",
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Thunderbolt",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Electro Ball",
+        "cooldown": 30,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Lock-On",
+        "cooldown": 25,
+        "type": "target",
+        "cc": "stun",
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      },
+      {
+        "name": "Magnet Bomb",
+        "cooldown": 40,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Zap Cannon",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Discharge",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Magnetic Flux",
+        "cooldown": 60,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "electric",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-magnezone-tm",
@@ -12580,7 +17091,66 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Steely Blast",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Mirror Shot",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Magnet Bomb",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Flash Cannon",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Metal Sound",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Gyro Ball",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Magnetic Charge",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "steel",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-manectric",
@@ -12836,18 +17406,6 @@
     }
   },
   {
-    "id": "shiny-marowak-tm",
-    "name": "Shiny Marowak (TM)",
-    "tier": "TM",
-    "clans": [
-      "orebound"
-    ],
-    "role": "otdd",
-    "pvpRole": null,
-    "elements": [],
-    "skills": []
-  },
-  {
     "id": "shiny-mawile",
     "name": "Shiny Mawile",
     "tier": "T1H",
@@ -13028,7 +17586,75 @@
     "role": "otdd",
     "pvpRole": "disrupter",
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Play Rough",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Psywave",
+        "cooldown": 10,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Dazzling Gleam",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Confusion",
+        "cooldown": 25,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Synchronoise",
+        "cooldown": 18,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Psyusion",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "psychic"
+      },
+      {
+        "name": "Mimic Wall",
+        "cooldown": 10,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "psychic",
+        "def": true
+      },
+      {
+        "name": "Barrier",
+        "cooldown": 180,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "psychic",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-muk",
@@ -13041,19 +17667,34 @@
     "pvpRole": "offensive_tank",
     "elements": [],
     "wiki": "https://wiki.pokexgames.com/index.php/Shiny_Muk_(TM)",
-    "todo": "calibrate skills",
     "skills": [
       {
-        "name": "Stench",
-        "cooldown": 40,
-        "type": "area",
-        "cc": "stun",
+        "name": "Gunk Shot",
+        "cooldown": 25,
+        "type": "target",
+        "cc": null,
         "buff": null,
         "element": "poison"
       },
       {
-        "name": "Acid Rain",
-        "cooldown": 50,
+        "name": "Acid",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Sludge",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Toxic",
+        "cooldown": 30,
         "type": "area",
         "cc": null,
         "buff": null,
@@ -13061,7 +17702,15 @@
       },
       {
         "name": "Sludge Wave",
-        "cooldown": 40,
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Acid Rain",
+        "cooldown": 50,
         "type": "area",
         "cc": null,
         "buff": null,
@@ -13076,15 +17725,32 @@
         "element": "poison"
       },
       {
-        "name": "Minimize",
-        "cooldown": 40,
+        "name": "Stench",
+        "cooldown": 50,
         "type": "area",
         "cc": null,
         "buff": "self",
-        "def": true,
-        "element": "normal"
+        "element": "poison"
+      },
+      {
+        "name": "Acid Armor",
+        "cooldown": 60,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "poison",
+        "def": true
+      },
+      {
+        "name": "Memento",
+        "cooldown": 50,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
       }
-    ]
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-muk-tm",
@@ -13294,7 +17960,73 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Soak",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Bubble",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Bubble Beam",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Water Pulse",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Liquidation",
+        "cooldown": 25,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Octazooka",
+        "cooldown": 40,
+        "type": "target",
+        "cc": "silence",
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Giant Water Gun",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Surf",
+        "cooldown": 45,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-pachirisu",
@@ -13436,7 +18168,73 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Feather Dance",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Wind Swirl",
+        "cooldown": 30,
+        "type": "target",
+        "cc": "locked",
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Sand Attack",
+        "cooldown": 20,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Air Cutter",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Gust",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Tornado",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Hurricane",
+        "cooldown": 50,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "flying"
+      },
+      {
+        "name": "Brave Bird",
+        "cooldown": 35,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "flying"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-pikachu",
@@ -13501,7 +18299,65 @@
       "ice",
       "ground"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Ice Shard",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Icicle Spear",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Icy Wind",
+        "cooldown": 15,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Icicle Crash",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Avalanche",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Powder Snow",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      },
+      {
+        "name": "Blizzard",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ice"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-pinsir",
@@ -13515,7 +18371,73 @@
     "elements": [
       "bug"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Bug Bite",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Vital Throw",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Bind",
+        "cooldown": 30,
+        "type": "target",
+        "cc": "stun",
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Fury Cutter",
+        "cooldown": 15,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Guillotine",
+        "cooldown": 40,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "X-Scissor",
+        "cooldown": 15,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Savage Spirit",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Secret Power",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-politoed",
@@ -13843,7 +18765,65 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Thunder Shock",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Thunder",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Volt Fang",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "electric"
+      },
+      {
+        "name": "Charge Beam",
+        "cooldown": 30,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Volt Tackle",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "electric"
+      },
+      {
+        "name": "Wild Charge",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Electro Field",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-rampardos",
@@ -14078,18 +19058,6 @@
     ]
   },
   {
-    "id": "shiny-rhydon-tm",
-    "name": "Shiny Rhydon (TM)",
-    "tier": "TM",
-    "clans": [
-      "orebound"
-    ],
-    "role": "burst_dd",
-    "pvpRole": null,
-    "elements": [],
-    "skills": []
-  },
-  {
     "id": "shiny-rotom-frost",
     "name": "Shiny Rotom (frost)",
     "tier": "T1C",
@@ -14116,7 +19084,74 @@
       "electric",
       "grass"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Charge",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "electric",
+        "def": true
+      },
+      {
+        "name": "Razor Leaf",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Leaf Blade",
+        "cooldown": 12,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Will-O-Wisp",
+        "cooldown": 40,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fire"
+      },
+      {
+        "name": "Leaf Blow",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Mow Rush",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "grass"
+      },
+      {
+        "name": "Grass Chop",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Leaf Storm",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-sandslash",
@@ -14128,7 +19163,81 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Scratch",
+        "cooldown": 18,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Mud Sludge",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Slashing Blow",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Dig",
+        "cooldown": 12,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "ground"
+      },
+      {
+        "name": "Drill Run",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Rollout",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "rock"
+      },
+      {
+        "name": "Slashing Rush",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "ground"
+      },
+      {
+        "name": "Earthquake",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Fissure",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-sceptile",
@@ -14202,7 +19311,89 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Bug Bite",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "U-Turn",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "bug"
+      },
+      {
+        "name": "Lunge",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "X-Scissor",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Shredder Team",
+        "cooldown": 35,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal"
+      },
+      {
+        "name": "Compass Slash",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Swords Dance",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal"
+      },
+      {
+        "name": "Team Slice",
+        "cooldown": 35,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Fury Cutter",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Hunter Instinct",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "bug"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-shuckle",
@@ -14226,7 +19417,73 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Drill Peck",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Feather Dance",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Wind Swirl",
+        "cooldown": 12,
+        "type": "target",
+        "cc": "locked",
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Air Cutter",
+        "cooldown": 28,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Air Slash",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Sky Attack",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Hurricane",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Fly",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "flying"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-slowbro",
@@ -14408,7 +19665,74 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Grass Knot",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Nature Power",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Bullet Seed",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Vine Whip",
+        "cooldown": 28,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Power Whip",
+        "cooldown": 28,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Vine Maze",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Leaf Storm",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Sunny Day",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "fire",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-tauros",
@@ -14473,7 +19797,89 @@
       "water",
       "poison"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Wrap",
+        "cooldown": 25,
+        "type": "target",
+        "cc": "stun",
+        "buff": null,
+        "element": "normal"
+      },
+      {
+        "name": "Water Gun",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Bubble Beam",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Water Pulse",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Acid",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Venomous Sting",
+        "cooldown": 30,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Sludge Wave",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Mortal Gas",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Surf",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "water"
+      },
+      {
+        "name": "Screech",
+        "cooldown": 50,
+        "type": "target",
+        "cc": "locked",
+        "buff": null,
+        "element": "normal"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-tentacruel-tm",
@@ -14485,7 +19891,74 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Poison Sting",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Acid",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Wrap",
+        "cooldown": 30,
+        "type": "target",
+        "cc": "locked",
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Sludge Bomb",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Sludge Wave",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Venoshock",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Mortal Gas",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Dive",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "water",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-togedemaru",
@@ -14513,7 +19986,73 @@
       "fairy",
       "flying"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Play Rough",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Dazzling Gleam",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Magic Trick",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Fairy Wind",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Heart Pound",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Magic Beam",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Metronome",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Fly",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "fairy"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-togetic",
@@ -14566,7 +20105,81 @@
       "grass",
       "ground"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Bite",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Razor Leaf",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Rock Tomb",
+        "cooldown": 20,
+        "type": "target",
+        "cc": "locked",
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Mud Sludge",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Wood Hammer",
+        "cooldown": 30,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Bulldoze",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Ground Collapse",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Earth Power",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Giga Drain",
+        "cooldown": 50,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "grass"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-torterra-tm",
@@ -14578,7 +20191,74 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Mud Sludge",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Earth Power",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Bulldoze",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Earthquake",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Earthroot Spikes",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Headlong Rush",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "High Horsepower",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "ground"
+      },
+      {
+        "name": "Rock Polish",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "rock",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-toxtricity",
@@ -14754,7 +20434,83 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Bug Bite",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Pounce",
+        "cooldown": 30,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "bug"
+      },
+      {
+        "name": "Lunge",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Silver Wind",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Signal Beam",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Stun Spore",
+        "cooldown": 30,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Bug Buzz",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Quiver Dance",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "bug",
+        "def": true
+      },
+      {
+        "name": "Acrobatics",
+        "cooldown": 60,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "flying",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-venusaur",
@@ -14779,7 +20535,66 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Razor Leaf",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Seed Bomb",
+        "cooldown": 12,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Vine Whip",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Leaf Storm",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Petal Blizzard Flowers",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Solar Beam",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Sunny Day",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "fire",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-victreebel",
@@ -14841,7 +20656,91 @@
     "role": "otdd",
     "pvpRole": "offensive_tank",
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Charge",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "electric",
+        "def": true
+      },
+      {
+        "name": "Spark",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Thunderbolt",
+        "cooldown": 18,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Crunch",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Vice Grip",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "electric"
+      },
+      {
+        "name": "Eerie Impulse",
+        "cooldown": 30,
+        "type": "target",
+        "cc": "locked",
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Thunder",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Zap Cannon",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Discharge",
+        "cooldown": 60,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Substitute",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-vileplume",
@@ -14856,7 +20755,81 @@
       "grass",
       "poison"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Seed Bomb",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Leech Seed",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Razor Leaf",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Magical Leaf",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Leaf Blade",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Petal Dance",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Petal Blizzard",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Sleep Powder",
+        "cooldown": 50,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "grass"
+      },
+      {
+        "name": "Sunny Day",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "fire"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-weavile",
@@ -14871,7 +20844,75 @@
       "dark",
       "ice"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Hone Claws",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "dark",
+        "def": true
+      },
+      {
+        "name": "Dark Pulse",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Persuit",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Knock Off",
+        "cooldown": 20,
+        "type": "target",
+        "cc": "silence",
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Lash Out",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Night Slash",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Payback",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Shadow Dash",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "dark",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-weezing",
@@ -14898,7 +20939,74 @@
       "normal",
       "fairy"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Dazzling Gleam",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Play Rough",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Alluring Voice",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "fairy"
+      },
+      {
+        "name": "Disarming Voice",
+        "cooldown": 20,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Heart Pound",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Misty Terrain",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "fairy",
+        "def": true
+      },
+      {
+        "name": "Misty Explosion",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Magic Beam",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-xatu",
@@ -14913,7 +21021,83 @@
       "psychic",
       "flying"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Peck",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Shadow Sphere",
+        "cooldown": 10,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ghost"
+      },
+      {
+        "name": "Confuse Ray",
+        "cooldown": 28,
+        "type": "target",
+        "cc": "locked",
+        "buff": null,
+        "element": "ghost"
+      },
+      {
+        "name": "Shadow Ball",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ghost"
+      },
+      {
+        "name": "Night Shade",
+        "cooldown": 30,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "ghost"
+      },
+      {
+        "name": "Astonish",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ghost"
+      },
+      {
+        "name": "Tailwind",
+        "cooldown": 90,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "flying",
+        "def": true
+      },
+      {
+        "name": "Predict",
+        "cooldown": 300,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "psychic"
+      },
+      {
+        "name": "Double Team",
+        "cooldown": 20,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "shiny-yanmega",
@@ -14974,7 +21158,73 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Lightning Horn",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Spark",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Thunder Bolt",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Thunder Wrath",
+        "cooldown": 30,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Wild Charge",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "electric"
+      },
+      {
+        "name": "Charge Beam",
+        "cooldown": 28,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Thunder",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "electric"
+      },
+      {
+        "name": "Discharge",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "electric"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "simisear",
@@ -15193,7 +21443,83 @@
     "role": "otdd",
     "pvpRole": null,
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Gunk Shot",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Poison Jab",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Sludge Wave",
+        "cooldown": 15,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Close Combat",
+        "cooldown": 30,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal"
+      },
+      {
+        "name": "Sludge Bomb",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Dire Claw",
+        "cooldown": 40,
+        "type": "target",
+        "cc": "stun",
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Venoshock",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "poison"
+      },
+      {
+        "name": "Swords Dance",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      },
+      {
+        "name": "Agility",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "psychic",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "snorlax",
@@ -15721,7 +22047,7 @@
     "id": "mega-altaria-dragon",
     "name": "TM Mega Altaria Dragon",
     "tier": "TM",
-    "role": "burst_dd",
+    "role": "otdd",
     "wiki": "https://wiki.pokexgames.com/index.php/Mega_Altaria_Dragon_(TM)",
     "skills": [
       {
@@ -15765,12 +22091,16 @@
         "element": "flying"
       }
     ],
-    "todo": "calibrate skills",
-    "clans": [],
+    "clans": [
+      "psycraft",
+      "wingeon"
+    ],
     "elements": [
       "dragon",
       "fairy"
-    ]
+    ],
+    "pvpRole": null,
+    "todo": "calibrate skills (legacy TM X naming, wiki: Mega Altaria Dragon (TM))"
   },
   {
     "id": "mega-altaria",
@@ -15827,7 +22157,8 @@
     ],
     "elements": [
       "fairy"
-    ]
+    ],
+    "pvpRole": null
   },
   {
     "id": "mega-lucario-fighting",
@@ -15892,7 +22223,8 @@
     ],
     "elements": [
       "fighting"
-    ]
+    ],
+    "pvpRole": null
   },
   {
     "id": "tm-shiny-ampharos",
@@ -15941,7 +22273,8 @@
     ],
     "elements": [
       "electric"
-    ]
+    ],
+    "pvpRole": null
   },
   {
     "id": "tm-shiny-magneton",
@@ -15989,7 +22322,8 @@
     ],
     "elements": [
       "steel"
-    ]
+    ],
+    "pvpRole": null
   },
   {
     "id": "tm-shiny-marowak",
@@ -16154,7 +22488,8 @@
     ],
     "elements": [
       "ground"
-    ]
+    ],
+    "pvpRole": null
   },
   {
     "id": "tm-shiny-rhydon",
@@ -16210,7 +22545,8 @@
     ],
     "elements": [
       "ground"
-    ]
+    ],
+    "pvpRole": null
   },
   {
     "id": "togedemaru",
@@ -16239,7 +22575,83 @@
       "fairy",
       "flying"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Charm",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "fairy",
+        "def": true
+      },
+      {
+        "name": "Dazzling Gleam",
+        "cooldown": 8,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Aura Sphere",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "fighting"
+      },
+      {
+        "name": "Fairy Wind",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Moonblast",
+        "cooldown": 25,
+        "type": "area",
+        "cc": "silence",
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Air Slash",
+        "cooldown": 30,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Sky Attack",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "flying"
+      },
+      {
+        "name": "Metronome",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "fairy"
+      },
+      {
+        "name": "Safeguard",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "togetic",
@@ -16393,7 +22805,8 @@
     ],
     "elements": [
       "fire"
-    ]
+    ],
+    "pvpRole": null
   },
   {
     "id": "tr-scizor",
@@ -16449,7 +22862,8 @@
     ],
     "elements": [
       "steel"
-    ]
+    ],
+    "pvpRole": null
   },
   {
     "id": "tr-scyther",
@@ -16497,7 +22911,8 @@
     ],
     "elements": [
       "bug"
-    ]
+    ],
+    "pvpRole": null
   },
   {
     "id": "tr-shiny-crobat",
@@ -16545,7 +22960,8 @@
     ],
     "elements": [
       "poison"
-    ]
+    ],
+    "pvpRole": null
   },
   {
     "id": "tr-tyranitar",
@@ -16611,7 +23027,8 @@
     ],
     "elements": [
       "rock"
-    ]
+    ],
+    "pvpRole": null
   },
   {
     "id": "tropius",
@@ -16787,19 +23204,82 @@
       "rock",
       "dark"
     ],
-    "skills": []
-  },
-  {
-    "id": "tyranitar-tr",
-    "name": "Tyranitar (TR)",
-    "tier": "TR",
-    "clans": [
-      "orebound"
+    "skills": [
+      {
+        "name": "Bite",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dark"
+      },
+      {
+        "name": "Dragon Claw",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "dragon"
+      },
+      {
+        "name": "Rock Tomb",
+        "cooldown": 18,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Rock Slide",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Stone Edge",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Rock Blast",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Ancient Power",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Falling Rocks",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "rock"
+      },
+      {
+        "name": "Sandstorm",
+        "cooldown": 45,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "rock",
+        "def": true
+      }
     ],
-    "role": "burst_dd",
-    "pvpRole": null,
-    "elements": [],
-    "skills": []
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "tyrantrum",
@@ -16840,7 +23320,73 @@
       "ground",
       "normal"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "High Horsepower",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Slash",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Mud Sludge",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Bear Strike",
+        "cooldown": 30,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Ground Collapse",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Giga Impact",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "ground"
+      },
+      {
+        "name": "Headlong Rush",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "ground"
+      },
+      {
+        "name": "Bear Rush",
+        "cooldown": 50,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "ground"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "ursaring",
@@ -17352,7 +23898,83 @@
     "role": "otdd",
     "pvpRole": "burst_dd",
     "elements": [],
-    "skills": []
+    "skills": [
+      {
+        "name": "Iron Head",
+        "cooldown": 10,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Scrap Throw",
+        "cooldown": 12,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Metal Burst",
+        "cooldown": 30,
+        "type": "target",
+        "cc": "stun",
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Mirror Shot",
+        "cooldown": 25,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Heavy Metal",
+        "cooldown": 70,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Flash Cannon",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Gyro Ball",
+        "cooldown": 60,
+        "type": "area",
+        "cc": "stun",
+        "buff": null,
+        "element": "steel"
+      },
+      {
+        "name": "Quiver Dance",
+        "cooldown": 60,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "bug",
+        "def": true
+      },
+      {
+        "name": "Safeguard",
+        "cooldown": 40,
+        "type": "area",
+        "cc": "locked",
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "wyrdeer",
@@ -17394,7 +24016,82 @@
       "bug",
       "flying"
     ],
-    "skills": []
+    "skills": [
+      {
+        "name": "Bug Bite",
+        "cooldown": 20,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "U-Turn",
+        "cooldown": 15,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Pounce",
+        "cooldown": 40,
+        "type": "target",
+        "cc": null,
+        "buff": "self",
+        "element": "bug"
+      },
+      {
+        "name": "Lunge",
+        "cooldown": 18,
+        "type": "target",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Struggle Bug",
+        "cooldown": 25,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Silver Wind",
+        "cooldown": 20,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Bug Buzz",
+        "cooldown": 35,
+        "type": "area",
+        "cc": null,
+        "buff": null,
+        "element": "bug"
+      },
+      {
+        "name": "Double Team",
+        "cooldown": 40,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "normal",
+        "def": true
+      },
+      {
+        "name": "Tailwind",
+        "cooldown": 80,
+        "type": "area",
+        "cc": null,
+        "buff": "self",
+        "element": "flying"
+      }
+    ],
+    "todo": "calibrate skills (powers from wiki, dano não medido)"
   },
   {
     "id": "zangoose",

@@ -1,3 +1,44 @@
+@import "tailwindcss";
+
+/* Design tokens — derivados das cores hardcoded em App.css.
+   Uso: bg-bg-app, text-accent, border-border-default, etc.
+   Migração componente-por-componente substitui hex literais por estes tokens. */
+@theme {
+  /* Backgrounds — tema dark navy */
+  --color-bg-app: #1a1a2e;        /* body */
+  --color-bg-card: #16213e;       /* cards principais */
+  --color-bg-card-hover: #1e2d5a; /* expanded/hover */
+  --color-bg-darker: #0a1020;     /* skill tables, headers */
+  --color-bg-skills: #0f1a2e;     /* expanded skill section */
+  --color-bg-melee: #1a2540;      /* melee row destacada */
+
+  /* Texto */
+  --color-text: #e0e0e0;          /* default */
+  --color-text-muted: #aaa;       /* labels, secundário */
+  --color-text-dim: #888;         /* legends, hints */
+  --color-text-faint: #666;       /* placeholder */
+
+  /* Bordas */
+  --color-border-default: #2d3a5e;
+  --color-border-card: #1a2a4a;
+
+  /* Accents */
+  --color-accent: #ffb347;        /* damage/dps amarelo */
+  --color-accent-blue: #4a90d9;   /* primário interativo */
+  --color-accent-blue-soft: #4a90d955; /* glow/highlight */
+  --color-accent-blue-light: #7bb8f0;
+
+  /* Status */
+  --color-success: #2ecc71;       /* OK/válido */
+  --color-warn: #f39c12;          /* aviso laranja */
+  --color-warn-strong: #ffd700;   /* warning forte (todo flag) */
+  --color-danger: #e74c3c;        /* erro/inválido */
+
+  /* Lure colors (rotativos) */
+  --color-lure-purple-strong: #9b59b655;
+  --color-lure-purple-soft: #9b59b633;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,8 +46,8 @@
 }
 
 body {
-  background: #1a1a2e;
-  color: #e0e0e0;
+  background: var(--color-bg-app);
+  color: var(--color-text);
   font-family: system-ui, -apple-system, sans-serif;
 }
 

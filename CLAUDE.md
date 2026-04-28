@@ -4,10 +4,26 @@ Web app que gera a rotação ótima de lures para maximizar **boxes/hora** em Po
 
 ## Stack
 
-- **Vite + React + TypeScript** em `pxg_app/`
+- **Vite + React 19 + TypeScript** em `pxg_app/`
+- **Material UI v6** (Emotion CSS-in-JS) — theme custom dark navy em `src/theme.ts`
+- **react-virtuoso** pra virtualização de grid de 586 pokes
+- Tailwind v4 ainda instalado mas sendo eliminado (uso pontual)
 - Pesados cálculos rodam em **Web Workers** (paralelismo por CPU core)
 - Sem backend — 100% client-side, dados em `src/data/pokemon.json`
-- localStorage persiste disk + pokémons selecionados
+- localStorage persiste disk + pokémons selecionados + helds OTDD per-poke
+
+## Padrões de UI
+
+- **MUI é o padrão** pra novos componentes (Card, TextField, Chip, Button, Table, Tooltip)
+- **Tokens via theme.ts** (palette `bg-app`, `accent-blue`, `cc-yes/no`, `success`, `warn`, `error`)
+- **Cores dinâmicas via inline `style`** quando não cabem em tokens (TIER_COLORS, ELEMENT_COLORS — Pokemon canon)
+- **Performance crítica:** React.memo + useDeferredValue + VirtuosoGrid + content-visibility + cache per-poke OtddPage (useRef Map) + React.lazy + display:none + useTransition. Detalhes em `project_pxg_ui_stack.md`.
+
+### Pitfalls MUI conhecidos
+- `Stack` não aceita `alignItems`/`flexWrap`/`useFlexGap` como props — usar Box com sx
+- `HelpOutline` não existe — usar `HelpOutlineOutlined`
+- Paper dark mode tem `backgroundImage` gradient default — override no theme
+- Tailwind v4 não tem `px-4.5` no scale default — usar `px-[18px]`
 
 ## Comandos
 

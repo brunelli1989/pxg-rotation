@@ -57,8 +57,14 @@ body {
   background: var(--color-bg-app);
   color: var(--color-text);
   font-family: system-ui, -apple-system, sans-serif;
+  /* Centraliza #root horizontalmente independente de tamanho da viewport. */
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 #root {
+  width: 100%;
+  max-width: 1200px;
   min-height: 100vh;
 }

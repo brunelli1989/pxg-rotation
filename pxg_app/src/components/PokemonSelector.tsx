@@ -141,7 +141,7 @@ export function PokemonSelector({ allPokemon, selectedIds, onToggle, elementsByP
         })}
       </div>
 
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-2.5 mb-4 max-h-[400px] overflow-y-auto pr-1">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-3 mb-4 max-h-[480px] overflow-y-auto pr-1">
         {sorted.map((p) => {
           const isSelected = selectedIds.includes(p.id);
           return (

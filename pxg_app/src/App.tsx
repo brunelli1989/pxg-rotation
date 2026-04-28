@@ -226,7 +226,7 @@ function App() {
   const pct = progress.total > 0 ? Math.round((progress.done / progress.total) * 100) : 0;
 
   return (
-    <div className="max-w-[960px] mx-auto p-5 text-text bg-bg-app min-h-screen">
+    <div className="w-full p-5 text-text bg-bg-app min-h-screen">
       <header className="pb-4 border-b-2 border-[#333] mb-8">
         <div className="flex justify-between items-center mb-4">
           <h1 className="m-0 text-[1.75rem] font-bold text-white tracking-tight">PxG Rotation Generator</h1>

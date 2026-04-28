@@ -109,8 +109,8 @@ export function PokeSetupEditor({ pokes, config, onChange }: Props) {
   };
 
   return (
-    <section className="bg-bg-card border border-[#333] rounded-lg p-4 mt-4">
-      <h2 className="m-0 mb-3 text-base text-[#ccc]">Setup dos Pokémons</h2>
+    <section className="bg-bg-card border border-[#333] rounded-lg p-4 mt-6 shadow-[var(--shadow-card)]">
+      <h2 className="m-0 mb-4 text-lg font-semibold text-text">Setup dos Pokémons</h2>
       <p className="text-[0.75rem] text-text-dim">
         X-Held: X-Attack (T1-T8) ou X-Boost (T1-T7). Só 1 held por poke.
       </p>

@@ -258,8 +258,8 @@ export function OtddPage() {
 
   return (
     <div className="py-4">
-      <h2 className="text-[1.3rem] text-[#ccc] m-0 mb-2">OTDD — Dano em 10 min</h2>
-      <p className="text-text-dim text-[0.85rem] mb-4 italic">
+      <h2 className="text-2xl font-bold text-text m-0 mb-2">OTDD — Dano em 10 min</h2>
+      <p className="text-text-dim text-[0.85rem] mb-5 italic leading-relaxed">
         Simulação greedy de 600s (casta a skill com maior dano sempre que ready).
         Selecione o boss pra aplicar efetividade (PxG piecewise). Cada poke tem seu próprio
         held (X-Atk/X-Boost/boost) salvo no navegador. Bônus de clã NÃO se aplica em boss fight.

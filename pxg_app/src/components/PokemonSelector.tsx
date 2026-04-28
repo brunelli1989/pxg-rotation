@@ -75,19 +75,22 @@ export function PokemonSelector({ allPokemon, selectedIds, onToggle, elementsByP
 
   return (
     <section>
-      <h2 className="text-[1.1rem] mb-3 text-[#ccc]">
-        Selecione seus Pokémon disponíveis ({selectedIds.length} selecionados)
+      <h2 className="text-lg font-semibold mb-3 text-text">
+        Selecione seus Pokémon disponíveis{" "}
+        <span className="text-accent-blue-light text-base font-normal">
+          ({selectedIds.length} selecionados)
+        </span>
       </h2>
 
       <input
         type="text"
-        className="w-full bg-bg-skills text-text border border-[#444] focus:border-accent-blue focus:outline-none px-3 py-2 rounded-md text-[0.9rem] mb-2"
+        className="w-full bg-bg-skills text-text placeholder:text-text-faint border border-[#444] focus:border-accent-blue focus:outline-none focus:ring-2 focus:ring-accent-blue-soft px-3.5 py-2.5 rounded-md text-[0.9rem] mb-3 transition-[border-color,box-shadow]"
         placeholder={`Buscar em ${allPokemon.length} pokémons...`}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      <div className="flex flex-wrap gap-1 mb-3">
+      <div className="flex flex-wrap gap-1.5 mb-3">
         <button
           className={tierChipClasses(tierFilter === "")}
           onClick={() => setTierFilter("")}
@@ -105,7 +108,7 @@ export function PokemonSelector({ allPokemon, selectedIds, onToggle, elementsByP
         ))}
       </div>
 
-      <div className="flex flex-wrap gap-1 mb-3">
+      <div className="flex flex-wrap gap-1.5 mb-4">
         <button
           className={tierChipClasses(typeFilter === "")}
           onClick={() => setTypeFilter("")}

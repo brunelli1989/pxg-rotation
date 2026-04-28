@@ -31,17 +31,21 @@ export function PokemonCard({ pokemon, selected, disabled, onToggle }: Props) {
   // ⚠️ quando tem ação pendente em `todo`. `observacao` é informativo apenas.
   const uncalibrated = Boolean(pokemon.todo);
 
-  const baseCard = "rounded-lg p-2.5 cursor-pointer border-2 transition-[border-color,transform] duration-150 ease-out hover:-translate-y-px";
+  const baseCard = "rounded-lg p-2.5 cursor-pointer border-2 transition-[border-color,transform,box-shadow] duration-150 ease-out hover:-translate-y-px shadow-[var(--shadow-card)]";
   const stateCard = disabled
-    ? "opacity-40 cursor-not-allowed bg-bg-card border-[#333] hover:translate-y-0"
+    ? "opacity-40 cursor-not-allowed bg-bg-card border-[#333] hover:translate-y-0 shadow-none"
     : selected
-    ? "bg-border-card border-accent-blue"
-    : "bg-bg-card border-[#333] hover:border-[#555]";
+    ? "bg-border-card border-accent-blue shadow-[0_2px_8px_rgb(74_144_217/0.25)]"
+    : "bg-bg-card border-[#333] hover:border-[#555] hover:shadow-[var(--shadow-elevated)]";
+
+  const ccCls = hasCC
+    ? "bg-cc-yes text-white"
+    : "bg-cc-no text-white";
 
   return (
     <div className={`${baseCard} ${stateCard}`} onClick={() => !disabled && onToggle(pokemon.id)}>
-      <div className="flex justify-between items-center mb-1.5">
-        <span className="font-semibold text-sm">{pokemon.name}</span>
+      <div className="flex justify-between items-center mb-2">
+        <span className="font-semibold text-sm leading-tight">{pokemon.name}</span>
         {uncalibrated && (
           <span
             className="text-xs ml-auto mr-1.5 cursor-help opacity-85 hover:opacity-100"
@@ -54,15 +58,15 @@ export function PokemonCard({ pokemon, selected, disabled, onToggle }: Props) {
           </span>
         )}
         <span
-          className="text-[0.7rem] font-bold px-1.5 py-0.5 rounded text-bg-app"
+          className="text-[0.7rem] font-bold px-1.5 py-0.5 rounded text-bg-app shrink-0"
           style={{ backgroundColor: TIER_COLORS[pokemon.tier] ?? "#888" }}
         >
           {pokemon.tier}
         </span>
       </div>
 
-      <div className="flex gap-2 mb-2 text-[0.75rem]">
-        <span className={`px-1 py-0.5 rounded-sm font-semibold text-white ${hasCC ? "bg-[#27ae60]" : "bg-[#c0392b]"}`}>
+      <div className="flex gap-2 text-[0.7rem]">
+        <span className={`px-2 py-0.5 rounded font-semibold uppercase tracking-wide ${ccCls}`}>
           {cc}
         </span>
       </div>

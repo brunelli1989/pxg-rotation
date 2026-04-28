@@ -165,8 +165,8 @@ function loadCurrentPage(): Page {
   return raw === "otdd" ? "otdd" : "rotation";
 }
 
-const tabBaseCls = "border px-4.5 py-2 rounded-md text-[0.9rem] font-medium cursor-pointer transition-[background,color,border-color] duration-150";
-const tabActiveCls = "bg-accent-blue text-white border-accent-blue";
+const tabBaseCls = "border px-[18px] py-2 rounded-md text-[0.9rem] font-medium cursor-pointer transition-[background,color,border-color,box-shadow] duration-150";
+const tabActiveCls = "bg-accent-blue text-white border-accent-blue shadow-[0_2px_8px_rgb(74_144_217/0.35)]";
 const tabIdleCls = "bg-bg-card text-text-muted border-border-default hover:bg-bg-card-hover hover:text-text hover:border-accent-blue";
 
 const headerBtnCls =
@@ -227,9 +227,9 @@ function App() {
 
   return (
     <div className="max-w-[960px] mx-auto p-5 text-text bg-bg-app min-h-screen">
-      <header className="pb-4 border-b-2 border-[#333] mb-6">
-        <div className="flex justify-between items-center mb-3.5">
-          <h1 className="m-0 text-2xl text-white tracking-[0.01em]">PxG Rotation Generator</h1>
+      <header className="pb-4 border-b-2 border-[#333] mb-8">
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="m-0 text-[1.75rem] font-bold text-white tracking-tight">PxG Rotation Generator</h1>
           <button
             className={headerBtnCls}
             title="Reseta disk, seleção de pokes e configs de dano"

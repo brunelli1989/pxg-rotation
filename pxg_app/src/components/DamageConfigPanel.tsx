@@ -144,8 +144,8 @@ export function DamageConfigPanel({
     : null;
 
   return (
-    <section className="bg-bg-card border border-[#333] rounded-lg p-4 mt-4">
-      <h2 className="m-0 mb-3 text-base text-[#ccc]">Configuração de Dano</h2>
+    <section className="bg-bg-card border border-[#333] rounded-lg p-4 mt-6 shadow-[var(--shadow-card)]">
+      <h2 className="m-0 mb-4 text-lg font-semibold text-text">Configuração de Dano</h2>
 
       <fieldset className={fieldsetCls}>
         <legend className={legendCls}>Player</legend>

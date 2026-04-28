@@ -34,9 +34,17 @@
   --color-warn-strong: #ffd700;   /* warning forte (todo flag) */
   --color-danger: #e74c3c;        /* erro/inválido */
 
+  /* CC badge colors (vivos, contraste com bg-card) */
+  --color-cc-yes: #27ae60;
+  --color-cc-no: #c0392b;
+
   /* Lure colors (rotativos) */
   --color-lure-purple-strong: #9b59b655;
   --color-lure-purple-soft: #9b59b633;
+
+  /* Sombras pra elevar cards */
+  --shadow-card: 0 1px 3px rgb(0 0 0 / 0.3), 0 1px 2px rgb(0 0 0 / 0.2);
+  --shadow-elevated: 0 4px 12px rgb(0 0 0 / 0.4);
 }
 
 * {

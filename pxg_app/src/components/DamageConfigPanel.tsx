@@ -29,8 +29,10 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutlineOutlined";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
 const mobs = mobsData as MobEntry[];
-const resolvedByName = new Map<string, ResolvedMob>(
-  mobs.map((m) => [m.name, resolveMobConfig(m, mobs)])
+// Lookup por id (não name) pra suportar mobs com nome duplicado em hunts diferentes
+// (ex: 4× "Shiny Druddigon" em groups diferentes).
+const resolvedById = new Map<string, ResolvedMob>(
+  mobs.map((m) => [m.id, resolveMobConfig(m, mobs)])
 );
 
 const TIERS: XAtkTier[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -67,7 +69,7 @@ function worstSource(a: MobFieldSource, b: MobFieldSource): MobFieldSource {
 }
 
 function entrySource(m: MobEntry): MobFieldSource {
-  const r = resolvedByName.get(m.name);
+  const r = resolvedById.get(m.id);
   return r ? worstSource(r.hpSource, r.defSource) : "default";
 }
 
@@ -135,7 +137,7 @@ export function DamageConfigPanel({
     if (!groupMobs || groupMobs.length === 0) return;
 
     const hardest = groupMobs
-      .map((m) => resolvedByName.get(m.name)!)
+      .map((m) => resolvedById.get(m.id)!)
       .reduce((best, cur) => {
         const eff = (r: ResolvedMob) => r.hp / (r.defFactor ?? DEFAULT_MOB_DEF_FACTOR);
         return eff(cur) > eff(best) ? cur : best;
@@ -168,9 +170,10 @@ export function DamageConfigPanel({
   const mobDisplay = (m: MobEntry) =>
     `${m.name} (${m.types.join("/")})${mobMarker([m])}`;
 
-  const currentResolved = resolvedByName.get(config.mob.name);
-  const currentMobSource = currentResolved
-    ? worstSource(currentResolved.hpSource, currentResolved.defSource)
+  // Source quality do mob alvo: para multi-mob groups (config.mob.name = group name),
+  // pega a pior source dos mobs do grupo (mais conservador).
+  const currentMobSource = selectedGroupMobs.length > 0
+    ? selectedGroupMobs.map(entrySource).reduce(worstSource)
     : null;
 
   const sourceLegend = (
@@ -336,9 +339,9 @@ export function DamageConfigPanel({
           }}
         >
           {selectedGroupMobs.map((m) => {
-            const r = resolvedByName.get(m.name);
+            const r = resolvedById.get(m.id);
             return (
-              <Box key={m.name} sx={{ display: "flex", gap: 1, py: 0.25, alignItems: "center" }}>
+              <Box key={m.id} sx={{ display: "flex", gap: 1, py: 0.25, alignItems: "center" }}>
                 <Box component="span" sx={{ minWidth: 180, fontWeight: 600, display: "flex", alignItems: "center", gap: 0.5 }}>
                   {m.name}
                   {m.tag === "angry" && (

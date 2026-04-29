@@ -201,6 +201,10 @@ export interface MobConfig {
 }
 
 export interface MobEntry {
+  /** ID único — slug do nome + group em caso de colisão (ex: "shiny-druddigon-gible-gabite").
+   *  Gerado automaticamente. Usado como chave de lookup no engine + UI pra resolver
+   *  duplicatas como Shiny Druddigon que aparece em 4 hunts diferentes. */
+  id: string;
   name: string;
   types: PokemonElement[]; // 1 ou 2 tipos
   hunt: HuntLevel;

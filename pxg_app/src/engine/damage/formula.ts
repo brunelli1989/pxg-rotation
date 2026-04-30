@@ -105,7 +105,8 @@ export function computeSkillDamage(
   const deviceAtk =
     deviceActive && cfg.device.kind === "x-attack" ? X_ATK_BONUSES[cfg.device.tier] : 0;
   const elixir = opts.elixirAtkActive ? ELIXIR_ATK_BONUS : 0;
-  const helds = 1 + pokeAtk + deviceAtk + elixir;
+  const food = (cfg.foodAtkPct ?? 0) / 100;
+  const helds = 1 + pokeAtk + deviceAtk + elixir + food;
   const clã = 1 + getClanBonus(cfg.clan, skill.element);
   const eff = skill.element ? computeEffectiveness(skill.element, mob.types) : 1;
   const buffMult = opts.buffedByPrevious ? BUFF_NEXT_MULTIPLIER : 1;

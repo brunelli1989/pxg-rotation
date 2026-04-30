@@ -288,9 +288,15 @@ function App() {
                 localStorage.removeItem("pxg_damage_config");
                 localStorage.removeItem("pxg_otdd_helds");
                 localStorage.removeItem("pxg_compare_selected_ids");
+                localStorage.removeItem("pxg_compare_entries");
                 localStorage.removeItem("pxg_compare_helds");
+                localStorage.removeItem("pxg_compare_foods");
                 localStorage.removeItem("pxg_compare_boss_id");
                 localStorage.removeItem("pxg_compare_player_lvl");
+                localStorage.removeItem("pxg_compare_player_lvls");
+                localStorage.removeItem("pxg_compare_tm_tank");
+                localStorage.removeItem("pxg_compare_manopla");
+                localStorage.removeItem("pxg_compare_manoplas");
                 localStorage.removeItem(PAGE_STORAGE_KEY);
                 location.reload();
               }}
@@ -330,7 +336,7 @@ function App() {
           }}
         >
           <Tab value="rotation" label="Rotação" icon={<LoopIcon fontSize="small" />} iconPosition="start" />
-          <Tab value="compare" label="Comparar" icon={<CompareArrowsIcon fontSize="small" />} iconPosition="start" />
+          <Tab value="compare" label="Boss" icon={<CompareArrowsIcon fontSize="small" />} iconPosition="start" />
         </Tabs>
       </Box>
 
@@ -339,7 +345,7 @@ function App() {
           primeiro mount. */}
       {compareMounted && (
         <main style={{ display: currentPage === "compare" ? "block" : "none" }}>
-          <Suspense fallback={<div style={{ padding: 24 }}>Carregando Comparar...</div>}>
+          <Suspense fallback={<div style={{ padding: 24 }}>Carregando...</div>}>
             <ComparePage />
           </Suspense>
         </main>

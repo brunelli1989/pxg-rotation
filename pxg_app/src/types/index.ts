@@ -62,6 +62,15 @@ export interface Skill {
   /** Nota visível pro player na UI (ex: "Variável 2-5 hits — calibrado pra best case").
    *  Diferente de `Pokemon.observacao` (poke-level) e `calibrations[].note` (técnico). */
   playerNote?: string;
+  /** Self-buff de janela: ao castar, ativa um multiplicador no dano de skills/melee
+   *  do próprio poke por `durationSeconds`. Diferente de `buff:"next"` (esse é
+   *  ×1.5 só na próxima skill). Modelado pelo bossSim (não usado em rotação).
+   *  Ex: Rage = mult:2, durationSeconds:20 (CD da skill define uptime). */
+  buffEffect?: {
+    type: "self-window";
+    mult: number;
+    durationSeconds: number;
+  };
 }
 
 export interface Pokemon {
@@ -239,4 +248,8 @@ export interface DamageConfig {
   /** Revive disponível: "none" = não usa, "normal" = Nightmare Revive ($10k, 5min),
    *  "superior" = Superior Nightmare Revive ($50k, 4min). Default "none". */
   revive?: "none" | "normal" | "superior";
+  /** Bônus de atk vindo de food consumível, aditivo no Σ atk% (somado a X-Atk/device).
+   *  Em boss fight, o valor da food é dobrado pelo jogo — quem chama deve passar o
+   *  valor já dobrado quando aplicável. Default 0. */
+  foodAtkPct?: number;
 }

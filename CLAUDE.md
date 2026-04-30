@@ -1,6 +1,10 @@
-# PxG Rotation Generator
+# PxG Damage Planner
 
-Web app que gera a rotação ótima de lures para maximizar **boxes/hora** em PokexGames (PxG).
+Web app que gera rotação ótima de lures (boxes/hora) **e** compara dano de pokes em boss fights (10min). Repo: `brunelli1989/pxg-damage-planner` (renomeado de `pxg-rotation` em 2026-04-29). URL: https://brunelli1989.github.io/pxg-damage-planner/
+
+**Aplicação tem 2 tabs:**
+- **Rotação:** gerador de rotação de lures (DamageConfigPanel + PokemonSelector + RotationResult)
+- **Comparar:** compara dano de pokes calibrados vs boss em janela de luta variável (ComparePage + Autocomplete + tabela sortable + botão Copiar)
 
 ## Stack
 
@@ -10,7 +14,7 @@ Web app que gera a rotação ótima de lures para maximizar **boxes/hora** em Po
 - Tailwind v4 ainda instalado mas sendo eliminado (uso pontual)
 - Pesados cálculos rodam em **Web Workers** (paralelismo por CPU core)
 - Sem backend — 100% client-side, dados em `src/data/pokemon.json`
-- localStorage persiste disk + pokémons selecionados + helds OTDD per-poke
+- localStorage: `pxg_disk_level`, `pxg_selected_ids`, `pxg_damage_config`, `pxg_current_page` (rotation/compare), `pxg_compare_selected_ids`, `pxg_compare_helds`, `pxg_compare_boss_id`, `pxg_compare_player_lvl`
 
 ## Padrões de UI
 
@@ -39,46 +43,41 @@ npx tsc --noEmit  # type check
 ```
 pxg_app/src/
 ├── data/
-│   ├── pokemon.json        # Pokes UNIFICADOS (catálogo + calibração). 598 entries (~204 com skills, ~394 sem).
-│   #                          Campos: id, name, tier, clans, role (PvE), pvpRole, elements, skills, melee, wiki, todo.
-│   #                          (Era split em pokemon.json + pokemon_roster.json até 2026-04-28.)
-│   ├── mobs.json           # Mobs por hunt: types, group, hp, defFactor, todo
+│   ├── pokemon.json        # 598 entries unificados (catálogo + calibração).
+│   #                       Campos: id, name, tier, clans, role (PvE), pvpRole, elements, skills, melee, wiki, todo, config, observacao.
+│   ├── mobs.json           # 254 entries (148 base + 107 rare). Campos: id (slug único + group em colisão), name, types, hunt, group, hp, defFactor, tag ("angry"), todo, bestStarterElements, wiki, effectiveElements, effectivenessNotes
+│   #                       Field id resolve duplicates (4× Shiny Druddigon → shiny-druddigon-gible-gabite, etc).
+│   #                       Field tag:"angry" marca Angry/Shiny/Mega/Overcharged → chip ANGRY visual no DamageConfigPanel
 │   ├── clans.json          # Bônus de atk/def por clã
-│   └── bosses.json         # Bosses (Nightmare Terror + Bestas Lendárias) — usado pela página OTDD
-├── types/index.ts          # Interfaces (Pokemon, Skill, Lure, RotationStep, DamageConfig, MobConfig, MeleeStats, Boss, ...)
+│   └── bosses.json         # 13 bosses. Campos: id, name, category, types, hp?, defFactor?, durationSeconds?, wiki
+│   #                       durationSeconds: NT 7-11min (Kairiki/Gama 8min, Ptera/Raito/Gyakkyo/Riza/Kitsune 7min30, Kame 10min, Seishin/Yurei 11min30), Lendárias 10min default
+│   #                       Bosses com HP setado: Raito 17.5M (Electabuzz), Ptera 15M (Aerodactyl)
+├── types/index.ts          # Interfaces (Pokemon, Skill, Lure, RotationStep, DamageConfig, MobConfig, MobEntry, MeleeStats, Boss, ...)
 ├── engine/
 │   ├── cooldown.ts         # Fórmula de CD com disk, cooldowns de elixir
 │   ├── scoring.ts          # Ordem ótima de skills, helpers (hasHarden, hasSilence, hasFrontal, hasHardCC)
 │   ├── rotation.ts         # Barrel re-export de rotation/ submodules
-│   ├── rotation/           # Split em submódulos:
-│   │   ├── generate.ts     #   - Lure template generation (solo_device, solo_elixir, dupla, group)
-│   │   ├── simulation.ts   #   - SimState/SimContext/SimStatePool, compileLures, applyLure, CD math
-│   │   ├── beam-search.ts  #   - findBestRotation, findBestForBag, evaluateCycle
-│   │   └── post-swap.ts    #   - postProcessSwap: troca pokes equivalentes por mais dano sem perder b/h
+│   ├── rotation/           # Split em submódulos (generate, simulation, beam-search, post-swap)
 │   ├── rotation.worker.ts  # Worker que processa chunks de bags
 │   ├── rotationAsync.ts    # Orquestrador: distribui bags entre workers, junta resultado, post-swap pool-completo
-│   ├── damage.ts           # Barrel re-export de damage/ submodules
-│   ├── damage/             # Split em submódulos:
-│   │   ├── fallback.ts     #   - BURST_POWER_BY_TIER_CC + resolveSkillPower
-│   │   ├── mob.ts          #   - resolveMobConfig + hp/def hierarchy
-│   │   ├── multipliers.ts  #   - TYPE_CHART + CLAN_ATK_BONUS (eff + clã)
-│   │   ├── formula.ts      #   - X-Atk/X-Boost tables + computeSkillDamage + deriveSkillPower
-│   │   └── lure.ts         #   - estimateLureDamagePerMob + lureFinalizesBox + estimatePokeSoloDamage
+│   ├── damage.ts           # Barrel re-export de damage/ submodules (fallback, mob, multipliers, formula, lure)
+│   ├── bossSim.ts          # Sim 10min greedy compartilhado (createPokeRowCache, simulateBossFight, computePokeRow).
+│   #                       hasExplicitPower: filtra skills sem `power` setado (NÃO usa fallback tier — Compare exige calibração real)
 │   ├── damage.test.ts      # Testes de regressão vs dados reais (<0.1% erro)
-│   └── beam-search.test.ts # Regression test pro bug wrap-check (81 b/h Magby/Pansear bag)
+│   └── beam-search.test.ts # Regression test pro bug wrap-check
 ├── components/
 │   ├── PokemonSelector.tsx / PokemonCard.tsx / SkillBadge.tsx
 │   ├── DiskSelector.tsx
-│   ├── DamageConfigPanel.tsx   # Player lvl, clã, hunt, mob alvo, held device, DiskSelector
-│   ├── OtddPage.tsx            # Página OTDD: dano em 10min vs boss (sim greedy 600s + melee ranged)
-│   ├── PokeSetupEditor.tsx     # Boost e held por poke
+│   ├── DamageConfigPanel.tsx   # Player lvl, clã, hunt, mob alvo, held device, DiskSelector. Inclui lista compacta dos mobs do grupo selecionado (CSS Grid 7 colunas alinhado: Mob | Tipos | HP-valor | HP-marker | "def" | Def-valor | Def-marker)
+│   ├── ComparePage.tsx         # Página Comparar: dano por luta vs boss (greedy sim + melee ranged). Autocomplete pra adicionar pokes, tabela MUI sortable, botão Copiar (texto fixed-width), ⚠ visual em pokes não-totalmente-calibrados
+│   ├── PokeSetupEditor.tsx     # Boost e held por poke (rotação)
 │   ├── LureDamagePreview.tsx   # Estimativa de dano vs mob por lure
 │   ├── RotationResult.tsx      # Tabela passo-a-passo
 │   └── SkillTimeline.tsx       # Barra visual
 ├── hooks/
 │   ├── useRotation.ts      # Hook async c/ loading + progresso (memoiza pool!)
 │   └── useDamageConfig.ts  # Persiste config de dano no localStorage
-└── App.tsx                 # Root + localStorage + botão "copiar dados" + tabs Rotação/OTDD
+└── App.tsx                 # Root + tabs Rotação/Comparar (lazy mount + display:none) + clear-cache
 ```
 
 ## Mecânicas do jogo (LEIA ANTES DE MEXER NO ENGINE)

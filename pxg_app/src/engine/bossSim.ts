@@ -4,13 +4,31 @@ import { computeSkillDamage, resolveSkillPower } from "./damage";
 export const DEFAULT_SIM_DURATION = 600;
 const CAST_TIME = 1;
 
+export type HeldKindShort = "x-attack" | "x-boost" | "x-critical";
+export type DeviceKindShort = "none" | "x-boost" | "x-critical";
+
+/** Tier → % de crit do X-Critical (wiki PxG). T1=8% até T8=27%. */
+export const X_CRITICAL_PCT_BY_TIER: Record<XAtkTier, number> = {
+  0: 0, 1: 8, 2: 10, 3: 12, 4: 14, 5: 16, 6: 20, 7: 24, 8: 27,
+};
+
 export interface PokeHeld {
   boost: number;
-  xAtkTier: XAtkTier;
-  xBoostTier: XAtkTier;
+  // X-Held do poke (slot do bicho)
+  heldKind: HeldKindShort;
+  heldTier: XAtkTier;       // x-attack/x-boost OU x-critical (vira % via X_CRITICAL_PCT_BY_TIER)
+  // Device (slot do char, separado)
+  deviceKind: DeviceKindShort;
+  deviceTier: XAtkTier;     // x-boost OU x-critical (mesma lógica)
 }
 
-export const DEFAULT_HELD: PokeHeld = { boost: 70, xAtkTier: 8, xBoostTier: 0 };
+export const DEFAULT_HELD: PokeHeld = {
+  boost: 70,
+  heldKind: "x-attack",
+  heldTier: 8,
+  deviceKind: "none",
+  deviceTier: 0,
+};
 
 export interface SkillRow {
   name: string;
@@ -54,27 +72,40 @@ function hasExplicitPower(skill: { power?: number }): boolean {
  * Boss fights não aplicam bônus de clã, então clan é forçado a null.
  * targetTypes define o(s) elemento(s) do alvo — engine aplica eff (PxG piecewise).
  * defFactor = 1 (boss já tem stats próprios, eff cobre matchup).
+ * foodAtkPct: bônus de food já dobrado pelo boss (caller calcula 2× quando aplicável).
  */
 export function buildBossDamageConfig(
   playerLvl: number,
   held: PokeHeld,
   pokeId: string,
-  targetTypes: PokemonElement[]
+  targetTypes: PokemonElement[],
+  foodAtkPct: number = 0
 ): DamageConfig {
+  // X-Critical não afeta dmg (só crit pós-multiplier no caller), mapeia pra "none" no engine.
+  const pokeHeldItem =
+    held.heldKind === "x-critical"
+      ? { kind: "none" as const, tier: 0 as XAtkTier }
+      : { kind: held.heldKind, tier: held.heldTier };
+  const deviceHeldItem =
+    held.deviceKind === "x-boost"
+      ? { kind: "x-boost" as const, tier: held.deviceTier }
+      : { kind: "x-attack" as const, tier: 0 as XAtkTier }; // none/x-critical = dmg-neutro
+  const hasDevice = held.deviceKind !== "none";
   return {
     playerLvl,
     clan: null,
     hunt: "300",
     mob: { name: "target", types: targetTypes, hp: 0, defFactor: 1 },
-    device: held.xBoostTier > 0 ? { kind: "x-boost", tier: held.xBoostTier } : { kind: "x-attack", tier: 0 },
+    device: deviceHeldItem,
     pokeSetups: {
       [pokeId]: {
         boost: held.boost,
-        held: { kind: "x-attack", tier: held.xAtkTier },
-        hasDevice: held.xBoostTier > 0,
+        held: pokeHeldItem,
+        hasDevice,
       },
     },
     skillCalibrations: {},
+    foodAtkPct,
   };
 }
 
@@ -145,10 +176,11 @@ function computePokeRow(
   held: PokeHeld,
   playerLvl: number,
   targetTypes: PokemonElement[],
-  duration: number
+  duration: number,
+  foodAtkPct: number
 ): PokeRow {
   const damageSkills = poke.skills.filter(hasExplicitPower);
-  const cfg = buildBossDamageConfig(playerLvl, held, poke.id, targetTypes);
+  const cfg = buildBossDamageConfig(playerLvl, held, poke.id, targetTypes, foodAtkPct);
   const sim = simulateBossFight(poke, cfg, duration);
 
   const skillRows: SkillRow[] = damageSkills.map((skill) => {
@@ -200,18 +232,27 @@ function computePokeRow(
 }
 
 /**
- * Cache de PokeRow per (poke, held, playerLvl, target, duration). Mudar held
- * de UM poke só invalida a entrada dele — outros reusam cache. Crítico pra
- * perf da Comparar (até pool inteiro).
+ * Cache de PokeRow per (poke, held, playerLvl, target, duration, foodAtkPct).
+ * Mudar held de UM poke só invalida a entrada dele — outros reusam cache.
+ * foodAtkPct entra na key porque afeta o multiplier `helds` na fórmula.
  */
 export function createPokeRowCache() {
   const cache = new Map<string, PokeRow>();
   return {
-    get(poke: Pokemon, held: PokeHeld, playerLvl: number, targetTypes: PokemonElement[], duration: number): PokeRow {
-      const key = `${poke.id}|${held.boost}|${held.xAtkTier}|${held.xBoostTier}|${playerLvl}|${targetTypes.join(",")}|${duration}`;
+    get(
+      poke: Pokemon,
+      held: PokeHeld,
+      playerLvl: number,
+      targetTypes: PokemonElement[],
+      duration: number,
+      foodAtkPct: number = 0
+    ): PokeRow {
+      // X-Critical não afeta dmg (crit é pós-mult). Mas heldKind/deviceKind importam —
+      // mudam como o tier é interpretado (atk%/boost vs crit%).
+      const key = `${poke.id}|${held.boost}|${held.heldKind}|${held.heldTier}|${held.deviceKind}|${held.deviceTier}|${playerLvl}|${targetTypes.join(",")}|${duration}|${foodAtkPct}`;
       let row = cache.get(key);
       if (!row) {
-        row = computePokeRow(poke, held, playerLvl, targetTypes, duration);
+        row = computePokeRow(poke, held, playerLvl, targetTypes, duration, foodAtkPct);
         cache.set(key, row);
       }
       return row;

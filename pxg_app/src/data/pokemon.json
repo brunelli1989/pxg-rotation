@@ -459,7 +459,18 @@
     ],
     "role": "otdd",
     "pvpRole": "tank",
-    "elements": [],
+    "elements": [
+      "rock",
+      "electric"
+    ],
+    "config": "lvl 600, +70, XA8 + food 1% atk, sem device, Volcanic, dummy neutro",
+    "observacao": "Charge confirmado como buff:next ×1.5 (Rock Throw 9690→14537 pós-Charge). Stealth Rock é multi-tick DoT (7 ticks de 2138 a cada 0.75s). Color=129 aparece pra normal+rock; color=210 pra electric (Thunder).",
+    "melee": {
+      "power": 1.79,
+      "attackInterval": 2.1,
+      "element": "normal",
+      "kind": "melee"
+    },
     "skills": [
       {
         "name": "Rock Throw",
@@ -467,7 +478,23 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "rock"
+        "element": "rock",
+        "power": 8.73,
+        "dano": 9690,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA8 + food 1%, sem device, Volcanic, dummy neutro",
+            "dano": 9690,
+            "power": 8.73,
+            "note": "1-hit, color=129. Sem buff"
+          },
+          {
+            "config": "lvl 600, +70, XA8 + food 1%, sem device, Volcanic, dummy neutro, pós-Charge",
+            "dano": 14537,
+            "power": 8.73,
+            "note": "1-hit pós-Charge — confirma buff:next ×1.5 (14537/9690 = 1.500)"
+          }
+        ]
       },
       {
         "name": "Rock Slide",
@@ -475,7 +502,17 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "rock"
+        "element": "rock",
+        "power": 15.99,
+        "dano": 17751,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA8 + food 1%, sem device, Volcanic, dummy neutro",
+            "dano": 17751,
+            "power": 15.99,
+            "note": "3-hit (5915+5917+5919), color=129"
+          }
+        ]
       },
       {
         "name": "Stone Edge",
@@ -483,7 +520,17 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "rock"
+        "element": "rock",
+        "power": 14.59,
+        "dano": 16199,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA8 + food 1%, sem device, Volcanic, dummy neutro",
+            "dano": 16199,
+            "power": 14.59,
+            "note": "5-hit (3240+3238+3234+3236+3251), color=129"
+          }
+        ]
       },
       {
         "name": "Rock Blast",
@@ -491,7 +538,17 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "rock"
+        "element": "rock",
+        "power": 17.62,
+        "dano": 19559,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA8 + food 1%, sem device, Volcanic, dummy neutro",
+            "dano": 19559,
+            "power": 17.62,
+            "note": "2-hit (9782+9777), color=129"
+          }
+        ]
       },
       {
         "name": "Automize",
@@ -500,15 +557,19 @@
         "cc": null,
         "buff": "self",
         "element": "steel",
-        "def": true
+        "def": true,
+        "power": 0,
+        "playerNote": "Buff defensivo (sem dano)"
       },
       {
         "name": "Charge",
         "cooldown": 40,
         "type": "area",
         "cc": "locked",
-        "buff": "self",
-        "element": "electric"
+        "buff": "next",
+        "element": "electric",
+        "power": 0,
+        "playerNote": "Buff: próxima skill ×1.5 (validado in-game via Rock Throw 9690→14537). Buff aplica em qualquer elemento, não só electric."
       },
       {
         "name": "Thunder",
@@ -516,7 +577,17 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "electric"
+        "element": "electric",
+        "power": 9.84,
+        "dano": 10918,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA8 + food 1%, sem device, Volcanic, dummy neutro",
+            "dano": 10918,
+            "power": 9.84,
+            "note": "1-hit, color=210 electric"
+          }
+        ]
       },
       {
         "name": "Rock Wrecker",
@@ -524,7 +595,18 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "rock"
+        "element": "rock",
+        "power": 25.21,
+        "dano": 27988,
+        "playerNote": "1.5s de wind-up entre cast e hit",
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA8 + food 1%, sem device, Volcanic, dummy neutro",
+            "dano": 27988,
+            "power": 25.21,
+            "note": "1-hit, color=129. Wind-up ~1.5s"
+          }
+        ]
       },
       {
         "name": "Harden",
@@ -533,7 +615,9 @@
         "cc": "locked",
         "buff": "self",
         "element": "normal",
-        "def": true
+        "def": true,
+        "power": 0,
+        "playerNote": "Buff defensivo (sem dano)"
       },
       {
         "name": "Stealth Rock",
@@ -541,10 +625,20 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "rock"
+        "element": "rock",
+        "power": 13.48,
+        "dano": 14966,
+        "playerNote": "Multi-tick DoT: 7 ticks de 2138 a cada 0.75s (~5s total)",
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA8 + food 1%, sem device, Volcanic, dummy neutro",
+            "dano": 14966,
+            "power": 13.48,
+            "note": "7×2138 ticks DoT ao longo de 5s, color=129"
+          }
+        ]
       }
-    ],
-    "todo": "calibrate skills (powers from wiki, dano não medido)"
+    ]
   },
   {
     "id": "alolan-graveler",
@@ -14480,6 +14574,14 @@
     "elements": [
       "water"
     ],
+    "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+    "observacao": "Todos hits são water (confirmado pelo player, apesar de algumas skills aparecerem com color=23 que sugeria psychic — só nome).",
+    "melee": {
+      "power": 1.94,
+      "attackInterval": 2.13,
+      "element": "normal",
+      "kind": "melee"
+    },
     "skills": [
       {
         "name": "Fury Swipes",
@@ -14487,7 +14589,17 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 4.59,
+        "dano": 4782,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 4782,
+            "power": 4.59,
+            "note": "3-hit (1576+1627+1579)"
+          }
+        ]
       },
       {
         "name": "Bubbles",
@@ -14495,7 +14607,17 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 6.50,
+        "dano": 6773,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 6773,
+            "power": 6.50,
+            "note": "1-hit. Log mostra 'Bubble' (singular)"
+          }
+        ]
       },
       {
         "name": "Psy Ball",
@@ -14503,7 +14625,17 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 7.28,
+        "dano": 7592,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 7592,
+            "power": 7.28,
+            "note": "1-hit"
+          }
+        ]
       },
       {
         "name": "Bubble Beam",
@@ -14511,7 +14643,17 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 14.96,
+        "dano": 15605,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 15605,
+            "power": 14.96,
+            "note": "3-hit (5201+5204+5200)"
+          }
+        ]
       },
       {
         "name": "Water Pulse",
@@ -14519,7 +14661,17 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 15.47,
+        "dano": 16130,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 16130,
+            "power": 15.47,
+            "note": "1-hit"
+          }
+        ]
       },
       {
         "name": "Confusion",
@@ -14527,7 +14679,17 @@
         "type": "area",
         "cc": "stun",
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 14.07,
+        "dano": 14675,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 14675,
+            "power": 14.07,
+            "note": "1-hit"
+          }
+        ]
       },
       {
         "name": "Aqua Jet",
@@ -14535,7 +14697,17 @@
         "type": "area",
         "cc": null,
         "buff": "self",
-        "element": "water"
+        "element": "water",
+        "power": 6.17,
+        "dano": 6436,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 6436,
+            "power": 6.17,
+            "note": "1-hit"
+          }
+        ]
       },
       {
         "name": "Hydro Pump",
@@ -14543,7 +14715,18 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "water"
+        "element": "water",
+        "power": 26.28,
+        "dano": 27407,
+        "playerNote": "Multi-hit variável (2 hits observados, pode bater mais)",
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 27407,
+            "power": 26.28,
+            "note": "2-hit (13669+13738). Pode bater mais hits em outros casts"
+          }
+        ]
       },
       {
         "name": "Stunning Confusion",
@@ -14551,10 +14734,19 @@
         "type": "area",
         "cc": "stun",
         "buff": "self",
-        "element": "water"
+        "element": "water",
+        "power": 23.91,
+        "dano": 24934,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 24934,
+            "power": 23.91,
+            "note": "2-hit (12467+12467)"
+          }
+        ]
       }
-    ],
-    "todo": "calibrate skills (powers from wiki, dano não medido)"
+    ]
   },
   {
     "id": "shiny-golem",
@@ -15169,7 +15361,18 @@
     ],
     "role": "otdd",
     "pvpRole": "offensive_tank",
-    "elements": [],
+    "elements": [
+      "dark",
+      "flying"
+    ],
+    "config": "lvl 600, +80, XA8 + food 3% atk, sem device, Volcanic, dummy neutro",
+    "observacao": "Nasty Plot validado como buff:next ×1.5 (Foul Play 15260 → 22889 pós-NP, ratio 1.500). Haze é cura de status + visão escurecida, sem dano (ignorar). Melee atacando rapidíssimo (~1.09s).",
+    "melee": {
+      "power": 1.49,
+      "attackInterval": 1.09,
+      "element": "normal",
+      "kind": "melee"
+    },
     "skills": [
       {
         "name": "Foul Play",
@@ -15177,7 +15380,23 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "dark"
+        "element": "dark",
+        "power": 13.34,
+        "dano": 15260,
+        "calibrations": [
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 15260,
+            "power": 13.34,
+            "note": "1-hit, color=87 (dark)"
+          },
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro, pós-Nasty Plot",
+            "dano": 22889,
+            "power": 13.33,
+            "note": "1-hit pós-Nasty Plot — confirma buff:next ×1.5 (22889/15260 = 1.500)"
+          }
+        ]
       },
       {
         "name": "Haze",
@@ -15186,7 +15405,9 @@
         "cc": null,
         "buff": "self",
         "element": "ice",
-        "def": true
+        "def": true,
+        "power": 0,
+        "playerNote": "Cura status + cria névoa que escurece visão dos inimigos por 10s. Sem dano."
       },
       {
         "name": "Flatter",
@@ -15194,7 +15415,17 @@
         "type": "area",
         "cc": "locked",
         "buff": null,
-        "element": "dark"
+        "element": "dark",
+        "power": 15.56,
+        "dano": 17802,
+        "calibrations": [
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 17802,
+            "power": 15.56,
+            "note": "1-hit, color=87"
+          }
+        ]
       },
       {
         "name": "Night Slash",
@@ -15202,15 +15433,35 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "dark"
+        "element": "dark",
+        "power": 12.06,
+        "dano": 13798,
+        "calibrations": [
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 13798,
+            "power": 12.06,
+            "note": "1-hit, color=87"
+          }
+        ]
       },
       {
         "name": "Dark Pulse",
         "cooldown": 25,
-        "type": "area",
+        "type": "frontal",
         "cc": null,
         "buff": null,
-        "element": "dark"
+        "element": "dark",
+        "power": 15.43,
+        "dano": 17656,
+        "calibrations": [
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 17656,
+            "power": 15.43,
+            "note": "1-hit, color=87"
+          }
+        ]
       },
       {
         "name": "Sucker Punch",
@@ -15218,15 +15469,35 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "dark"
+        "element": "dark",
+        "power": 14.54,
+        "dano": 16635,
+        "calibrations": [
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 16635,
+            "power": 14.54,
+            "note": "1-hit, color=87"
+          }
+        ]
       },
       {
         "name": "Assurance",
         "cooldown": 40,
-        "type": "area",
+        "type": "frontal",
         "cc": null,
         "buff": null,
-        "element": "dark"
+        "element": "dark",
+        "power": 17.54,
+        "dano": 20073,
+        "calibrations": [
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 20073,
+            "power": 17.54,
+            "note": "1-hit, color=87"
+          }
+        ]
       },
       {
         "name": "Quash",
@@ -15234,15 +15505,35 @@
         "type": "area",
         "cc": "locked",
         "buff": null,
-        "element": "dark"
+        "element": "dark",
+        "power": 22.06,
+        "dano": 25241,
+        "calibrations": [
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 25241,
+            "power": 22.06,
+            "note": "3-hit (8405+8425+8411), color=87"
+          }
+        ]
       },
       {
         "name": "Nasty Plot",
         "cooldown": 50,
         "type": "area",
         "cc": null,
-        "buff": "self",
-        "element": "dark"
+        "buff": "next",
+        "element": "dark",
+        "power": 0,
+        "playerNote": "Buff: próxima skill ×1.5 (validado in-game via Foul Play 15260→22889)",
+        "calibrations": [
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 1234,
+            "power": 1.08,
+            "note": "Pequeno tick de 1234 (color=87) ~1.9s pós-cast — auto-buff visual ou DoT residual. Ignorar pra DPS efetivo, foco é buff:next ×1.5."
+          }
+        ]
       },
       {
         "name": "Tailwind",
@@ -15250,10 +15541,11 @@
         "type": "area",
         "cc": null,
         "buff": "self",
-        "element": "flying"
+        "element": "flying",
+        "power": 0,
+        "playerNote": "Buff: aumenta velocidade do time (efeito não modelado no engine)"
       }
-    ],
-    "todo": "calibrate skills (powers from wiki, dano não medido)"
+    ]
   },
   {
     "id": "shiny-honchkrow-tm",
@@ -15264,7 +15556,18 @@
     ],
     "role": "otdd",
     "pvpRole": null,
-    "elements": [],
+    "elements": [
+      "dark",
+      "flying"
+    ],
+    "config": "lvl 600, +80, XA8 + food 3% atk, sem device, Volcanic, dummy neutro",
+    "observacao": "TM Dark-Type TM Collection muda mecânicas: (1) Melee vira dark (color=87, +32% dano); (2) Pursuit é TM-exclusive e por 7s buffa Flatter + ataques básicos com ~×2 dano via DoT; (3) Crow Swarm é TM-exclusive; (4) Night Slash +44% vs no-TM; (5) Quash 4-hit (vs 3 no-TM); (6) Flatter unbuffed -38% (mais fraco fora da janela do Pursuit). Distância não afeta dano (Foul Play testado a 1/4/5 sqm = mesmo dano).",
+    "melee": {
+      "power": 1.97,
+      "attackInterval": 1.09,
+      "element": "dark",
+      "kind": "melee"
+    },
     "skills": [
       {
         "name": "Flatter",
@@ -15272,23 +15575,61 @@
         "type": "area",
         "cc": "stun",
         "buff": null,
-        "element": "dark"
+        "element": "dark",
+        "power": 9.65,
+        "dano": 11039,
+        "playerNote": "Durante janela Pursuit (7s pós-cast): vira multi-hit DoT ~×2 dano (~22260 total via 8 ticks ~1655 + 2 maiores ~4510)",
+        "calibrations": [
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro, sem Pursuit",
+            "dano": 11039,
+            "power": 9.65,
+            "note": "1-hit unbuffed, color=87"
+          },
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro, durante janela Pursuit",
+            "dano": 22257,
+            "power": 19.45,
+            "note": "Multi-hit DoT durante 7s pós-Pursuit. Ratio ~×2 vs unbuffed"
+          }
+        ]
       },
       {
         "name": "Dark Pulse",
         "cooldown": 30,
-        "type": "area",
+        "type": "frontal",
         "cc": null,
         "buff": null,
-        "element": "dark"
+        "element": "dark",
+        "power": 15.43,
+        "dano": 17657,
+        "calibrations": [
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 17657,
+            "power": 15.43,
+            "note": "1-hit, color=87. Idêntico ao no-TM"
+          }
+        ]
       },
       {
         "name": "Foul Play",
         "cooldown": 20,
-        "type": "target",
+        "type": "frontal",
         "cc": null,
         "buff": null,
-        "element": "dark"
+        "element": "dark",
+        "power": 13.53,
+        "dano": 15481,
+        "playerNote": "Distância não afeta dano (testado 1/4/5 sqm = 15482/15480/15482)",
+        "calibrations": [
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 15481,
+            "power": 13.53,
+            "note": "1-hit, color=87. 3 casts em distâncias diferentes: 15480 (4sqm), 15482 (5sqm), 15482 (1sqm)"
+          }
+        ]
       },
       {
         "name": "Night Slash",
@@ -15296,7 +15637,17 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "dark"
+        "element": "dark",
+        "power": 17.36,
+        "dano": 19861,
+        "calibrations": [
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 19861,
+            "power": 17.36,
+            "note": "1-hit, color=87. +44% vs no-TM (12.06)"
+          }
+        ]
       },
       {
         "name": "Crow Swarm",
@@ -15304,7 +15655,17 @@
         "type": "area",
         "cc": "stun",
         "buff": null,
-        "element": "dark"
+        "element": "dark",
+        "power": 13.50,
+        "dano": 15450,
+        "calibrations": [
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 15450,
+            "power": 13.50,
+            "note": "1-hit, color=87. TM-exclusive"
+          }
+        ]
       },
       {
         "name": "Quash",
@@ -15312,7 +15673,17 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "dark"
+        "element": "dark",
+        "power": 23.17,
+        "dano": 26518,
+        "calibrations": [
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 26518,
+            "power": 23.17,
+            "note": "4-hit (6631+6629+6632+6626), color=87. Per-hit ~6629. TM tem 4 hits vs 3 do no-TM"
+          }
+        ]
       },
       {
         "name": "Tailwind",
@@ -15321,7 +15692,9 @@
         "cc": "locked",
         "buff": "self",
         "element": "flying",
-        "def": true
+        "def": true,
+        "power": 0,
+        "playerNote": "Buff: aumenta velocidade do time"
       },
       {
         "name": "Pursuit",
@@ -15329,10 +15702,20 @@
         "type": "target",
         "cc": null,
         "buff": "self",
-        "element": "dark"
+        "element": "dark",
+        "power": 15.51,
+        "dano": 17745,
+        "playerNote": "Por 7s pós-cast: Flatter + ataques básicos causam dano extra (Flatter vira multi-hit ~×2). TM-exclusive.",
+        "calibrations": [
+          {
+            "config": "lvl 600, +80, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 17745,
+            "power": 15.51,
+            "note": "2-hit (13229+4516), color=87. TM-exclusive"
+          }
+        ]
       }
-    ],
-    "todo": "calibrate skills (powers from wiki, dano não medido)"
+    ]
   },
   {
     "id": "shiny-houndoom",
@@ -15642,15 +16025,24 @@
     "elements": [
       "electric"
     ],
+    "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+    "observacao": "Charge confirmado como buff:next ×1.5 (Spark 9380 → 14069 pós-Charge).",
+    "melee": {
+      "power": 2.03,
+      "attackInterval": 2.0,
+      "element": "normal",
+      "kind": "melee"
+    },
     "skills": [
       {
         "name": "Charge",
         "cooldown": 50,
         "type": "area",
         "cc": null,
-        "buff": "self",
+        "buff": "next",
         "element": "electric",
-        "def": true
+        "power": 0,
+        "playerNote": "Buff: próxima skill elétrica ×1.5 (validado in-game)"
       },
       {
         "name": "Spark",
@@ -15658,7 +16050,23 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "electric"
+        "element": "electric",
+        "power": 8.99,
+        "dano": 9380,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 9380,
+            "power": 8.99,
+            "note": "3-hit (3125+3126+3129), color=210. Sem Charge"
+          },
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro, pós-Charge",
+            "dano": 14069,
+            "power": 8.99,
+            "note": "3-hit (4687+4691+4691), pós-Charge — confirma buff:next ×1.5"
+          }
+        ]
       },
       {
         "name": "Thunderbolt",
@@ -15666,15 +16074,35 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "electric"
+        "element": "electric",
+        "power": 13.57,
+        "dano": 14150,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 14150,
+            "power": 13.57,
+            "note": "1-hit, color=210"
+          }
+        ]
       },
       {
         "name": "Pin Missile",
         "cooldown": 25,
-        "type": "area",
+        "type": "frontal",
         "cc": null,
         "buff": null,
-        "element": "bug"
+        "element": "bug",
+        "power": 8.09,
+        "dano": 8441,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 8441,
+            "power": 8.09,
+            "note": "1-hit, color=139 (bug provável)"
+          }
+        ]
       },
       {
         "name": "Electro Ball",
@@ -15682,7 +16110,17 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "electric"
+        "element": "electric",
+        "power": 13.94,
+        "dano": 14540,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 14540,
+            "power": 13.94,
+            "note": "1-hit, color=210"
+          }
+        ]
       },
       {
         "name": "Thunder",
@@ -15690,7 +16128,17 @@
         "type": "area",
         "cc": "locked",
         "buff": null,
-        "element": "electric"
+        "element": "electric",
+        "power": 21.08,
+        "dano": 21981,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 21981,
+            "power": 21.08,
+            "note": "1-hit, color=210"
+          }
+        ]
       },
       {
         "name": "Discharge",
@@ -15698,7 +16146,17 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "electric"
+        "element": "electric",
+        "power": 26.12,
+        "dano": 27230,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 27230,
+            "power": 26.12,
+            "note": "1-hit, color=210"
+          }
+        ]
       },
       {
         "name": "Volt Fang",
@@ -15706,7 +16164,17 @@
         "type": "target",
         "cc": null,
         "buff": "self",
-        "element": "electric"
+        "element": "electric",
+        "power": 7.52,
+        "dano": 7843,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 7843,
+            "power": 7.52,
+            "note": "1-hit, color=210"
+          }
+        ]
       },
       {
         "name": "Agility",
@@ -15715,10 +16183,11 @@
         "cc": null,
         "buff": "self",
         "element": "flying",
-        "def": true
+        "def": true,
+        "power": 0,
+        "playerNote": "Buff: aumenta velocidade, sem dano"
       }
-    ],
-    "todo": "calibrate skills (powers from wiki, dano não medido)"
+    ]
   },
   {
     "id": "shiny-jumpluff",
@@ -17665,8 +18134,18 @@
     ],
     "role": "otdd",
     "pvpRole": "offensive_tank",
-    "elements": [],
+    "elements": [
+      "poison"
+    ],
     "wiki": "https://wiki.pokexgames.com/index.php/Shiny_Muk_(TM)",
+    "config": "lvl 600, +70, XA8 + food 3% atk, sem device, Volcanic, dummy neutro",
+    "observacao": "Cores: color=160 poison, color=102 acid (variante?). Toxic e Acid Rain têm initial big hit + DoT de 350/tick (~10 ticks/4s e 4-5 ticks visíveis respectivamente). Stench é DoT puro (6 ticks 2171 ao longo de 2s).",
+    "melee": {
+      "power": 1.82,
+      "attackInterval": 2.1,
+      "element": "normal",
+      "kind": "melee"
+    },
     "skills": [
       {
         "name": "Gunk Shot",
@@ -17674,7 +18153,17 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "poison"
+        "element": "poison",
+        "power": 13.07,
+        "dano": 14725,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 14725,
+            "power": 13.07,
+            "note": "3-hit (4909+4905+4911), color=160 poison"
+          }
+        ]
       },
       {
         "name": "Acid",
@@ -17682,7 +18171,17 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "poison"
+        "element": "poison",
+        "power": 10.86,
+        "dano": 12235,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 12235,
+            "power": 10.86,
+            "note": "1-hit, color=102 (variante de poison?)"
+          }
+        ]
       },
       {
         "name": "Sludge",
@@ -17690,7 +18189,17 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "poison"
+        "element": "poison",
+        "power": 17.68,
+        "dano": 19925,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 19925,
+            "power": 17.68,
+            "note": "3-hit (6643+6643+6639), color=160"
+          }
+        ]
       },
       {
         "name": "Toxic",
@@ -17698,15 +18207,36 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "poison"
+        "element": "poison",
+        "power": 12.79,
+        "dano": 14415,
+        "playerNote": "Initial big hit + DoT ~10 ticks de 350 ao longo de 4s",
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 14415,
+            "power": 12.79,
+            "note": "Initial 10915 + 10×350 DoT = 14415, color=160"
+          }
+        ]
       },
       {
         "name": "Sludge Wave",
         "cooldown": 30,
-        "type": "area",
+        "type": "frontal",
         "cc": null,
         "buff": null,
-        "element": "poison"
+        "element": "poison",
+        "power": 14.18,
+        "dano": 15975,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 15975,
+            "power": 14.18,
+            "note": "1-hit frontal, color=160"
+          }
+        ]
       },
       {
         "name": "Acid Rain",
@@ -17714,7 +18244,18 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "poison"
+        "element": "poison",
+        "power": 20.69,
+        "dano": 23312,
+        "playerNote": "Initial big hit (~21912) + DoT 350/tick. Wind-up ~1.5s entre cast e initial.",
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 23312,
+            "power": 20.69,
+            "note": "Initial 21912 + 4 ticks DoT 350 visíveis = 23312. Pode ter mais ticks (fim do log cortado)"
+          }
+        ]
       },
       {
         "name": "Sludge Bomb",
@@ -17722,7 +18263,17 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "poison"
+        "element": "poison",
+        "power": 17.38,
+        "dano": 19583,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 19583,
+            "power": 17.38,
+            "note": "1-hit, color=160"
+          }
+        ]
       },
       {
         "name": "Stench",
@@ -17730,7 +18281,18 @@
         "type": "area",
         "cc": null,
         "buff": "self",
-        "element": "poison"
+        "element": "poison",
+        "power": 11.56,
+        "dano": 13026,
+        "playerNote": "DoT puro: 6 ticks de 2171 ao longo de ~2s. Sem hit inicial grande.",
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA8 + food 3%, sem device, Volcanic, dummy neutro",
+            "dano": 13026,
+            "power": 11.56,
+            "note": "6 ticks de 2171 = 13026, color=160"
+          }
+        ]
       },
       {
         "name": "Acid Armor",
@@ -17739,7 +18301,9 @@
         "cc": "locked",
         "buff": "self",
         "element": "poison",
-        "def": true
+        "def": true,
+        "power": 0,
+        "playerNote": "Buff defensivo (não castado nesta calibração)"
       },
       {
         "name": "Memento",
@@ -17747,10 +18311,11 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "dark"
+        "element": "dark",
+        "power": 0,
+        "playerNote": "Self-KO: o pokémon se mata ao usar. Excluir de rotações/OTDD."
       }
-    ],
-    "todo": "calibrate skills (powers from wiki, dano não medido)"
+    ]
   },
   {
     "id": "shiny-muk-tm",
@@ -19162,7 +19727,16 @@
     ],
     "role": "otdd",
     "pvpRole": null,
-    "elements": [],
+    "elements": [
+      "ground"
+    ],
+    "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+    "melee": {
+      "power": 1.86,
+      "attackInterval": 2.15,
+      "element": "normal",
+      "kind": "melee"
+    },
     "skills": [
       {
         "name": "Scratch",
@@ -19170,7 +19744,17 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "normal"
+        "element": "normal",
+        "power": 4.50,
+        "dano": 4694,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 4694,
+            "power": 4.50,
+            "note": "1-hit, color=129 (normal)"
+          }
+        ]
       },
       {
         "name": "Mud Sludge",
@@ -19178,7 +19762,17 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "ground"
+        "element": "ground",
+        "power": 7.51,
+        "dano": 7831,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 7831,
+            "power": 7.51,
+            "note": "3-hit (2611+2608+2612), color=164 (ground)"
+          }
+        ]
       },
       {
         "name": "Slashing Blow",
@@ -19186,7 +19780,17 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "ground"
+        "element": "ground",
+        "power": 9.93,
+        "dano": 10360,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 10360,
+            "power": 9.93,
+            "note": "3-hit (3456+3453+3451), color=164 (ground)"
+          }
+        ]
       },
       {
         "name": "Dig",
@@ -19194,15 +19798,36 @@
         "type": "area",
         "cc": null,
         "buff": "self",
-        "element": "ground"
+        "element": "ground",
+        "power": 13.64,
+        "dano": 14219,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 14219,
+            "power": 13.64,
+            "note": "1-hit, color=164 (ground)"
+          }
+        ]
       },
       {
         "name": "Drill Run",
         "cooldown": 25,
-        "type": "area",
+        "type": "frontal",
         "cc": null,
         "buff": null,
-        "element": "ground"
+        "element": "ground",
+        "power": 24.13,
+        "dano": 25161,
+        "playerNote": "Multi-hit variável (2 hits observados, pode bater mais)",
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 25161,
+            "power": 24.13,
+            "note": "2-hit (12573+12588), color=164. Pode bater mais hits"
+          }
+        ]
       },
       {
         "name": "Rollout",
@@ -19210,7 +19835,18 @@
         "type": "area",
         "cc": "locked",
         "buff": "self",
-        "element": "rock"
+        "element": "rock",
+        "power": 1.22,
+        "dano": 1276,
+        "playerNote": "DoT longo de baixíssimo dano (~115/tick × 11 ticks)",
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 1276,
+            "power": 1.22,
+            "note": "11 ticks ~115 each ao longo de 5s, color=129. Foco é cc:locked"
+          }
+        ]
       },
       {
         "name": "Slashing Rush",
@@ -19218,7 +19854,17 @@
         "type": "area",
         "cc": null,
         "buff": "self",
-        "element": "ground"
+        "element": "ground",
+        "power": 11.95,
+        "dano": 12466,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 12466,
+            "power": 11.95,
+            "note": "1-hit, color=164 (ground)"
+          }
+        ]
       },
       {
         "name": "Earthquake",
@@ -19226,7 +19872,17 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "ground"
+        "element": "ground",
+        "power": 21.15,
+        "dano": 22051,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 22051,
+            "power": 21.15,
+            "note": "1-hit, color=164 (ground)"
+          }
+        ]
       },
       {
         "name": "Fissure",
@@ -19234,10 +19890,19 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "ground"
+        "element": "ground",
+        "power": 26.18,
+        "dano": 27306,
+        "calibrations": [
+          {
+            "config": "lvl 600, +70, XA7, sem device, Volcanic, dummy neutro",
+            "dano": 27306,
+            "power": 26.18,
+            "note": "1-hit, color=164 (ground). ~1.4s de wind-up entre cast e hit"
+          }
+        ]
       }
-    ],
-    "todo": "calibrate skills (powers from wiki, dano não medido)"
+    ]
   },
   {
     "id": "shiny-sceptile",

@@ -4764,7 +4764,7 @@
     "hunt": "400+",
     "group": "Druddigon",
     "hp": 504025,
-    "todo": "calibrate defense",
+    "defFactor": 0.64,
     "bestStarterElements": [
       "fairy"
     ],
@@ -4774,7 +4774,18 @@
       "ice",
       "dragon"
     ],
-    "id": "druddigon"
+    "id": "druddigon",
+    "calibration": {
+      "poke": "Mega Glalie",
+      "skills": [
+        "Icicle Crash",
+        "Frenzy Snow",
+        "Glacial Spikes"
+      ],
+      "date": "2026-05-01",
+      "triangulation": 3,
+      "note": "Player Seavell lvl 503, +70 XA8, sem elixir. Eff ice vs dragon = 2.0. IC 40634/mob → def 0.614. FS biggest single 45125 → 0.645. GS 27936 (1ms antes announce) → 0.645. Convergência 0.61-0.65. FP 14210 single-hit deu 0.30 (provável multi-hit cleave penalty, descartado)."
+    }
   },
   {
     "name": "Shiny Druddigon",
@@ -4784,7 +4795,8 @@
     "hunt": "400+",
     "group": "Druddigon",
     "tag": "angry",
-    "todo": "calibrate hp + defense",
+    "hp": 491662,
+    "defFactor": 0.64,
     "bestStarterElements": [
       "fairy"
     ],

@@ -4738,7 +4738,7 @@
     "hunt": "400+",
     "group": "Appletun",
     "hp": 433668,
-    "todo": "calibrate defense",
+    "defFactor": 0.63,
     "bestStarterElements": [
       "grass",
       "poison",
@@ -4754,7 +4754,18 @@
       "fairy",
       "bug"
     ],
-    "id": "appletun"
+    "id": "appletun",
+    "calibration": {
+      "poke": "Mega Pidgeot + Sh.Beautifly + Skarmory TR",
+      "skills": [
+        "Shadow Gale",
+        "Sky Attack",
+        "Aerial Ace"
+      ],
+      "date": "2026-05-01",
+      "triangulation": 4,
+      "note": "Player Wingeon lvl 551. Eff flying vs grass+dragon = 1.75 (1weak+1neutral). Pidgeot SG 34683 → 0.627. Beautifly SA 35040 → 0.626. Skarmory SA (sem SD) 29672 → 0.626. Skarmory AE per-hit com SD×1.5 11283 → 0.626. Convergência exata."
+    }
   },
   {
     "name": "Angry Appletun",
@@ -4766,7 +4777,7 @@
     "group": "Appletun",
     "tag": "angry",
     "hp": 444132,
-    "todo": "calibrate defense",
+    "defFactor": 0.63,
     "bestStarterElements": [
       "grass",
       "poison",

@@ -3398,7 +3398,7 @@
     "hunt": "400+",
     "group": "Infernape",
     "hp": 433794,
-    "todo": "calibrate defense",
+    "defFactor": 0.63,
     "bestStarterElements": [
       "flying",
       "psychic",
@@ -3411,7 +3411,19 @@
       "ground",
       "water"
     ],
-    "id": "infernape"
+    "id": "infernape",
+    "calibration": {
+      "poke": "Mega Pidgeot + Skarmory + Shiny Floatzel",
+      "skills": [
+        "Sky Attack",
+        "Shadow Gale",
+        "Aerial Ace",
+        "Wave Crash"
+      ],
+      "date": "2026-05-01",
+      "triangulation": 5,
+      "note": "Player Wingeon lvl 568. Eff flying/water vs fire+fighting = 1.75 piecewise (1weak+1neutral). Mega Pidgeot SA 35530 → 0.626, SG 36220 → 0.625. Skarmory SA 32268 → 0.634, AE per-hit com SD×1.5 12262 → 0.644. Floatzel WC 26952 → 0.630. Convergência 0.625-0.644."
+    }
   },
   {
     "name": "Angry Infernape",
@@ -3422,7 +3434,8 @@
     "hunt": "400+",
     "group": "Infernape",
     "tag": "angry",
-    "todo": "calibrate hp + defense",
+    "todo": "calibrate hp",
+    "defFactor": 0.63,
     "bestStarterElements": [
       "flying",
       "psychic",

@@ -15958,6 +15958,14 @@
       "fire",
       "fighting"
     ],
+    "config": "lvl 600, +70, XA8, Y-Ghost T3 (sem efeito), sem food, Volcanic, sem device, neutro",
+    "observacao": "Cal 2026-05-02 single-cast no dummy. Close Combat = buff:next ×1.5 confirmado (Mega Kick pós-CC: 13892→20847 ratio 1.50). Bulk Up = self-window ×2 melee, 10s tooltip (auto-atks dobram 2175→4360). Mach Punch element FIRE (color=198, não fighting do canon — passive Infernape converte). Backflip status/0 dmg. PASSIVA Jungle Fury: recebe 0.5× dano de ataques tipo ROCK (canon Infernape seria ×4 weak; com passive vira ×0.5 resist) — relevante pra starter resist filter em hunts rock.",
+    "melee": {
+      "power": 1.97,
+      "attackInterval": 1.66,
+      "element": "normal",
+      "kind": "melee"
+    },
     "skills": [
       {
         "name": "Low Kick",
@@ -15965,7 +15973,9 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "fighting"
+        "element": "fighting",
+        "power": 12.62,
+        "dano": 13902
       },
       {
         "name": "Mega Kick",
@@ -15973,7 +15983,9 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "fighting"
+        "element": "fighting",
+        "power": 12.61,
+        "dano": 13892
       },
       {
         "name": "Double Kick",
@@ -15981,15 +15993,20 @@
         "type": "target",
         "cc": "stun",
         "buff": null,
-        "element": "fighting"
+        "element": "fighting",
+        "power": 6.77,
+        "dano": 7463
       },
       {
         "name": "Close Combat",
         "cooldown": 20,
         "type": "target",
         "cc": null,
-        "buff": "self",
-        "element": "fighting"
+        "buff": "next",
+        "element": "fighting",
+        "power": 13.57,
+        "dano": 14951,
+        "playerNote": "Híbrido damage + buff:next ×1.5 (validado: Mega Kick pós-CC ratio 1.500)"
       },
       {
         "name": "Backflip",
@@ -15997,15 +16014,20 @@
         "type": "area",
         "cc": null,
         "buff": "self",
-        "element": "flying"
+        "element": "flying",
+        "power": 0,
+        "playerNote": "Status/buff (0 dmg observado no dummy)"
       },
       {
         "name": "Mach Punch",
         "cooldown": 28,
         "type": "area",
         "cc": null,
-        "buff": "self",
-        "element": "fighting"
+        "buff": null,
+        "element": "fire",
+        "power": 15.19,
+        "dano": 21421,
+        "playerNote": "Element FIRE em Sh.Infernape (color=198) — diferente do canon fighting. Volcanic clã +28% aplica."
       },
       {
         "name": "Focus Blast",
@@ -16013,7 +16035,9 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "fighting"
+        "element": "fighting",
+        "power": 13.54,
+        "dano": 14918
       },
       {
         "name": "Vacuum Wave",
@@ -16021,7 +16045,9 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "fighting"
+        "element": "fighting",
+        "power": 17.45,
+        "dano": 19230
       },
       {
         "name": "Bulk Up",
@@ -16030,10 +16056,17 @@
         "cc": null,
         "buff": "self",
         "element": "fighting",
-        "def": true
+        "def": true,
+        "power": 0,
+        "buffEffect": {
+          "type": "self-window",
+          "mult": 2,
+          "durationSeconds": 10,
+          "appliesTo": { "melee": true }
+        },
+        "playerNote": "Tooltip: dobra dano do ataque físico por 10s (CD 40s PvE/50s PvP). Bonus def drasticamente menor em PvE — ignorado pra dmg calc. Validado in-game: APENAS auto-atks dobram (2175→4360). Skills físicas (Mega Kick, Low Kick, Double Kick) NÃO recebem buff durante a janela. Confirma 'ataque físico' = melee only."
       }
-    ],
-    "todo": "calibrate skills (powers from wiki, dano não medido)"
+    ]
   },
   {
     "id": "shiny-infernape-tm",

@@ -20986,6 +20986,13 @@
       "grass",
       "ground"
     ],
+    "config": "lvl 600, +70, XA8 (+31%), Y-Ghost T3 (sem efeito), food 3%, Volcanic (sem clã match), sem device, dummy neutro",
+    "melee": {
+      "power": 2.93,
+      "attackInterval": 3.09,
+      "element": "normal",
+      "kind": "melee"
+    },
     "skills": [
       {
         "name": "Bite",
@@ -20993,7 +21000,9 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "dark"
+        "element": "dark",
+        "power": 4.86,
+        "dano": 5472
       },
       {
         "name": "Razor Leaf",
@@ -21001,7 +21010,10 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "grass"
+        "element": "grass",
+        "power": 8.72,
+        "dano": 9823,
+        "playerNote": "3-hit per cast (~3274 each)"
       },
       {
         "name": "Rock Tomb",
@@ -21009,7 +21021,10 @@
         "type": "target",
         "cc": "locked",
         "buff": null,
-        "element": "rock"
+        "element": "rock",
+        "power": 2.72,
+        "dano": 3066,
+        "playerNote": "Damage muito baixo (color=129 normal, não rock 180) — skill é primariamente CC locked"
       },
       {
         "name": "Mud Sludge",
@@ -21017,7 +21032,10 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "ground"
+        "element": "ground",
+        "power": 14.78,
+        "dano": 16659,
+        "playerNote": "3-hit per cast (~5553 each)"
       },
       {
         "name": "Wood Hammer",
@@ -21025,23 +21043,30 @@
         "type": "target",
         "cc": null,
         "buff": null,
-        "element": "grass"
+        "element": "grass",
+        "power": 11.58,
+        "dano": 13049
       },
       {
         "name": "Bulldoze",
         "cooldown": 30,
-        "type": "area",
+        "type": "frontal",
         "cc": null,
         "buff": null,
-        "element": "ground"
+        "element": "ground",
+        "power": 19.41,
+        "dano": 21872
       },
       {
         "name": "Ground Collapse",
         "cooldown": 40,
-        "type": "area",
+        "type": "frontal",
         "cc": null,
         "buff": null,
-        "element": "ground"
+        "element": "ground",
+        "power": 21.35,
+        "dano": 24055,
+        "playerNote": "Aparece em color=129 (normal) ao invés de 164 (ground) — variant tracker"
       },
       {
         "name": "Earth Power",
@@ -21049,7 +21074,9 @@
         "type": "area",
         "cc": null,
         "buff": null,
-        "element": "ground"
+        "element": "ground",
+        "power": 19.48,
+        "dano": 21957
       },
       {
         "name": "Giga Drain",
@@ -21057,10 +21084,13 @@
         "type": "target",
         "cc": null,
         "buff": "self",
-        "element": "grass"
+        "element": "grass",
+        "power": 12.67,
+        "dano": 14281,
+        "playerNote": "Drain: dmg = heal user (color=180 dmg + color=35 heal, mesmo padrão Sh.Gallade Heal Pulse)"
       }
     ],
-    "todo": "calibrate skills (powers from wiki, dano não medido)"
+    "observacao": "Duas passivas: Shell Armor (0.5x fogo) + Impervious Shell (0.5x água). Ambas REDUZEM canon: canon vs fire = 1.75 (1w+1n) -> 0.5; canon vs water = 1.0 (1w+1r) -> 0.5. Diferença real, mas só afeta dano TOMADO (irrelevante p/ OTDD outgoing)."
   },
   {
     "id": "shiny-torterra-tm",
